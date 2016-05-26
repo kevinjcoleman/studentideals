@@ -27,6 +27,7 @@ gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_admin'
 gem "rails_admin_import", "~> 1.2"
+gem 'geocoder'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

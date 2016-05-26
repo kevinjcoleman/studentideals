@@ -60,10 +60,20 @@ RailsAdmin.config do |config|
       searchable true
     end
 
+    field :address1
+    field :address2
+    field :city
+    field :state
+    field :country_code
+    field :longitude
+    field :latitude
+
     import do
       mapping_key :biz_id
 
-      field :biz_id
+      field :biz_id do
+        label { 'biz_id' }
+      end
       field :external_id
       field :biz_name
     end
