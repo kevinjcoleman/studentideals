@@ -40,18 +40,25 @@ group :development, :test do
   gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'spring-commands-rspec'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'faker'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
 
-  group :production do
-    # Use PostgreSQL as the database for Active Record
-    gem 'pg', '~> 0.18.1'
-  end
+group :production do
+  # Use PostgreSQL as the database for Active Record
+  gem 'pg', '~> 0.18.1'
+end
 
