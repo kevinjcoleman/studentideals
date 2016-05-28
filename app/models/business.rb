@@ -8,7 +8,11 @@ class Business < ActiveRecord::Base
 
   def add_sid_category(id)
     category = SidCategory.find_by(sid_category_id: id)
-    binding.pry
     self.sid_category_id = category.id
+  end
+
+  # Used for Rails Admin instances of model
+  def custom_biz_label
+    "#{biz_name}"
   end
 end

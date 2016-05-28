@@ -22,6 +22,7 @@ RailsAdmin.config do |config|
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
+  config.main_app_name = "Student Ideals"
 
   config.actions do
     dashboard                     # mandatory
@@ -46,18 +47,16 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Business' do
+    object_label_method { :custom_biz_label }
     field :biz_id do
       label { 'SID Business ID' }
-      searchable true
     end
     field :external_id do
       label { 'External ID' }
-      searchable true
     end
 
     field :biz_name do
       label { 'Business Name' }
-      searchable true
     end
 
     field :address1
@@ -67,7 +66,30 @@ RailsAdmin.config do |config|
     field :country_code
     field :longitude
     field :latitude
+    field :sid_category do
+      label { "Business Category"}
+    end
+    list do
+      field :biz_id
+      field :biz_name
+      field :sid_category do
+        searchable false
+      end
 
+      field :business_category, :enum do 
+        label {"Business Category"}
+        visible false
+        enum do
+          SidCategory.pluck(:label, :id)
+        end
+        searchable SidCategory => :id
+      end
+
+      field :state, :enum do
+        enum {Business.pluck("DISTINCT state")}
+      end
+      exclude_fields :external_id, :address1, :address2, :city, :country_code, :longitude, :latitude
+    end
     import do
       mapping_key :biz_id
       field :biz_id do
@@ -79,4 +101,29 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'SidCategory' do
+    label "Business Category" 
+    label_plural "Business Categories"
+    object_label_method { :custom_sid_label }
+    field :sid_category_id do
+      searchable true
+      label {"SID Category ID"}
+    end
+    field :label do 
+      sortable true
+    end
+    field :businesses
+  end
+
+  config.model 'Admin' do
+    object_label_method { :name }
+    field :email
+    field :password
+    field :password_confirmation
+    field :last_sign_in_at
+    list do 
+      field :email
+      exclude_fields :password, :password_confirmation 
+    end
+  end
 end
