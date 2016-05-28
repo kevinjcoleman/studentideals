@@ -22,4 +22,14 @@ RSpec.describe Business, type: :model do
     end
   end
 
+  describe "add SID category through sid_category_id" do
+    before { @business = create(:business)}
+    before { @category =create(:sid_category)}
+    it "creates an associate with an existing sid_category_id" do
+      @business.add_sid_category("3")
+      @business.save
+      expect(@business.sid_category).to eq @category
+    end
+  end
+
 end

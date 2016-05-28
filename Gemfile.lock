@@ -297,6 +297,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   pg (~> 0.18.1)
+  pry
   rails (= 4.2.5)
   rails_admin
   rails_admin_import (~> 1.2)

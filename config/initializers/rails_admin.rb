@@ -70,6 +70,7 @@ RailsAdmin.config do |config|
 
     import do
       mapping_key :biz_id
+      fields :sid_category_data
 
       field :biz_id do
         label { 'biz_id' }
