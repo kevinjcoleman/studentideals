@@ -1,6 +1,7 @@
 class Region < ActiveRecord::Base
   validates_uniqueness_of :name
   validates :name, length: { minimum: 3 }, presence: true
+  
   geocoded_by :full_address
   after_validation :geocode
 

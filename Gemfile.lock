@@ -297,6 +297,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   launchy
   pg (~> 0.18.1)
   pry
