@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'geocoder_test/test' => 'geocoder_test#test', as: 'geocoder_test'
+
   root 'pages#home'
 
   devise_for :admins,controllers: {

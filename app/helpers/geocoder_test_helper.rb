@@ -1,0 +1,2 @@
+module GeocoderTestHelper
+end

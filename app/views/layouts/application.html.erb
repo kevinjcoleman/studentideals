@@ -8,25 +8,11 @@
   <link rel="icon" type="image/png" href="https://pbs.twimg.com/profile_images/511606964548145152/rhUOt4ui.png">
 </head>
 <body>
-<div class="container main-container">
   <%= render 'layouts/nav' %>
+<div class="container main-container">
+  
   <%= render 'layouts/messages' %>
   <%= yield %>
 </div>
-<script>
-window.onscroll = function() {myFunction()};
-var nav = document.getElementById("nav");
-var navWithoutScroll = nav.className;
-var navWithScroll = nav.className + " scrolled";
-
-function myFunction() {
-    if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
-        nav.className = navWithScroll;
-    } else {
-        nav.className = navWithoutScroll;
-    }
-}
-
-</script>
 </body>
 </html>
