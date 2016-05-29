@@ -1,0 +1,51 @@
+<% if @lat_lng %>
+  <style>
+  #map { position:absolute; top:0; bottom:0; width:50%; }
+</style>
+<h3>You are here.</h3>
+<div id='map'></div>
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1Ijoia2V2aW5qY29sZW1hbjciLCJhIjoiY2lrN29mcWRlMDIybXVua3RyY2VjcGZqaiJ9.G8ZC3oCreukIyVHftgWXCQ';
+var map = L.mapbox.map('map', 'mapbox.streets')
+    .setView([<%= "#{@lat_lng.first}, #{@lat_lng.last}" %>], 16);
+
+L.mapbox.featureLayer({
+    // this feature is in the GeoJSON format: see geojson.org
+    // for the full specification
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        // coordinates here are in longitude, latitude order because
+        // x, y is the standard for GeoJSON and many formats
+        coordinates: [ 
+        <%= @lat_lng.last.to_f %>,
+        <%= @lat_lng.first.to_f %>
+        ]
+    },
+    properties: {
+        title: 'You are here',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-color': '#229AD6',
+    }
+}).addTo(map);
+</script>
+  
+<% else %>
+  <script>
+    getGeoLocation();
+  </script>
+<% end %>
+<p>Test</p>
+  <script>
+    function getGeoLocation() {
+      navigator.geolocation.getCurrentPosition(setGeoCookie);
+    }
+
+    function setGeoCookie(position) {
+      var cookie_val = position.coords.latitude + "|" + position.coords.longitude;
+      document.cookie = "lat_lng=" + escape(cookie_val);
+    }
+  </script>

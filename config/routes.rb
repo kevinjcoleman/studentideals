@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'geocoder_test/test' => 'geocoder_test#test', as: 'geocoder_test'
+  get 'geocoder_test/geolocation' => 'geocoder_test#geolocation_api', as: 'geocoder_api'
 
   root 'pages#home'
 
