@@ -88,6 +88,7 @@ RailsAdmin.config do |config|
       field :state, :enum do
         enum {Business.pluck("DISTINCT state")}
       end
+      
       exclude_fields :external_id, :address1, :address2, :city, :country_code, :longitude, :latitude
     end
     import do
