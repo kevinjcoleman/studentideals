@@ -14,3 +14,76 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+/*** Variables **/
+$sid-blue: #229AD6;
+$sid-orange: #FF9000;
+$sid-white: #FFFFFF;
+$sid-black: #151516;
+
+.center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.main-container {
+  margin-top: 60px;
+}
+.navbar {  
+  min-height: 65px;
+}
+
+.navbar-inverse.scrolled {
+  background-color: $sid-white;
+  border-color: $sid-black;
+      -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+  .navbar-brand {
+    color: $sid-blue;
+    img {
+      max-width: 200px;
+    }
+  }
+  .navbar-brand:hover {
+    color: $sid-orange;
+  }
+  .navbar-nav { 
+    li {
+      .active {
+        a {
+          background-color: $sid-orange !important;
+        }   
+      }
+      a {
+          color: $sid-orange;
+        }
+        a:hover {
+          color: $sid-blue;
+      }
+    }
+  }
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+  background-color: $sid-blue;
+}
+
+.navbar-inverse .navbar-nav > .active > a:hover {
+  background-color: $sid-orange;
+}
+
+.btn-primary {
+  color: $sid-white;
+  background-color: $sid-blue;
+  border-color: #33799C;  
+}
+
+.btn-success {
+  color: $sid-white;
+  background-color: $sid-orange;
+  border-color: rgb(230, 152, 51);  
+}
+

@@ -5,11 +5,28 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link rel="icon" type="image/png" href="https://pbs.twimg.com/profile_images/511606964548145152/rhUOt4ui.png">
 </head>
 <body>
-<%= render 'layouts/messages' %>
+<div class="container main-container">
+  <%= render 'layouts/nav' %>
+  <%= render 'layouts/messages' %>
+  <%= yield %>
+</div>
+<script>
+window.onscroll = function() {myFunction()};
+var nav = document.getElementById("nav");
+var navWithoutScroll = nav.className;
+var navWithScroll = nav.className + " scrolled";
 
-<%= yield %>
+function myFunction() {
+    if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+        nav.className = navWithScroll;
+    } else {
+        nav.className = navWithoutScroll;
+    }
+}
 
+</script>
 </body>
 </html>

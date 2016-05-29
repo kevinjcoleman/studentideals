@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :admins,controllers: {
         registrations: 'registrations/registrations'
       }
+  resources :categories, only: [:show, :index]
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.

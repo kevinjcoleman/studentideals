@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528015605) do
+ActiveRecord::Schema.define(version: 20160529041050) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -50,6 +50,20 @@ ActiveRecord::Schema.define(version: 20160528015605) do
 
   add_index "businesses", ["biz_id"], name: "index_businesses_on_biz_id", unique: true
   add_index "businesses", ["sid_category_id"], name: "index_businesses_on_sid_category_id"
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country_code"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.float    "latitude"
+    t.float    "longitude"
+  end
 
   create_table "sid_categories", force: :cascade do |t|
     t.string   "sid_category_id"

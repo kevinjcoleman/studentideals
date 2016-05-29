@@ -112,6 +112,20 @@ RailsAdmin.config do |config|
     field :businesses
   end
 
+  config.model 'Region' do
+    field :name
+    field :address1
+    field :address2
+    field :city
+    field :state
+    field :country_code
+    field :longitude
+    field :latitude
+    import do
+      mapping_key :name
+    end
+  end
+
   config.model 'Admin' do
     object_label_method { :name }
     field :email
