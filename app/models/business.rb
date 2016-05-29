@@ -2,6 +2,8 @@ class Business < ActiveRecord::Base
   validates :biz_name, length: { minimum: 3 }, presence: true
   belongs_to :sid_category
 
+  scope :without_sid_category, -> { where(sid_category_id: nil) }
+
   def before_import_save(record)
     self.add_sid_category(record[:sid_category_data]) if record[:sid_category_data]
   end

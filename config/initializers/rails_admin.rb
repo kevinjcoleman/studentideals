@@ -72,24 +72,20 @@ RailsAdmin.config do |config|
     list do
       field :biz_id
       field :biz_name
-      field :sid_category do
-        searchable false
-      end
-
-      field :business_category, :enum do 
+      field :sid_category_id, :enum do
         label {"Business Category"}
-        visible false
         enum do
           SidCategory.pluck(:label, :id)
         end
-        searchable SidCategory => :id
+        searchable :sid_category_id
       end
 
       field :state, :enum do
-        enum {Business.pluck("DISTINCT state")}
+        enum { Business.pluck("DISTINCT state") }
       end
-      
-      exclude_fields :external_id, :address1, :address2, :city, :country_code, :longitude, :latitude
+
+      exclude_fields :external_id, :address1, :address2, :city, :country_code, :longitude, :latitude, :sid_category
+      scopes [nil, :without_sid_category]
     end
     import do
       mapping_key :biz_id

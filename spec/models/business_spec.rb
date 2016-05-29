@@ -24,11 +24,33 @@ RSpec.describe Business, type: :model do
 
   describe "add SID category through sid_category_id" do
     before { @business = create(:business)}
-    before { @category =create(:sid_category)}
+    before { @category = create(:sid_category)}
     it "creates an associate with an existing sid_category_id" do
       @business.add_sid_category("3")
       @business.save
       expect(@business.sid_category).to eq @category
+    end
+  end
+
+  describe "scopes" do
+    context "without_sid_category" do
+      before do
+        create(:sid_category) 
+        @business = create(:business)
+        @business_without_category = create(:business)
+        @business.add_sid_category("3")
+        @business.save
+      end
+
+      it "returns businesses without categories" do
+        without_categories = Business.without_sid_category
+        expect(without_categories.find(@business_without_category.id)).to_not be_nil
+      end
+
+      it "doesn't return businesses with categories" do
+        without_categories = Business.without_sid_category
+        expect(without_categories.where(id: @business.id).first).to be_nil
+      end
     end
   end
 
