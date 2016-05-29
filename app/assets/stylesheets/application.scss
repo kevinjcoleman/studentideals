@@ -12,8 +12,34 @@
  *
  */
 
+//Import bootstrap-sprockets
 @import "bootstrap-sprockets";
+
+// Import cerulean variables
+@import "bootswatch/flatly/variables";
+
+// Then bootstrap itself
 @import "bootstrap";
+
+// Bootstrap body padding for fixed navbar
+body { 
+  padding-top: 60px;
+  font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
+  width: auto;
+  p {
+    font-size: 1.4em;
+  }
+ }
+
+ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+ }
+
+// And finally bootswatch style itself
+@import "bootswatch/flatly/bootswatch";
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
 
 /*** Variables **/
 $sid-blue: #229AD6;
@@ -118,6 +144,8 @@ $sid-black: #151516;
   margin: auto;
   .form-control {
     font-size: 20px;
+    border-radius: 24px;
+    margin-top: 0;
   }
 }
 
