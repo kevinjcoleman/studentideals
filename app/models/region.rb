@@ -5,6 +5,10 @@ class Region < ActiveRecord::Base
   geocoded_by :full_address
   after_validation :geocode
 
+  def lat_lng
+    latitude.to_s + ", " + longitude.to_s
+  end
+
   def full_address
     if city && state
       "#{geocode_address1}#{geocode_address2}#{geocode_city}#{geocode_state}#{geocode_zip}#{geocode_country_code}"

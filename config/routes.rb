@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'region/show'
+  resources :region do
+    get :autocomplete_region_name, :on => :collection
+  end
+
   get 'geocoder_test/test' => 'geocoder_test#test', as: 'geocoder_test'
   get 'geocoder_test/geolocation' => 'geocoder_test#geolocation_api', as: 'geocoder_api'
 

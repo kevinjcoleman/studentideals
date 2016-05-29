@@ -175,6 +175,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-jquery-autocomplete (1.0.3)
+      rails (>= 3.2)
     rails_admin (0.8.1)
       builder (~> 3.1)
       coffee-rails (~> 4.0)
@@ -302,6 +304,7 @@ DEPENDENCIES
   pg (~> 0.18.1)
   pry
   rails (= 4.2.5)
+  rails-jquery-autocomplete
   rails_admin
   rails_admin_import (~> 1.2)
   rspec-rails
