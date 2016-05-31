@@ -53,15 +53,28 @@ $sid-black: #151516;
 }
 
 .main-container {
-  margin-top: 80px;
+  margin-top: 20px;
 }
+
+a {
+    color: $sid-blue;
+    -webkit-transition : color 200ms ease-out;
+    -moz-transition : color 200ms ease-out;
+    -o-transition : color 200ms ease-out;
+    transition : color 200ms ease-out;
+    &:hover {
+      color: black;
+      text-decoration: none
+    }
+}
+
 .navbar {  
   min-height: 65px;
 }
 
 .navbar-inverse {
   background-color: $sid-white;
-  border-color: $sid-black;
+  border-bottom: $sid-black solid .5px;
       -webkit-transition: background-color 1000ms linear;
     -moz-transition: background-color 1000ms linear;
     -o-transition: background-color 1000ms linear;
@@ -69,6 +82,7 @@ $sid-black: #151516;
     transition: background-color 1000ms linear;
   .navbar-brand {
     color: $sid-blue;
+    padding: 11.5px 15px;
     img {
       max-width: 200px;
     }
@@ -136,6 +150,20 @@ $sid-black: #151516;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box;
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+.homepage-container {
+  background-image:url('https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/get-more-when-you-go-out.jpg');
+  h1 {
+    font-size: 68px;
+    font-weight: bold;
+    color: $sid-white;
+    text-shadow: 1.5px 1.5px black;
+  }
 }
 
 .homepage-search {
