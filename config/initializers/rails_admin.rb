@@ -62,29 +62,42 @@ RailsAdmin.config do |config|
     field :address1
     field :address2
     field :city
-    field :state
+    field :state do
+      searchable false
+    end
     field :country_code
     field :longitude
     field :latitude
     field :sid_category do
       label { "Business Category"}
+      searchable false
     end
     list do
       field :biz_id
       field :biz_name
+      field :city
+      field :state
+      field :sid_category
+
+      #Virtual Search Fields
+      #Business Category Dropdown
       field :sid_category_id, :enum do
         label {"Business Category"}
+        visible false
         enum do
           SidCategory.pluck(:label, :id)
         end
         searchable :sid_category_id
       end
-
-      field :state, :enum do
+      #State Dropdown
+      field :state_search, :enum do
+        label {"State"}
+        visible false
         enum { Business.pluck("DISTINCT state") }
+        searchable :state
       end
 
-      exclude_fields :external_id, :address1, :address2, :city, :country_code, :longitude, :latitude, :sid_category
+      exclude_fields :external_id, :address1, :address2, :country_code, :longitude, :latitude
       scopes [nil, :without_sid_category]
     end
     import do
@@ -109,7 +122,9 @@ RailsAdmin.config do |config|
     field :label do 
       sortable true
     end
-    field :businesses
+    field :count_of_businesses, :integer do
+      formatted_value { bindings[:object].business_count }
+    end
   end
 
   config.model 'Region' do

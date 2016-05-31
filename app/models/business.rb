@@ -1,4 +1,16 @@
 class Business < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :biz_name,
+      [:biz_name, :city],
+      [:biz_name, :city, :state],
+      [:biz_name, :city, :state, :address1]
+    ]
+  end
+
   validates :biz_name, length: { minimum: 3 }, presence: true
   belongs_to :sid_category
 
