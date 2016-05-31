@@ -48,6 +48,13 @@ $sid-orange: #FF9000;
 $sid-white: #FFFFFF;
 $sid-black: #151516;
 
+@media (min-width: 768px) {
+  .container {
+    width: 100%;
+  } 
+}
+
+
 .center {
   text-align: center;
   margin: 0 auto;

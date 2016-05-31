@@ -22,7 +22,7 @@ class Business < ActiveRecord::Base
                    :distance_field_name => :distance
 
   scope :without_sid_category, -> { where(sid_category_id: nil) }
-  scope :order_by_distance, -> (origin) { all.sort_by { |v| v.distance_to(origin)  }}
+  scope :geocoded, -> { where.not(latitude: nil, longitude: nil) }
 
   def before_import_save(record)
     self.add_sid_category(record[:sid_category_data]) if record[:sid_category_data]
