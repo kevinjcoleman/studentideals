@@ -7,9 +7,17 @@ class Region < ActiveRecord::Base
   
   geocoded_by :full_address
   after_validation :geocode
+  
+  acts_as_mappable :lat_column_name => :latitude,
+                   :lng_column_name => :longitude,
+                   :distance_field_name => :distance
 
   def lat_lng
     latitude.to_s + ", " + longitude.to_s
+  end
+
+  def lat_lng_to_a
+    [latitude, longitude]
   end
 
   def full_address

@@ -4,7 +4,7 @@ class RegionController < ApplicationController
 
   def show
     @region = Region.find(params[:id])
-    @businesses_all = Business.near(@region.lat_lng)
+    @businesses_all = Business.within(5, :origin => @region).by_distance(:origin => @region)
     @categories = SidCategory.where(id: @businesses_all.map {|b| b.sid_category_id}.uniq)
     @businesses = @businesses_all.page params[:page]
     add_breadcrumb @region.name, region_path(@region)

@@ -1,3 +1,3 @@
 <div class="well well-lg">
-  <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %>
+  <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@region).round(2) %> Miles away</span>
 </div>
