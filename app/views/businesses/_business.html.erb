@@ -1,3 +1,3 @@
 <div class="well well-lg">
-  <h3><%= business.biz_name %></h3>
+  <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %>
 </div>

@@ -1,9 +1,13 @@
 class RegionController < ApplicationController
   autocomplete :region, :name
+  add_breadcrumb "Home", :root_path
 
   def show
     @region = Region.find(params[:id])
-    @businesses = Business.near(@region.lat_lng).page params[:page]
+    @businesses_all = Business.near(@region.lat_lng)
+    @categories = SidCategory.where(id: @businesses_all.map {|b| b.sid_category_id}.uniq)
+    @businesses = @businesses_all.page params[:page]
+    add_breadcrumb @region.name, region_path(@region)
   end
 
   def index 

@@ -20,6 +20,7 @@
 
 // Then bootstrap itself
 @import "bootstrap";
+@import "font-awesome";
 
 // Bootstrap body padding for fixed navbar
 body { 
@@ -73,6 +74,9 @@ a {
 }
 
 .navbar-inverse {
+  .navbar-header {
+    margin-bottom: 5px;
+  }
   background-color: $sid-white;
   border-bottom: $sid-black solid .5px;
       -webkit-transition: background-color 1000ms linear;
@@ -82,9 +86,9 @@ a {
     transition: background-color 1000ms linear;
   .navbar-brand {
     color: $sid-blue;
-    padding: 11.5px 15px;
+    padding: 7.5px 15px;
     img {
-      max-width: 200px;
+      max-width: 250px;
     }
   }
   .navbar-brand:hover {
@@ -167,13 +171,29 @@ a {
 }
 
 .homepage-search {
+  position: relative;
   padding-bottom: 1em;
   max-width: 768px;
   margin: auto;
   .form-control {
     font-size: 20px;
-    border-radius: 24px;
     margin-top: 0;
+    border-radius: 24px 0 0 24px !important;
+    padding-left: 35px;
   }
+  .input-group-addon {
+    background-color: rgba(255, 255, 255, 0);
+    color: #B0BAC3;
+    position: absolute;
+    left: -14px;
+    z-index: 100;
+    border: transparent;
+    font-size: 28px;
+    top: -4px;
+  }
+  .btn {
+    border-radius: 0 24px 24px 0 !important;
+  }
+
 }
 
