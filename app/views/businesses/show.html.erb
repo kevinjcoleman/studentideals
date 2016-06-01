@@ -4,10 +4,10 @@
 <div class="col-md-4 well well-lg">
   <h5>Similar businesses</h5>
   <% @close_similar_businesses.each do |business| %>
-    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@region).round(2) %> Miles away</span>
+    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
   <% end %>
   <h5>Other businesses nearby</h5>
   <% @close_businesses.each do |business| %>
-    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@region).round(2) %> Miles away</span>
+    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
   <% end %>
 </div>
