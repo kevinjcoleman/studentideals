@@ -4,7 +4,8 @@ RSpec.describe RegionController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      get :show
+      region = create(:region)
+      get :show, id: region.id
       expect(response).to have_http_status(:success)
     end
   end

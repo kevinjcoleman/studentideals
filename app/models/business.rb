@@ -39,7 +39,7 @@ class Business < ActiveRecord::Base
   end
 
   def lat_lng
-    latitude + longitude
+    latitude.to_s + ", " + longitude.to_s
   end
 
   def full_address

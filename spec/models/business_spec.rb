@@ -54,4 +54,26 @@ RSpec.describe Business, type: :model do
     end
   end
 
+  describe "geocoding stuff" do
+    it "geocodes" do
+      ungeocoded_business = create(:business,:with_ungeocoded_address)
+      expect(ungeocoded_business.latitude).to eq (34.1253012)
+      expect(ungeocoded_business.longitude).to eq (-118.2166504)
+    end
+
+    context "#lat_lng" do
+      it "returns comma seperated lat_lng" do
+        geocoded_business = create(:business,:with_ungeocoded_address, :with_lat_lng)
+        expect(geocoded_business.lat_lng).to eq ("34.1253012, -118.2166504")
+      end
+    end
+
+    context "#full_address" do
+      it "returns a string of full address" do
+        geocoded_business = create(:business,:with_ungeocoded_address, :with_lat_lng)
+        expect(geocoded_business.full_address).to eq ("1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US")
+      end
+    end
+  end
+
 end

@@ -30,4 +30,12 @@ RSpec.describe SidCategory, type: :model do
       end      
     end
   end
+  describe "#business_count" do
+    it "returns an accurate amount of businesses in category." do
+      @sid_category = create(:sid_category)
+      @business = create(:business, sid_category_id: @sid_category.id)
+      create(:business, biz_name: "Sells other stuff store.")
+      expect(@sid_category.business_count).to eq(1)
+    end
+  end
 end
