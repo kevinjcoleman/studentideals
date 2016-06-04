@@ -31,18 +31,25 @@ class Business < ActiveRecord::Base
     "#{biz_name}"
   end
 
-  def geojsonify
-    {
+  def geojsonify(color:)
+    case color
+      when "blue"
+        marker_color = "#229AD6"
+      when "orange"
+        marker_color = "#FF9000"
+      else
+        raise ArgumentError, "That's not a currently supported color."
+    end
+    geojson = {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [self.longitude, self.latitude]
+        coordinates: [longitude, latitude]
       },
       properties: {
-        name: self.name,
-        :'marker-color' => '#38ABD1',
-        :'marker-symbol' => 'star-stroked',
-        :'marker-size' => 'large'
+        name: biz_name,
+        :'marker-color' => marker_color,
+        :'marker-size' => 'medium'
       }
     }
   end
