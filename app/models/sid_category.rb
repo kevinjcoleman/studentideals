@@ -6,6 +6,14 @@ class SidCategory < ActiveRecord::Base
   validates :sid_category_id, presence: true
   has_many :businesses
 
+  CATEGORIES = [
+    MORE = 5,
+    HEALTH = 3,
+    SOMETHINGTODO = 1,
+    FOOD = 0,
+    SHOPPING = 2
+  ]
+
   def custom_sid_label
     label
   end

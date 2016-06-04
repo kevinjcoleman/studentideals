@@ -1,13 +1,17 @@
 <div class="col-md-8">
-  <h3><%= @business.biz_name %></h3>
+  <h3><%= @business.biz_name %><span class="list-category" >  <%= @business.sid_category.label %> <%= logo(@business.sid_category.sid_category_id) %></span></h3>
+  <strong>Address:</strong>
+  <p><%= @business.address_line_1 %><p>
+  <p><%= @business.address_line_2 %><p>
 </div>
 <div class="col-md-4 well well-lg">
-  <h5>Similar businesses</h5>
+  <h6>Similar <%= @business.sid_category.label %> businesses</h6>
   <% @close_similar_businesses.each do |business| %>
     <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
   <% end %>
-  <h5>Other businesses nearby</h5>
+  <hr>
+  <h6>Other businesses nearby</h6>
   <% @close_businesses.each do |business| %>
-    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
+    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %><% end %><span class="list-category" >  <%= business.sid_category.label %> <%= logo(business.sid_category.sid_category_id) %></h3><span> <%= business.distance_to(business).round(2) %> Miles away</span>
   <% end %>
 </div>

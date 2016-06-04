@@ -108,5 +108,16 @@ RSpec.describe Business, type: :model do
         expect(geocoded_business.full_address).to eq ("1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US")
       end
     end
+
+    context "address info for display" do
+      before { @business = create(:business,:with_ungeocoded_address, :with_lat_lng)}
+      it "#address_line_1 returns the first line of the address" do
+        expect(@business.address_line_1).to eq("1600 Alumni Avenue, Apt 8-201")
+      end
+
+      it "#address_line_2 returns the second line of the address" do
+        expect(@business.address_line_2).to eq("Los Angeles, CA, 90041, US")
+      end
+    end
   end
 end

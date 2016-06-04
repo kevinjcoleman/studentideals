@@ -27,6 +27,14 @@ module AddressMethods
     end
   end
 
+  def address_line_1
+    "#{geocode_address1}#{geocode_address2}"
+  end
+
+  def address_line_2
+    "#{geocode_city}#{geocode_state}#{geocode_zip}#{geocode_country_code}".gsub(/^,/, '').strip
+  end
+
   def geocode_address1
     address1 ? "#{address1}" : nil
   end

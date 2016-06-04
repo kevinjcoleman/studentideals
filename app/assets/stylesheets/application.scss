@@ -201,6 +201,28 @@ a {
   .btn {
     border-radius: 0 12px 12px 0 !important;
   }
+}
 
+//Pagination styles
+
+.pagination {
+  li {
+    a {
+      background-color: $sid-orange;
+    }
+    a:hover, a:focus {
+      background-color: $sid-blue;
+    }
+  }
+  .active, .disabled {
+    a {
+      background-color: $sid-blue;
+    }
+  }
+}
+
+//Listing Styles
+.list-category {
+  font-size: 16px;
 }
 
