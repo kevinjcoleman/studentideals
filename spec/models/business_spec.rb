@@ -52,6 +52,40 @@ RSpec.describe Business, type: :model do
         expect(without_categories.where(id: @business.id).first).to be_nil
       end
     end
+
+    context "geocoded" do
+      it "returns just geocoded businesses" do
+        geocoded_business = create(:business,:with_ungeocoded_address, :with_lat_lng)
+        expect(Business.geocoded).to eq([geocoded_business])
+      end
+
+      it "doesn't return ungeocoded businesses" do
+        ungeocoded_business = create(:business)
+        expect(Business.geocoded).to_not eq([ungeocoded_business])
+      end
+
+      it "doesn't return businesses with lat and long of 0.0" do
+        lat_long_of_zero = create(:business, latitude: 0.0, longitude: 0.0)
+        expect(Business.geocoded).to_not eq([lat_long_of_zero])       
+      end
+    end
+
+    context "ungeocoded" do
+      it "returns ungeocoded businesses" do
+        geocoded_business = create(:business)
+        expect(Business.ungeocoded).to eq([geocoded_business])
+      end
+
+      it "doesn't return geocoded businesses" do
+        geocoded_business = create(:business,:with_ungeocoded_address, :with_lat_lng)
+        expect(Business.ungeocoded).to_not eq([geocoded_business])
+      end
+
+      it "doesn't returns businesses with lat and long of 0.0" do
+        lat_long_of_zero = create(:business, latitude: 0.0, longitude: 0.0)
+        expect(Business.ungeocoded).to eq([lat_long_of_zero]) 
+      end
+    end
   end
 
   describe "geocoding stuff" do
@@ -75,5 +109,4 @@ RSpec.describe Business, type: :model do
       end
     end
   end
-
 end

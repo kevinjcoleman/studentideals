@@ -73,8 +73,13 @@ RailsAdmin.config do |config|
       searchable false
     end
     list do
+      field :external_id do
+        visible false
+        searchable true
+      end
       field :biz_id
       field :biz_name
+      field :address1
       field :city
       field :state
       field :sid_category
@@ -96,9 +101,8 @@ RailsAdmin.config do |config|
         enum { Business.pluck("DISTINCT state") }
         searchable :state
       end
-
-      exclude_fields :external_id, :address1, :address2, :country_code, :longitude, :latitude
-      scopes [nil, :without_sid_category]
+      exclude_fields :external_id, :address2, :country_code, :longitude, :latitude
+      scopes [nil, :without_sid_category, :geocoded, :ungeocoded]
     end
     import do
       mapping_key :biz_id
@@ -136,6 +140,9 @@ RailsAdmin.config do |config|
     field :country_code
     field :longitude
     field :latitude
+    list do 
+      scopes [nil, :geocoded, :ungeocoded]
+    end
     import do
       mapping_key :name
     end
