@@ -1,6 +1,7 @@
 class RegionController < ApplicationController
   autocomplete :region, :name
   add_breadcrumb "Home", :root_path
+  respond_to :html, :js
 
   def show
     @region = Region.find(params[:id])
@@ -8,6 +9,10 @@ class RegionController < ApplicationController
     @categories = SidCategory.where(id: @businesses_all.map {|b| b.sid_category_id}.uniq)
     @businesses = @businesses_all.page params[:page]
     add_breadcrumb @region.name, region_path(@region)
+    respond_to do |format|
+      format.json { render json: [@region.geojsonify(color: "blue")] + @businesses.map {|b| b.geojsonify(color: "orange")}}  # respond with the created JSON object
+      format.html
+    end
   end
 
   def index 

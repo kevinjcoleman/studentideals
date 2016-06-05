@@ -1,6 +1,43 @@
-<% @businesses.each do |business| %>
-  <%= render business %>
-<% end %>
+<div class="row">
+  <div class="col-md-7">
+    <% @businesses.each do |business| %>
+      <%= render business %>
+    <% end %>
+    <%= paginate @businesses %>
+  </div>
+  <div class="col-md-5 well well-lg"> 
+    <div style="width: 100%;height: 350px" id="map"></div>
+  </div>
+</div>
 
-
-<%= paginate @businesses %>
+<script>
+$(document).ready(function() {
+  L.mapbox.accessToken = 'pk.eyJ1Ijoia2V2aW5qY29sZW1hbjciLCJhIjoiY2lrN29mcWRlMDIybXVua3RyY2VjcGZqaiJ9.G8ZC3oCreukIyVHftgWXCQ';
+  var map = L.mapbox.map('map', 'kevinjcoleman7.p3ocd38h').setView([<%= @region.latitude %>, <%= @region.longitude %>], 12 );
+  var myLayer = L.mapbox.featureLayer().addTo(map);
+  myLayer.on('layeradd', function(e) {
+    var marker, popupContent, properties;
+    marker = e.layer;
+    properties = marker.feature.properties;
+    popupContent = '<div class="popup"><h3>' + properties.name +'</h3>' + '</div>';
+    return marker.bindPopup(popupContent, {
+      closeButton: true,
+      minWidth: 300
+    });
+  });
+  $.ajax({
+    dataType: 'text',
+    <% if @category %>
+    url: '/region/<%= @region.slug %>/categories/<%= @category.slug %>.json',
+    <% else %>
+    url: '/region/<%= @region.slug %>.json',
+    <% end %>
+    success: function(data) {
+      var geojson;
+      geojson = $.parseJSON(data);
+      return myLayer.setGeoJSON(geojson);
+    }
+  });
+  map.fitBounds([<%= @businesses.map{|b| b.lat_lng_to_a } %>]);
+});
+</script>

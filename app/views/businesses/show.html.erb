@@ -41,10 +41,8 @@ $(document).ready(function() {
       return myLayer.setGeoJSON(geojson);
     }
   });
-  myLayer.on('ready', function() {
     // featureLayer.getBounds() returns the corners of the furthest-out markers,
     // and map.fitBounds() makes sure that the map contains these.
-    map.fitBounds(myLayer.getBounds());
-  });
+  map.fitBounds([<%= @other_businesses_lat_lng_array %>]);
 });
 </script>
