@@ -3,7 +3,7 @@ module AddressMethods
 
   included do
     geocoded_by :full_address
-    after_validation :geocode
+    after_validation :geocode, if: ->(obj){ obj.full_address.present? }
 
     acts_as_mappable :lat_column_name => :latitude,
                     :lng_column_name => :longitude,
@@ -11,6 +11,7 @@ module AddressMethods
 
     scope :geocoded, -> { where("latitude is not NULL and longitude is not NULL AND latitude != 0.0 AND longitude != 0.0") }
     scope :ungeocoded, -> { where("(latitude is NULL and longitude is NULL) OR (latitude = 0.0 AND longitude = 0.0)") }
+    scope :lat_long_of_zero, -> { where(latitude: 0.0, longitude: 0.0) }
   end
 
   def lat_lng_to_a
