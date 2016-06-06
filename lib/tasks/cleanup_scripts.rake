@@ -7,14 +7,14 @@ namespace :cleanup_scripts do
     p "#{ungeocoded_count.to_s} businesses to geocode."
     Business.ungeocoded.find_each do |biz|
       biz.save
-      sleep(1)
+      sleep(3)
     end
     p "#{(ungeocoded_count - Business.ungeocoded.count).to_s} businesses geocoded."
     ungeocoded_count = Region.ungeocoded.count
     p "#{ungeocoded_count.to_s} regions to geocode."
     Region.ungeocoded.find_each do |biz|
       biz.save
-      sleep(1)
+      sleep(3)
     end
     p "#{(ungeocoded_count - Region.ungeocoded.count).to_s} regions geocoded."
   end
