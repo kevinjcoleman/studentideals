@@ -31,6 +31,14 @@ class Business < ActiveRecord::Base
     "#{biz_name}"
   end
 
+  def find_region
+    Region.where(city: city, state: state).first
+  end
+
+  def link
+     Rails.application.routes.url_helpers.region_business_path(find_region, self)
+  end
+
   def geojsonify(color:)
     case color
       when "blue"
@@ -47,7 +55,9 @@ class Business < ActiveRecord::Base
         coordinates: [longitude, latitude]
       },
       properties: {
+        url: link,
         name: biz_name,
+        address: full_address,
         :'marker-color' => marker_color,
         :'marker-size' => 'medium'
       }
