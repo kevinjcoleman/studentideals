@@ -23,6 +23,7 @@ class Business < ActiveRecord::Base
 
   def add_sid_category(id)
     category = SidCategory.find_by(sid_category_id: id)
+    raise ArgumentError, "Category doesn't exist!" if !category
     self.sid_category_id = category.id
   end
 

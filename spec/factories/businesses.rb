@@ -13,5 +13,8 @@ FactoryGirl.define do
       latitude 34.1253012
       longitude -118.2166504
     end
+    trait :with_category do
+      association :sid_category, :factory => :sid_category
+    end
   end
 end

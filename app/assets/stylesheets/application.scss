@@ -135,8 +135,12 @@ a {
 .btn-success {
   color: $sid-white;
   background-color: $sid-orange;
-  border-color: rgb(230, 152, 51);  
+  border-color: rgb(230, 152, 51); 
 }
+
+.btn-success:hover, .btn-success:focus, .btn-success:active {
+  background-color: $sid-blue !important;
+}  
 
 .ui-autocomplete {
     z-index: 1000;

@@ -2,6 +2,7 @@ class SidCategory < ActiveRecord::Base
   extend FriendlyId
   friendly_id :label, use: [:slugged, :finders]
 
+  validates_uniqueness_of :label, :sid_category_id
   validates :label, length: { minimum: 3 }, presence: true
   validates :sid_category_id, presence: true
   has_many :businesses

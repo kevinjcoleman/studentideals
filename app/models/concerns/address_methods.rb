@@ -19,6 +19,7 @@ module AddressMethods
   end
 
   def lat_lng
+    return unless latitude && longitude
     latitude.to_s + ", " + longitude.to_s
   end
 
@@ -29,10 +30,12 @@ module AddressMethods
   end
 
   def address_line_1
+    return unless address1 || address2
     "#{geocode_address1}#{geocode_address2}"
   end
 
   def address_line_2
+    return unless (city || zip) && state 
     "#{geocode_city}#{geocode_state}#{geocode_zip}#{geocode_country_code}".gsub(/^,/, '').strip
   end
 
