@@ -29,4 +29,9 @@ class Region < ActiveRecord::Base
     }
   end
 
+  def cache_biz_count
+    self.close_biz_count = Business.geocoded.within(5, :origin => self).count
+    self.save!
+  end
+
 end

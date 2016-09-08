@@ -13,7 +13,7 @@ RSpec.describe SidCategory, type: :model do
       end
 
       it "is invalid on missing sid category id" do
-        expect(build(:sid_category, sid_category_id: nil, label: "Something else")).to_not be_valid       
+        expect(build(:sid_category, sid_category_id: nil, label: "Restaurants")).to_not be_valid       
       end
 
       it "fails to create duplicate category" do
@@ -24,8 +24,9 @@ RSpec.describe SidCategory, type: :model do
   
   context "#business_count" do
     let(:category_with_businesses) {create(:category_with_businesses)}
-    let!(:unassociated_business) {create(:business, biz_name: "The Millenium Falcon")}
+    let!(:unassociated_business) {create(:business, biz_name: "Ollivanders wand shop.")}
     let(:category_with_no_businesses) {create(:sid_category)}
+
     it "returns an count of businesses for category." do
       expect(category_with_businesses.business_count).to eq(1)
     end

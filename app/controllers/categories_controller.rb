@@ -14,4 +14,8 @@ class CategoriesController < ApplicationController
       format.html
     end
   end
+
+  def list
+    @category = SidCategory.includes(:businesses).find(params[:id])
+  end
 end

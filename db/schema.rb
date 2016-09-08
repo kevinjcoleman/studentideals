@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531053211) do
+ActiveRecord::Schema.define(version: 20160908032351) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -74,11 +74,12 @@ ActiveRecord::Schema.define(version: 20160531053211) do
     t.string   "state"
     t.string   "zip"
     t.string   "country_code"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
     t.string   "slug"
+    t.integer  "close_biz_count"
   end
 
   add_index "regions", ["slug"], name: "index_regions_on_slug", unique: true

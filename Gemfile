@@ -37,6 +37,8 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'geokit-rails'
 gem "geokit"
 gem 'selenium-webdriver'
+gem "figaro"
+gem 'factual-api', '~> 1.3', '>= 1.3.19'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
