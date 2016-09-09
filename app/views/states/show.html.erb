@@ -13,7 +13,7 @@
     <h2>States</h2>
     <ul>
     <% @cities.each do |city| %>
-      <li><%= link_to "#{city.city} (#{city.count})", state_path(city.city) %></li>
+      <li><%= link_to "#{city.city} (#{city.count})", region_path(Region.where(city: city.city, state: @state).first) %></li>
     <% end %>
     </ul>
   </div>
