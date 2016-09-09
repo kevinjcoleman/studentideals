@@ -19,15 +19,15 @@
     <h2>Business Categories</h2>
     <ul>
     <% @categories.each do |category| %>
-      <li><%= link_to "#{category.label} (#{category.businesses.count})", businesses_for_category_path(category) %></li>
+      <li><%= link_to "#{category.label} (#{category.business_count})", businesses_for_category_path(category) %></li>
     <% end %>
     </ul>
   </div>
   <div class="col-md-6">
-    <h2>Regions</h2>
+    <h2>States</h2>
     <ul>
-    <% @regions.each do |region| %>
-      <li><%= link_to "#{region.name} (#{region.close_biz_count})", region_show_path(region) %></li>
+    <% @states.each do |state| %>
+      <li><%= link_to "#{state.state} (#{state.count})", state_path(state.state) %></li>
     <% end %>
     </ul>
   </div>

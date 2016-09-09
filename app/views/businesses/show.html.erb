@@ -1,8 +1,18 @@
 <div class="col-md-7">
   <h3><%= @business.biz_name %><span class="list-category" >  <%= @business.sid_category.label %> <%= logo(@business.sid_category.sid_category_id) %></span></h3>
+  <% if @business.sid_editorial %>
+    <p><%= @business.sid_editorial %></p>
+  <% end %>
   <strong>Address:</strong>
-  <p><%= @business.address_line_1 %><p>
-  <p><%= @business.address_line_2 %><p>
+  <p><%= @business.address_line_1 if @business.address_line_1 %></p>
+  <p><%= @business.address_line_2 if @business.address_line_2 %></p>
+  <p><%= "Phone: #{@business.telephone}" if @business.telephone %></p>
+  <% if @business.email %>
+    <p><%= link_to @business.email, "mailto:#{@business.email}", target: "_blank" %></p>
+  <% end %>
+  <% if @business.website %>
+    <p><%= link_to "Website", @business.website, target: "_blank" %></p>
+  <% end %>
 </div>
 <div class="col-md-5 well well-lg"> 
     <div style="width: 100%;height: 350px" id="map"></div>
