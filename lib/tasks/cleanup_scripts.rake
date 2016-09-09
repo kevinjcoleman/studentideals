@@ -18,4 +18,13 @@ namespace :cleanup_scripts do
     end
     p "#{(ungeocoded_count - Region.ungeocoded.count).to_s} regions geocoded."
   end
+
+  task update_cached_counts: :environment do
+    count = Region.count
+    Region.find_each do |biz|
+      count -= 1; p count if count % 100 == 0
+      biz.cache_biz_count
+    end
+  end
+
 end
