@@ -68,6 +68,10 @@ RailsAdmin.config do |config|
     field :country_code
     field :longitude
     field :latitude
+    field :sid_editorial
+    field :telephone
+    field :email
+    field :website
     field :sid_category do
       label { "Business Category"}
       searchable false
@@ -101,7 +105,7 @@ RailsAdmin.config do |config|
         enum { Business.pluck("DISTINCT state") }
         searchable :state
       end
-      exclude_fields :external_id, :address2, :country_code, :longitude, :latitude
+      exclude_fields :external_id, :address2, :country_code, :longitude, :latitude, :sid_editorial, :telephone, :email, :website
       scopes [nil, :without_sid_category, :geocoded, :ungeocoded]
     end
     import do
