@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908032351) do
+ActiveRecord::Schema.define(version: 20160909030839) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -47,6 +47,10 @@ ActiveRecord::Schema.define(version: 20160908032351) do
     t.string   "country_code"
     t.integer  "sid_category_id"
     t.string   "slug"
+    t.string   "telephone"
+    t.string   "website"
+    t.string   "email"
+    t.text     "sid_editorial"
   end
 
   add_index "businesses", ["biz_id"], name: "index_businesses_on_biz_id", unique: true
