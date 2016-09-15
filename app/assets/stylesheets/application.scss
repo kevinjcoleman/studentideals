@@ -230,3 +230,20 @@ a {
   font-size: 16px;
 }
 
+.list {
+  list-style: none;
+}
+
+.list-item {
+  border-top: 1px solid #eee;
+  :not(:first-child) {
+    border-top: none;
+  }
+  a {
+    display: block;
+    padding: 8px 0;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+

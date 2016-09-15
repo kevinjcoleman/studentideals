@@ -17,5 +17,7 @@ class CategoriesController < ApplicationController
 
   def list
     @category = SidCategory.includes(:businesses).find(params[:id])
+    add_breadcrumb @category.label, businesses_for_category_path(@category)
+    @states = Business.where("state IS NOT NULL").group("state").select("state, count(id) as count").order("count DESC").limit(5)
   end
 end

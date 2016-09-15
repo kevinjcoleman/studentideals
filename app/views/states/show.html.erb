@@ -3,17 +3,17 @@
 <div class="row">
   <div class="col-md-6">
     <h2>Business Categories</h2>
-    <ul>
+    <ul class="list">
     <% @categories.each do |category| %>
-      <li><%= link_to "#{category.label} (#{category.business_count})", businesses_for_category_path(category) %></li>
+      <li class="list-item"><%= link_to "#{category.label} (#{category.business_count})", businesses_for_category_path(category) %></li>
     <% end %>
     </ul>
   </div>
   <div class="col-md-6">
-    <h2>States</h2>
-    <ul>
+    <h2>Cities</h2>
+    <ul class="list">
     <% @cities.each do |city| %>
-      <li><%= link_to "#{city.city} (#{city.count})", region_path(Region.where(city: city.city, state: @state).first) %></li>
+      <li class="list-item"><%= link_to "#{city.city} (#{city.count})", region_path(Region.where(city: city.city, state: @state).first) %></li>
     <% end %>
     </ul>
   </div>
