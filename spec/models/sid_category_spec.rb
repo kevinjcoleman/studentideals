@@ -23,7 +23,7 @@ RSpec.describe SidCategory, type: :model do
   end
   
   context "#business_count" do
-    let(:category_with_businesses) {create(:category_with_businesses)}
+    let(:category_with_businesses) {create(:sid_category, :category_with_businesses)}
     let!(:unassociated_business) {create(:business, biz_name: "Ollivanders wand shop.")}
     let(:category_with_no_businesses) {create(:sid_category)}
 

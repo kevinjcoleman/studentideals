@@ -1,0 +1,29 @@
+<h1><%= @businesses %> <%= @sub_category.label %> Businesses in <%= @state %></h1>
+
+<% if @sub_categories.first %>
+  <div class="row">
+    <div class="col-md-6">
+      <h2><%= @sub_category.label %> Categories</h2>
+      <ul class="list">
+      <% @sub_categories.each do |category| %>
+        <li class="list-item"><%= link_to "#{category.label} (#{category.taggings_count})", state_category_sub_category_path(@state, @category, category) %></li>
+      <% end %>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h2>Cities</h2>
+      <ul class="list">
+      <% @cities.each do |city| %>
+        <li class="list-item"><%= link_to "#{city.city} (#{city.count})", businesses_for_category_region_and_subcategory_path(Region.where(city: city.city, state: @state).first, @category, @sub_category) %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+<% else %>
+  <h2>Where are you near?</h2>
+  <ul class="list">
+  <% @cities.each do |city| %>
+    <li class="list-item"><%= link_to "#{city.city} (#{city.count})", businesses_for_category_region_and_subcategory_path(Region.where(city: city.city, state: @state).first, @category, @sub_category) %></li>
+  <% end %>
+  </ul>
+<% end %>

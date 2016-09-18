@@ -29,15 +29,15 @@ class CategoriesController < ApplicationController
   def list
     @category = SidCategory.find(params[:id])
     add_breadcrumb @category.label, businesses_for_category_path(@category)
-    @states = Business.where("state IS NOT NULL").group("state").select("state, count(id) as count").order("count DESC").limit(5)
+    @states = Business.where("state IS NOT NULL AND sid_category_id = (?)", @category.id).group("state").select("state, count(id) as count").order("count DESC").limit(5)
     @sub_categories = @category.sub_categories.roots.select('sub_categories.*, count(sub_category_taggings.id) as taggings_count').joins('left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id').group('sub_categories.id').order("taggings_count DESC").limit(5)
   end
 
   def sub_list
     @category = SidCategory.find(params[:category_id])
     add_breadcrumb @category.label, businesses_for_category_path(@category)
-    @states = Business.where("state IS NOT NULL").group("state").select("state, count(id) as count").order("count DESC").limit(5)
     @sub_category = SubCategory.find(params[:id])
+    @states = Business.where("state IS NOT NULL AND sid_category_id = (?)", @category.id).joins(:sub_category_taggings).where("sub_category_taggings.sub_category_id = (?)", @sub_category.id).group("state").select("state, count(businesses.id) as count").order("count DESC").limit(5)
     add_sub_category_breadcrumbs_list
     @children = @sub_category.children.select('sub_categories.*, count(sub_category_taggings.id) as taggings_count').joins('left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id').group('sub_categories.id').order("taggings_count DESC").limit(5)
   end

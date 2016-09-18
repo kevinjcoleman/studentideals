@@ -5,7 +5,7 @@
     <h2>Business Categories</h2>
     <ul class="list">
     <% @categories.each do |category| %>
-      <li class="list-item"><%= link_to "#{category.label} (#{category.business_count})", businesses_for_category_path(category) %></li>
+      <li class="list-item"><%= link_to "#{category.label} (#{category.business_count})", state_category_path(@state, category) %></li>
     <% end %>
     </ul>
   </div>

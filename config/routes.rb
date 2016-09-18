@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'category/:category_id/sub_category/:id' => "categories#sub_list", as: 'businesses_for_category_and_subcategory'
   get '/region/:region_id/category/:category_id/sub_category/:id' => "categories#sub_show", as: 'businesses_for_category_region_and_subcategory'
   get 'states/:state_code' => "states#show", as: 'state'
+  get 'states/:state_code/category/:category_id' => "states#show_state_category", as: 'state_category'
+  get 'states/:state_code/category/:category_id/subcategory/:sub_category_id' => "states#show_state_category_sub_category", as: 'state_category_sub_category'
 
   get 'geocoder_test/test' => 'geocoder_test#test', as: 'geocoder_test'
   get 'geocoder_test/geolocation' => 'geocoder_test#geolocation_api', as: 'geocoder_api'

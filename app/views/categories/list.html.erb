@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-6">
-    <h2>Sub-Business Categories</h2>
+    <h2><%= @category.label %> Categories</h2>
     <ul class="list">
     <% @sub_categories.each do |sub_cat| %>
       <li class="list-item"><%= link_to "#{sub_cat.label} (#{sub_cat.taggings_count})", businesses_for_category_and_subcategory_path(@category, sub_cat) %></li>
@@ -12,7 +12,7 @@
     <h2>States</h2>
     <ul class="list">
     <% @states.each do |state| %>
-      <li class="list-item"><%= link_to "#{state.state} (#{state.count})", state_path(state.state) %></li>
+      <li class="list-item"><%= link_to "#{state.state} (#{state.count})", state_category_path(state.state, @category) %></li>
     <% end %>
     </ul>
   </div>
