@@ -82,4 +82,14 @@ class Business < ActiveRecord::Base
       end
     end
   end
+
+  def self.batch_add_factual_categories
+    client = FactualClient.new
+    uncategorized_businesses = Business.with_factual.no_sub_categories
+    i = uncategorized_businesses.count.count
+    uncategorized_businesses.each do |biz|
+      i -= 1; p i if i % 25 == 0
+      biz.add_factual_categories(client)
+    end
+  end
 end

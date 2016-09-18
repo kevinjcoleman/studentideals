@@ -3,9 +3,15 @@ FactoryGirl.define do
     sid_category_id "3"
     label "Cool stuff to do."
 
-    factory :category_with_businesses do
+    trait :category_with_businesses do
       after(:create) do |category, evaluator|
         create_list(:business, 1, sid_category: category)
+      end
+    end
+
+    trait :category_with_sub_category do
+      after(:create) do |category, evaluator|
+        create_list(:sub_category, 1, sid_category: category)
       end
     end
   end
