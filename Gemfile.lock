@@ -37,6 +37,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    ancestry (2.1.0)
+      activerecord (>= 3.0.0)
     arel (6.0.3)
     autoprefixer-rails (6.3.6)
       execjs
@@ -268,6 +270,8 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
@@ -311,6 +315,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ancestry
   bootstrap-sass (~> 3.3.6)
   bootswatch-rails
   breadcrumbs_on_rails
@@ -343,6 +348,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
+  shoulda-matchers (~> 3.1)
   simple_form
   spring
   spring-commands-rspec
@@ -353,4 +359,4 @@ DEPENDENCIES
   where-or
 
 BUNDLED WITH
-   1.10.6
+   1.12.5

@@ -40,6 +40,9 @@ gem 'selenium-webdriver'
 gem "figaro"
 gem 'factual-api', '~> 1.3', '>= 1.3.19'
 gem 'where-or'
+gem 'ancestry'
+gem 'shoulda-matchers', '~> 3.1'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

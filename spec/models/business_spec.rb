@@ -56,6 +56,25 @@ RSpec.describe Business, type: :model do
         expect(Business.without_sid_category).to eq([business_without_category])
       end
     end
+
+    context ".with_factual" do
+      let!(:without_factual) { create(:business, external_id: nil) }
+      let!(:with_factual) { create(:business) }
+      it "returns only the business with an external_id" do
+        expect(Business.with_factual.count).to eq 1
+        expect(Business.with_factual.first).to eq with_factual
+      end
+    end
+
+    context ".no_sub_categories" do
+      let!(:with_sub_categories) { create(:business, :with_category) }
+      let!(:without_sub_categories) { create(:business) }
+      it "returns only the business with out sub_categories" do
+        with_sub_categories.add_factual_categories
+        expect(Business.no_sub_categories.count.count).to eq 1
+        expect(Business.no_sub_categories.first).to eq without_sub_categories
+      end
+    end
   end
 
   describe "geocoding scopes" do
@@ -120,6 +139,26 @@ RSpec.describe Business, type: :model do
         expect(biz_with_no_address.address_line_1).to be_nil
         expect(biz_with_no_address.address_line_2).to be_nil
       end
+    end
+  end
+
+  describe "adding sub categories" do
+    let(:business) { create(:business, :with_category) }
+    it "adds new sub categories from factual" do 
+      business.add_factual_categories
+      expect(business.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Fast Food", "Italian"])
+    end
+
+    it "doesn't duplicate existing sub categories or taggings." do
+      business.add_factual_categories
+      business.add_factual_categories
+      expect(business.sub_categories.count).to eq 4
+      expect(business.sub_category_taggings.count).to eq 4
+    end
+
+    it "doesn't fail on a non-existant id" do 
+      business.update_attributes(external_id: "34056115-0a65-46d4-9e57-1f65a6ed8140")
+      business.add_factual_categories
     end
   end
 end

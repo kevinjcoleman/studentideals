@@ -15,7 +15,7 @@ module AddressMethods
   end
 
   def is_geocoded?
-    (latitude != nil || latitude != 0.0) && (longitude != nil || longitude != 0.0)
+    (latitude != nil && latitude != 0.0) && (longitude != nil && longitude != 0.0)
   end
 
   def lat_lng_to_a

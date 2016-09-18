@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909030839) do
+ActiveRecord::Schema.define(version: 20160918004250) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -98,5 +98,26 @@ ActiveRecord::Schema.define(version: 20160909030839) do
 
   add_index "sid_categories", ["sid_category_id"], name: "index_sid_categories_on_sid_category_id", unique: true
   add_index "sid_categories", ["slug"], name: "index_sid_categories_on_slug", unique: true
+
+  create_table "sub_categories", force: :cascade do |t|
+    t.integer  "sid_category_id"
+    t.string   "label"
+    t.string   "ancestry"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "sub_categories", ["ancestry"], name: "index_sub_categories_on_ancestry"
+  add_index "sub_categories", ["sid_category_id"], name: "index_sub_categories_on_sid_category_id"
+
+  create_table "sub_category_taggings", force: :cascade do |t|
+    t.integer  "business_id"
+    t.integer  "sub_category_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "sub_category_taggings", ["business_id"], name: "index_sub_category_taggings_on_business_id"
+  add_index "sub_category_taggings", ["sub_category_id"], name: "index_sub_category_taggings_on_sub_category_id"
 
 end

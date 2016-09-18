@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :business do
     biz_name "Testy Mctesterson's Tools"
+    external_id "238e0c66-7025-4920-ba32-16ebda1926dd"
     trait :with_ungeocoded_address do
       address1 "1600 Alumni Avenue"
       address2 "Apt 8-201"

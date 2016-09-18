@@ -27,7 +27,9 @@ $(document).ready(function() {
   });
   $.ajax({
     dataType: 'text',
-    <% if @category %>
+    <% if @sub_category %>
+    url: '/region/<%= @region.slug %>/category/<%= @category.slug %>/sub_category/<%= @sub_category.id %>.json',
+    <% elsif @category %>
     url: '/region/<%= @region.slug %>/categories/<%= @category.slug %>.json',
     <% else %>
     url: '/region/<%= @region.slug %>.json',

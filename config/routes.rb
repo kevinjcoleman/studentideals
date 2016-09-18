@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :businesses, only: [:show]
   end
   get 'category/:id' => "categories#list", as: 'businesses_for_category'
+  get 'category/:category_id/sub_category/:id' => "categories#sub_list", as: 'businesses_for_category_and_subcategory'
+  get '/region/:region_id/category/:category_id/sub_category/:id' => "categories#sub_show", as: 'businesses_for_category_region_and_subcategory'
   get 'states/:state_code' => "states#show", as: 'state'
 
   get 'geocoder_test/test' => 'geocoder_test#test', as: 'geocoder_test'
