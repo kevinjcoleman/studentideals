@@ -247,3 +247,26 @@ a {
   }
 }
 
+//Search styles
+.search-box-container {
+  border-bottom: 1px transparent; 
+  padding-top: 8px;
+  position: relative;
+}
+.search-list {
+  background-color: #fff;
+  border: solid 1px #a8a8a8;
+  max-height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  text-align: left;
+  width: 100%;
+  z-index: 1000;
+}
+
+.search-item {
+  color: #171a1b;
+  cursor: pointer;
+  padding: 8px 4px;
+}
