@@ -2,6 +2,9 @@ class Region < ActiveRecord::Base
   include AddressMethods
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
+
+  include PgSearch
+  multisearchable :against => [:name]
   
   validates_uniqueness_of :name
   validates :name, length: { minimum: 3 }, presence: true

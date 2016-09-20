@@ -1,5 +1,7 @@
 class Business < ActiveRecord::Base
   include AddressMethods
+  include PgSearch
+  multisearchable :against => [:biz_name]
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -11,6 +13,8 @@ class Business < ActiveRecord::Base
       [:biz_name, :city, :state, :address1]
     ]
   end
+
+
 
   validates :biz_name, length: { minimum: 3 }, presence: true
   belongs_to :sid_category

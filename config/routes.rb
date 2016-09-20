@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'search/results'
+
+  get 'search/show'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'region/show'
   resources :region do

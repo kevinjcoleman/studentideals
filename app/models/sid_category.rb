@@ -1,4 +1,7 @@
 class SidCategory < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:label]
+  
   extend FriendlyId
   friendly_id :label, use: [:slugged, :finders]
 

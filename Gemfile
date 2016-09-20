@@ -42,6 +42,9 @@ gem 'factual-api', '~> 1.3', '>= 1.3.19'
 gem 'where-or'
 gem 'ancestry'
 gem 'shoulda-matchers', '~> 3.1'
+gem 'pg_search'
+gem 'pg'
+gem 'react-rails'
 
 
 # Use ActiveModel has_secure_password
@@ -54,7 +57,6 @@ gem 'shoulda-matchers', '~> 3.1'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'spring-commands-rspec'
@@ -72,10 +74,5 @@ group :development do
   gem 'web-console', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-end
-
-group :production do
-  # Use PostgreSQL as the database for Active Record
-  gem 'pg', '~> 0.18.1'
 end
 

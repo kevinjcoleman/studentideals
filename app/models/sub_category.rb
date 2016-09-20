@@ -1,5 +1,18 @@
 class SubCategory < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:label]
   has_ancestry
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :label,
+      [:label, :sid_category_id]
+    ]
+  end
+
   belongs_to :sid_category
   has_many :sub_category_taggings
   has_many :businesses, through: :sub_category_taggings
