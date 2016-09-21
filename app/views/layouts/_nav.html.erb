@@ -13,16 +13,9 @@
       <ul class="nav navbar-nav">
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= fa_icon "graduation-cap", style: "font-size: 24px;"%><span><%= fa_icon "chevron-down"%></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Favorites</a></li>
-            <li><a href="#">Account settings</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Signout</a></li>
-          </ul>
-        </li>
+        <% @nav_categories.each do |category| %>
+          <li><%= link_to category.label, businesses_for_category_path(category) %></li>
+        <% end %>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

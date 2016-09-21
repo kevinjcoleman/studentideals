@@ -47,6 +47,14 @@ RSpec.describe Business, type: :model do
     end
   end
 
+  describe "#region" do 
+    let(:business) { create(:business, :with_ungeocoded_address) }
+    let!(:region) {create(:region, city: business.city, state: business.state)}
+    it "returns the correct region" do 
+      expect(business.region).to eq region
+    end
+  end
+
   describe "regular scopes" do
     context ".without_sid_category" do
       let(:business) { create(:business, :with_category)}

@@ -1,0 +1,7 @@
+<footer>
+  <ul>
+    <% @nav_categories.each do |category| %>
+      <li><%= link_to category.label, businesses_for_category_path(category) %></li>
+    <% end %>
+  </ul>
+</footer>

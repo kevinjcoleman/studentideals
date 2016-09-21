@@ -1,7 +1,7 @@
 <h1><%= @businesses.total_count %> <%= @sub_category.label %> Businesses near <%= @region.name %></h1>
-<h3>Subcategories</h3>
 <% if @sub_category.children.any? %>
-  <% @sub_category.children.each do |sub| %>
+<h3>Subcategories</h3>
+  <% @sub_categories.each do |sub| %>
     <span><%= link_to "#{sub.label}", businesses_for_category_region_and_subcategory_path(@region, @category, sub) %></span>
   <% end %>
 <% end %>

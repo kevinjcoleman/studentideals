@@ -12,7 +12,7 @@ var Search = React.createClass({
         dataType: 'json',
 
         success: function(data) {
-          this.setState({results: data});
+          this.setState({results: data["results"]});
         }.bind(this),
 
         error: function(data) {
@@ -28,7 +28,6 @@ var Search = React.createClass({
 
 
   render: function() {
-    var showResults = (result, i=1) => <SearchItem key={i += 1} content={result.content} id={result.id} type={result.searchable_type} />;
     return (
       <div className="search-box-container homepage-search">
         <div className="input-group input-group-lg">
@@ -45,9 +44,7 @@ var Search = React.createClass({
           <input type="submit" name="commit" value="Search" className="btn btn-success" />
           </span>
         </div>
-        <ul role="listbox" className="search-list">   
-          {this.state.results.map(showResults)}
-        </ul>
+        <SearchList results={this.state.results} />;
       </div>
     );
   }

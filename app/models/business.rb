@@ -96,4 +96,8 @@ class Business < ActiveRecord::Base
       biz.add_factual_categories(client)
     end
   end
+
+  def region
+    Region.find_by(city: city, state:state)
+  end
 end
