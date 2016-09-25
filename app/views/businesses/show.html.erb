@@ -14,8 +14,26 @@
     <p><%= link_to "Website", @business.website, target: "_blank" %></p>
   <% end %>
 </div>
-<div class="col-md-5 well well-lg"> 
-    <div style="width: 100%;height: 350px" id="map"></div>
+
+<div class="col-md-5"> 
+  <% if deal = @business.deal %>
+    <div class="deal-box well center">
+      <h3>What's the deal?</h3>
+      <h2><%= deal.desc_short %></h2>
+      <% if deal.details %>
+        <hr class="deal-break">
+        <h4>What's are the deets?</h4>
+        <p><%= deal.details %></p>
+      <% end %>
+      <% if deal.desc_student %>
+        <hr class="deal-break">
+        <h4>Special info for students</h4>
+        <p><%= deal.desc_student %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div style="width: 100%;height: 350px" id="map"></div>
   <h6>Similar <%= @business.sid_category.label %> businesses</h6>
   <% @close_similar_businesses.each do |business| %>
     <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>

@@ -170,4 +170,12 @@ RSpec.describe Business, type: :model do
       business.add_factual_categories
     end
   end
+
+  describe "deal info" do 
+    let!(:business) { create(:business, biz_id: 1) }
+    let!(:deal) { create(:deal) }
+    it ".deal returns the first deal" do 
+      expect(business.deal).to eq deal
+    end
+  end
 end

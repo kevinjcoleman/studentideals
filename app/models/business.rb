@@ -20,7 +20,7 @@ class Business < ActiveRecord::Base
   belongs_to :sid_category
   has_many :sub_category_taggings
   has_many :sub_categories, through: :sub_category_taggings
-  has_many :deals, foreign_key: "biz_id"
+  has_many :deals, foreign_key: "biz_id", primary_key: "biz_id"
 
   scope :without_sid_category, -> { where(sid_category_id: nil) }
   scope :with_factual, -> { where("external_id is not null") }
@@ -100,5 +100,9 @@ class Business < ActiveRecord::Base
 
   def region
     Region.find_by(city: city, state:state)
+  end
+
+  def deal 
+    deals.first
   end
 end

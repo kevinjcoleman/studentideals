@@ -64,15 +64,15 @@ $sid-black: #151516;
 }
 
 a {
-    color: $sid-blue;
-    -webkit-transition : color 200ms ease-out;
-    -moz-transition : color 200ms ease-out;
-    -o-transition : color 200ms ease-out;
-    transition : color 200ms ease-out;
-    &:hover {
-      color: black;
-      text-decoration: none
-    }
+  color: $sid-blue;
+  -webkit-transition : color 200ms ease-out;
+  -moz-transition : color 200ms ease-out;
+  -o-transition : color 200ms ease-out;
+  transition : color 200ms ease-out;
+  &:hover {
+    color: black;
+    text-decoration: none
+  }
 }
 
 .navbar {  
@@ -270,6 +270,40 @@ a {
   }
 }
 
+//Biz list page
+.biz-listing {
+  position: relative;
+  padding: 12px;
+  -webkit-transition : color 200ms ease-out;
+  -moz-transition : color 200ms ease-out;
+  -o-transition : color 200ms ease-out;
+  transition : color 200ms ease-out;
+  -webkit-transition : background 200ms ease-out;
+  -moz-transition : background 200ms ease-out;
+  -o-transition : background 200ms ease-out;
+  transition : background 200ms ease-out;
+  h3 {
+    margin-top: 0px;
+  }
+  a {
+  color: $sid-blue;
+    &:hover {
+      text-decoration: none;
+      color: white;
+    }
+  }
+  &:hover {
+    background-color: $sid-blue;
+    color: white;
+  }
+}
+
+.biz-deal-listing {
+  position: absolute;
+  right: 1.0em;
+  top: 1em; 
+}
+
 //Listing Styles
 .list-category {
   font-size: 16px;
@@ -301,4 +335,10 @@ a {
 
 footer {
   background-color: #ecf0f1;
+}
+
+//Business styles
+.deal-break {
+  border-top: 2px solid #FFA433;
+  margin: 5% 0;
 }
