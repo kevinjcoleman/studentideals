@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920010451) do
+ActiveRecord::Schema.define(version: 20160925004442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,19 @@ ActiveRecord::Schema.define(version: 20160920010451) do
   add_index "businesses", ["biz_id"], name: "index_businesses_on_biz_id", unique: true, using: :btree
   add_index "businesses", ["sid_category_id"], name: "index_businesses_on_sid_category_id", using: :btree
   add_index "businesses", ["slug"], name: "index_businesses_on_slug", unique: true, using: :btree
+
+  create_table "deals", force: :cascade do |t|
+    t.integer  "deal_id"
+    t.string   "desc_short"
+    t.string   "desc_student"
+    t.text     "details"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "biz_id"
+  end
+
+  add_index "deals", ["biz_id"], name: "index_deals_on_biz_id", using: :btree
+  add_index "deals", ["deal_id"], name: "index_deals_on_deal_id", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.text     "slug",                      null: false

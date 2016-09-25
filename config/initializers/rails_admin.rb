@@ -163,4 +163,11 @@ RailsAdmin.config do |config|
       exclude_fields :password, :password_confirmation 
     end
   end
+
+  config.model 'Deal' do
+    import do
+      mapping_key :deal_id
+      fields :bizd_id
+    end
+  end
 end

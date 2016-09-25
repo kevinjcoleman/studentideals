@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Business, type: :model do
+  it { should have_many(:deals) }
   describe ".create" do
     context "with good info" do
       let(:business) { create(:business) }
