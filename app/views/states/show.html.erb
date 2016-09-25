@@ -1,11 +1,11 @@
-<h1><%= @businesses %> Businesses in <%= @state %></h1>
+<h1>Best deals in <%= @state %>.</h1>
 
 <div class="row">
   <div class="col-md-6">
     <h2>Business Categories</h2>
     <ul class="list">
     <% @categories.each do |category| %>
-      <li class="list-item"><%= link_to "#{category.label} (#{category.business_count})", state_category_path(@state, category) %></li>
+      <li class="list-item"><%= link_to "#{category.label}", state_category_path(@state, category) %></li>
     <% end %>
     </ul>
   </div>
@@ -13,7 +13,7 @@
     <h2>Cities</h2>
     <ul class="list">
     <% @cities.each do |city| %>
-      <li class="list-item"><%= link_to "#{city.city} (#{city.count})", region_path(Region.where(city: city.city, state: @state).first) %></li>
+      <li class="list-item"><%= link_to "#{city.city}", region_path(Region.where(city: city.city, state: @state).first) %></li>
     <% end %>
     </ul>
   </div>

@@ -6,14 +6,14 @@
       <h2><%= @sub_category.label %> Categories</h2>
       <ul class="list">
       <% @children.each do |sub_cat| %>
-        <li class="list-item"><%= link_to "#{sub_cat.label} (#{sub_cat.taggings_count})", businesses_for_category_and_subcategory_path(@category, sub_cat) %></li>
+        <li class="list-item"><%= link_to "#{sub_cat.label}", businesses_for_category_and_subcategory_path(@category, sub_cat) %></li>
       <% end %>
     </div>
     <div class="col-md-6">
       <h2>States</h2>
       <ul class="list">
       <% @states.each do |state| %>
-        <li class="list-item"><%= link_to "#{state.state} (#{state.count})", state_category_sub_category_path(state.state, @category, @sub_category) %></li>
+        <li class="list-item"><%= link_to "#{state.state}", state_category_sub_category_path(state.state, @category, @sub_category) %></li>
       <% end %>
       </ul>
     </div>
@@ -22,7 +22,7 @@
   <h2>Choose a state</h2>
   <ul class="list">
   <% @states.each do |state| %>
-    <li class="list-item"><%= link_to "#{state.state} (#{state.count})", state_category_sub_category_path(state.state, @category, @sub_category) %></li>
+    <li class="list-item"><%= link_to "#{state.state}", state_category_sub_category_path(state.state, @category, @sub_category) %></li>
   <% end %>
   </ul>
 <% end %>

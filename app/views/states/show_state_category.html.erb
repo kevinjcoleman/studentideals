@@ -5,7 +5,7 @@
     <h2><%= @category.label %> Categories</h2>
     <ul class="list">
     <% @sub_categories.each do |category| %>
-      <li class="list-item"><%= link_to "#{category.label} (#{category.taggings_count})", state_category_sub_category_path(@state, @category, category) %></li>
+      <li class="list-item"><%= link_to "#{category.label}", state_category_sub_category_path(@state, @category, category) %></li>
     <% end %>
     </ul>
   </div>
@@ -13,7 +13,7 @@
     <h2>Cities</h2>
     <ul class="list">
     <% @cities.each do |city| %>
-      <li class="list-item"><%= link_to "#{city.city} (#{city.count})", region_category_path(Region.where(city: city.city, state: @state).first, @category) %></li>
+      <li class="list-item"><%= link_to "#{city.city}", region_category_path(Region.where(city: city.city, state: @state).first, @category) %></li>
     <% end %>
     </ul>
   </div>
