@@ -23,6 +23,20 @@
 @import "font-awesome";
 
 // Bootstrap body padding for fixed navbar
+@mixin transition-mixin($type) {
+  -webkit-transition: $type 0.3s ease;
+  -moz-transition: $type 0.3s ease;
+  -o-transition: $type 0.3s ease;
+  -ms-transition: $type 0.3s ease;
+  transition: $type 0.3s ease;
+}
+
+@mixin box-shadow-mixin {
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}    
+
+
 body { 
   padding-top: 60px;
   font-family: 'Raleway', sans-serif;
@@ -81,6 +95,7 @@ a {
 
 .navbar {  
   min-height: 65px;
+  @include box-shadow-mixin;
 }
 
 .nav > li > a {
@@ -237,6 +252,7 @@ a {
   width: 100%;
   z-index: 1000;
   border-radius: 5px;
+  @include box-shadow-mixin;
 }
 .search-item {
   color: #171a1b;
@@ -321,20 +337,24 @@ a {
 }
 
 .list {
-  margin-left: -40px;
+  @extend .list-group;
   list-style: none;
+  @include box-shadow-mixin;
 }
 
 .list-item {
+  @extend .list-group-item;
   border-top: 1px solid #eee;
-  :not(:first-child) {
-    border-top: none;
-  }
+  @include transition-mixin(font-size);
+  @include transition-mixin(background);
   a {
     display: block;
-    padding: 10px 5px;
-    font-size: 16px;
+    font-size: 1.2em;
     line-height: 30px;
+  }
+  &:hover {
+    font-size: 1.6em;
+    background: #f6f6f6;  
   }
 }
 
