@@ -63,7 +63,7 @@ $sid-black: #151516;
   margin-top: 20px;
 }
 
-a {
+.link {
   color: $sid-blue;
   -webkit-transition : color 200ms ease-out;
   -moz-transition : color 200ms ease-out;
@@ -73,6 +73,10 @@ a {
     color: black;
     text-decoration: none
   }
+}
+
+a {
+   @extend .link;
 }
 
 .navbar {  
@@ -250,6 +254,13 @@ a {
       color: white;
     }
   }
+}
+
+//Homepage Styles
+.toggler {
+   @extend .link;
+   @extend .center;
+   margin: .5em 0;
 }
 
 //Pagination styles

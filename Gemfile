@@ -45,6 +45,7 @@ gem 'shoulda-matchers', '~> 3.1'
 gem 'pg_search'
 gem 'pg'
 gem 'react-rails'
+gem 'jquery-turbolinks'
 
 
 # Use ActiveModel has_secure_password

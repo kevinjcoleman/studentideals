@@ -30,7 +30,7 @@ class CategoriesController < ApplicationController
     @category = SidCategory.find(params[:id])
     add_breadcrumb @category.label, businesses_for_category_path(@category)
     @states = Business.where("state IS NOT NULL AND sid_category_id = (?)", @category.id).group("state").select("state, count(id) as count").order("count DESC").limit(5)
-    @sub_categories = @category.sub_categories.roots.select('sub_categories.*, count(sub_category_taggings.id) as taggings_count').joins('left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id').group('sub_categories.id').order("taggings_count DESC").limit(5)
+    @sub_categories = @category.sub_categories.roots.select('sub_categories.*, count(sub_category_taggings.id) as taggings_count').joins('left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id').group('sub_categories.id').order("taggings_count DESC")
   end
 
   def sub_list
