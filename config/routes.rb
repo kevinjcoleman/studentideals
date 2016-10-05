@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   get 'search/results'
 
   get 'search/show'
-
+  
+  devise_for :admins,controllers: {
+      registrations: 'registrations/registrations'
+  }
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'region/show'
   resources :region do
@@ -23,9 +26,7 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  devise_for :admins,controllers: {
-        registrations: 'registrations/registrations'
-      }
+
   
 
   
