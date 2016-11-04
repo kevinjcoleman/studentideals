@@ -1,17 +1,16 @@
 <div class="col-md-7">
-  <h3><%= @business.biz_name %><span class="list-category" >  <%= @business.sid_category.label %> <%= logo(@business.sid_category.sid_category_id) %></span></h3>
+  <h1><%= @business.biz_name %><span class="biz-category" > <%= logo(@business.sid_category.sid_category_id) %></span></h1>
   <% if @business.sid_editorial %>
     <p><%= @business.sid_editorial %></p>
   <% end %>
-  <strong>Address:</strong>
-  <p><%= @business.address_line_1 if @business.address_line_1 %></p>
+  <p><%= "<strong>Address:</strong> #{@business.address_line_1}".html_safe if @business.address_line_1 %></p>
   <p><%= @business.address_line_2 if @business.address_line_2 %></p>
-  <p><%= "Phone: #{@business.telephone}" if @business.telephone %></p>
+  <p><%= "<strong>Phone:</strong> #{@business.telephone}".html_safe if @business.telephone %></p>
   <% if @business.email %>
-    <p><%= link_to @business.email, "mailto:#{@business.email}", target: "_blank" %></p>
+    <p><%= link_to @business.email, "<strong>mailto:#{@business.email}</strong>".html_safe, target: "_blank" %></p>
   <% end %>
   <% if @business.website %>
-    <p><%= link_to "Website", @business.website, target: "_blank" %></p>
+    <p><%= link_to "<strong>Website</strong>".html_safe, @business.website.html_safe, target: "_blank" %></p>
   <% end %>
 </div>
 
