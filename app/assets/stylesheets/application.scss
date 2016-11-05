@@ -22,6 +22,7 @@
 @import "bootstrap";
 @import "font-awesome";
 
+
 // Bootstrap body padding for fixed navbar
 @mixin transition-mixin($type) {
   -webkit-transition: $type 0.3s ease;

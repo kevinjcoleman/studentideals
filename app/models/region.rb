@@ -36,5 +36,4 @@ class Region < ActiveRecord::Base
     self.close_biz_count = Business.geocoded.within(5, :origin => self).count
     self.save!
   end
-
 end

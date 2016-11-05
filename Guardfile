@@ -24,6 +24,7 @@
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 
+notification :terminal_notifier, app_name: "StudentIdeals ::", activate: 'com.googlecode.iTerm2'
 guard :rspec, cmd:"spring rspec" do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)

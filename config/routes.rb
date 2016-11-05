@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'geocoder_test/geolocation' => 'geocoder_test#geolocation_api', as: 'geocoder_api'
 
   root 'pages#home'
+  get '/coverage', :to => redirect('coverage/index.html')
 
 
   
