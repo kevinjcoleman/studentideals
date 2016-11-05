@@ -1,7 +1,7 @@
 <div class="col-md-7">
   <h1><%= @business.biz_name %><span class="biz-category" > <%= logo(@business.sid_category.sid_category_id) %></span></h1>
   <% if @business.sid_editorial %>
-    <p><%= @business.sid_editorial %></p>
+    <p class="lead"><%= @business.sid_editorial %></p>
   <% end %>
   <p><%= "<strong>Address:</strong> #{@business.address_line_1}".html_safe if @business.address_line_1 %></p>
   <p><%= @business.address_line_2 if @business.address_line_2 %></p>
@@ -22,7 +22,7 @@
       <% if deal.details %>
         <hr class="deal-break">
         <h4>What are the deets?</h4>
-        <p><%= deal.details %></p>
+        <strong ><%= deal.details %></strong>
       <% end %>
       <% if deal.desc_student %>
         <hr class="deal-break">

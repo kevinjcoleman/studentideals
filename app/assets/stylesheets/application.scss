@@ -61,6 +61,7 @@ $sid-blue: #229AD6;
 $sid-orange: #FF9000;
 $sid-white: #FFFFFF;
 $sid-black: #151516;
+$sid-grey: #ecf0f1;
 
 @media (min-width: 768px) {
   .container {
@@ -383,4 +384,22 @@ footer {
   position: absolute;
   padding-top: 12px;
   padding-left: 4px;
+}
+
+//AD
+
+
+.ad-container {
+  background-color: $sid-blue;
+  border: 7.5px solid $sid-orange;
+  border-radius: 0px;
+  padding: 0;
+  width: 90%;
+  margin: 5px auto;
+  .ad-text {
+    color: $sid-white;
+    h3 {
+      margin: 5px 0px; 
+    }
+  }
 }

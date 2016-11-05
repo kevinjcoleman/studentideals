@@ -15,6 +15,7 @@
 <div class="container main-container">
   <%= render 'layouts/messages' %>
   <%= render 'layouts/breadcrumbs' %>
+  <%= render 'layouts/ad' unless request.original_url.eql?('/') %>
   <%= yield %>
 </div>
 <%= render 'layouts/footer' %>
