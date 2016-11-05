@@ -178,4 +178,20 @@ RSpec.describe Business, type: :model do
       expect(business.deal).to eq deal
     end
   end
+
+  describe ".website_description" do 
+    let(:business_with_link_in_bio) { create(:business, sid_editorial: "http://www.yelp.com/biz/i-love-thai-arlington Eco-friendly residential and commercial cleaning service; uses HEPA vacuum filters and homemade, non-toxic cleaning products.") }
+    let(:business_without_link_in_bio) { create(:business, sid_editorial: "Eco-friendly residential and commercial cleaning service; uses HEPA vacuum filters and homemade, non-toxic cleaning products.") }
+    context "with a link" do 
+      it "adds <a>" do 
+        expect(business_with_link_in_bio.website_description).to eq "<a href=\"http://www.yelp.com/biz/i-love-thai-arlington\" target=\"_blank\">http://www.yelp.com/biz/i-love-thai-arlington</a> Eco-friendly residential and commercial cleaning service; uses HEPA vacuum filters and homemade, non-toxic cleaning products."
+      end
+    end
+
+    context "without a link" do 
+      it "returns same sid_editorial" do 
+        expect(business_without_link_in_bio.website_description).to eq business_without_link_in_bio.sid_editorial
+      end
+    end   
+  end
 end

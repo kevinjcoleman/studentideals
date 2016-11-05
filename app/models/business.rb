@@ -105,4 +105,8 @@ class Business < ActiveRecord::Base
   def deal 
     deals.first
   end
+
+  def website_description
+    Linkify.new(sid_editorial).add_links.html_safe
+  end
 end

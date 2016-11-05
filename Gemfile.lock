@@ -378,5 +378,8 @@ DEPENDENCIES
   web-console (~> 2.0)
   where-or
 
+RUBY VERSION
+   ruby 2.2.4p230
+
 BUNDLED WITH
-   1.12.5
+   1.13.6
