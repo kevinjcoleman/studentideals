@@ -58,8 +58,8 @@ RSpec.describe Business, type: :model do
 
   describe "regular scopes" do
     context ".without_sid_category" do
-      let(:business) { create(:business, :with_category)}
-      let(:business_without_category) { create(:business, biz_name: "Kevin's surfboards.")}
+      let!(:business) { create(:business, :with_category)}
+      let!(:business_without_category) { create(:business, biz_name: "Kevin's surfboards.")}
 
       it "returns only businesses without categories" do
         expect(Business.without_sid_category).to eq([business_without_category])
@@ -82,6 +82,26 @@ RSpec.describe Business, type: :model do
         with_sub_categories.add_factual_categories
         expect(Business.no_sub_categories.count.count).to eq 1
         expect(Business.no_sub_categories.first).to eq without_sub_categories
+      end
+    end
+
+    context ".group_by_city" do 
+      before do 
+        3.times  {create(:business, :with_lat_lng, :with_ungeocoded_address)}
+        2.times  {create(:business, :with_lat_lng, address1: "Address 1", city: "Huntington Beach", state: "CA")}
+        @grouped_business = Business.group_by_city
+        @first_group = @grouped_business.first
+        @last_group = @grouped_business.last
+      end
+
+      it "orders by count" do 
+        expect(@first_group.city).to eq("Los Angeles")
+        expect(@last_group.city).to eq("Huntington Beach")
+      end
+
+      it "returns accurate count" do 
+        expect(@first_group.count).to eq(3)
+        expect(@last_group.count).to eq(2)
       end
     end
   end

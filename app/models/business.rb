@@ -24,7 +24,12 @@ class Business < ActiveRecord::Base
 
   scope :without_sid_category, -> { where(sid_category_id: nil) }
   scope :with_factual, -> { where("external_id is not null") }
-  scope :no_sub_categories, -> { joins('LEFT OUTER JOIN sub_category_taggings ON businesses.id = sub_category_taggings.business_id').group('businesses.id').having('count(sub_category_taggings.id) = 0')}
+  scope :no_sub_categories, -> { joins('LEFT OUTER JOIN sub_category_taggings ON businesses.id = sub_category_taggings.business_id').
+                                 group('businesses.id').
+                                 having('count(sub_category_taggings.id) = 0')}
+  scope :group_by_city, -> { group("businesses.city").
+                             select("businesses.city, count(businesses.id) as count").
+                             order("count DESC") }
 
   def before_import_save(record)
     self.add_sid_category(record[:sid_category_data]) if record[:sid_category_data]
