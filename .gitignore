@@ -25,4 +25,5 @@
 /config/application.yml
 
 # Ignore coverage details
-/coverage
+coverage
+coverage/.
