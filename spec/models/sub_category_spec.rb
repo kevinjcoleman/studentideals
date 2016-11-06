@@ -53,4 +53,40 @@ RSpec.describe SubCategory, type: :model do
       expect(business.sub_categories.roots.first.label).to eq "Restaurants"
     end
   end
+
+  context "scopes" do 
+    let!(:sub_category_with_tagging) {create(:sub_category, :sub_category_with_tagging)}
+    let!(:sub_category_without_tagging) {create(:sub_category, label: "Pizza", sid_category: sub_category_with_tagging.sid_category)}
+    describe ".left_outer_join_taggings" do 
+      let!(:sub_categories_joined_with_taggings) {SubCategory.left_outer_join_taggings}
+      it "returns sub categories with and without taggings" do 
+        expect(sub_categories_joined_with_taggings).to eq([sub_category_with_tagging, sub_category_without_tagging])
+      end
+    end
+
+    describe ".left_outer_join_businesses" do 
+      let!(:sub_categories_joined_businesses) {SubCategory.left_outer_join_businesses}
+      it "returns categories with and without businesses" do 
+        expect(sub_categories_joined_businesses).to eq([sub_category_with_tagging, sub_category_without_tagging])
+      end
+    end
+
+    describe ".join_and_order_by_taggings_count" do 
+      let!(:sub_categories_ordered_by_taggings) {SubCategory.join_and_order_by_taggings_count}
+      it "returns the category with the most businesses first" do 
+        expect(sub_categories_ordered_by_taggings.first).to eq(sub_category_with_tagging)
+      end
+
+      it "returns the category with the least businesses last" do 
+        expect(sub_categories_ordered_by_taggings.last).to eq(sub_category_without_tagging)
+      end
+    end
+
+    describe ".with_taggings" do 
+      let!(:sub_categories_with_businesses) {SubCategory.with_taggings}
+      it "returns only categories with businesses" do 
+        expect(sub_categories_with_businesses).to eq([sub_category_with_tagging])
+      end
+    end
+  end
 end

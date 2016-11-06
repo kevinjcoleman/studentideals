@@ -14,26 +14,26 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-05T17:18:13-07:00">2016-11-05T17:18:13-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-05T17:48:48-07:00">2016-11-05T17:48:48-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">69.95%</span></span>
+    (<span class="covered_percent"><span class="red">70.78%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.23
+         3.24
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>16</b> files in total.
-    <b>213</b> relevant lines. 
-    <span class="green"><b>149</b> lines covered</span> and
+    <b>219</b> relevant lines. 
+    <span class="green"><b>155</b> lines covered</span> and
     <span class="red"><b>64</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -62,10 +62,10 @@
       
       <tr>
         <td class="strong"><a href="#402a7f4ce3f64ef9f1a69093e3466fa8118e920c" class="src_link" title="app/controllers/states_controller.rb">app/controllers/states_controller.rb</a></td>
-        <td class="green strong">92.86 %</td>
-        <td>49</td>
-        <td>28</td>
-        <td>26</td>
+        <td class="green strong">93.1 %</td>
+        <td>47</td>
+        <td>29</td>
+        <td>27</td>
         <td>2</td>
         <td>3.6</td>
       </tr>
@@ -187,17 +187,17 @@
         <td>19</td>
         <td>17</td>
         <td>2</td>
-        <td>1.6</td>
+        <td>1.3</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#26b321fda7257a86d1e6569d255d1af47d9aec7c" class="src_link" title="app/models/sub_category.rb">app/models/sub_category.rb</a></td>
-        <td class="red strong">65.22 %</td>
-        <td>38</td>
-        <td>23</td>
-        <td>15</td>
+        <td class="red strong">71.43 %</td>
+        <td>47</td>
+        <td>28</td>
+        <td>20</td>
         <td>8</td>
-        <td>2.1</td>
+        <td>2.6</td>
       </tr>
       
       <tr>
@@ -313,10 +313,10 @@
         <div class="source_table" id="402a7f4ce3f64ef9f1a69093e3466fa8118e920c">
   <div class="header">
     <h3>app/controllers/states_controller.rb</h3>
-    <h4><span class="green">92.86 %</span> covered</h4>
+    <h4><span class="green">93.1 %</span> covered</h4>
     <div>
-      <b>28</b> relevant lines. 
-      <span class="green"><b>26</b> lines covered</span> and
+      <b>29</b> relevant lines. 
+      <span class="green"><b>27</b> lines covered</span> and
       <span class="red"><b>2</b> lines missed.</span>
     </div>
   </div>
@@ -363,7 +363,7 @@
         <li class="covered" data-hits="3" data-linenumber="7">
           <span class="hits">3</span>
           
-          <code class="ruby">    @categories = SidCategory.join_and_order_by_businesses_count.where(businesses: {state: @state}).with_businesses</code>
+          <code class="ruby">    @categories = SidCategory.with_businesses.where(businesses: {state: @state})</code>
         </li>
       
         <li class="covered" data-hits="3" data-linenumber="8">
@@ -393,226 +393,214 @@
         <li class="covered" data-hits="4" data-linenumber="12">
           <span class="hits">4</span>
           
-          <code class="ruby">    @sub_categories = @category.sub_categories.roots.</code>
+          <code class="ruby">    @sub_categories = @category.sub_categories.roots.left_outer_join_businesses.with_taggings.</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="13">
           
           
-          <code class="ruby">                                where(businesses: {state: @state}).</code>
+          <code class="ruby">                                where(businesses: {state: @state})      </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="14">
-          
-          
-          <code class="ruby">                                select(&#39;sub_categories.*, count(sub_category_taggings.id) as taggings_count&#39;).</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="15">
-          
-          
-          <code class="ruby">                                joins(&#39;left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id&#39;).</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="16">
-          
-          
-          <code class="ruby">                                joins(&#39;left outer join businesses on sub_category_taggings.business_id = businesses.id&#39;).</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="17">
-          
-          
-          <code class="ruby">                                group(&#39;sub_categories.id&#39;).</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="18">
-          
-          
-          <code class="ruby">                                order(&quot;taggings_count DESC&quot;).limit(5)</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="19">
+        <li class="covered" data-hits="4" data-linenumber="14">
           <span class="hits">4</span>
           
           <code class="ruby">    @cities = Business.where(state: @state, sid_category: @category).group_by_city.limit(5)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="20">
+        <li class="never" data-hits="" data-linenumber="15">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="never" data-hits="" data-linenumber="16">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="22">
+        <li class="covered" data-hits="1" data-linenumber="17">
           <span class="hits">1</span>
           
           <code class="ruby">  def show_state_category_sub_category</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="23">
+        <li class="covered" data-hits="5" data-linenumber="18">
           <span class="hits">5</span>
           
-          <code class="ruby">    @sub_category = SubCategory.find(params[:sub_category_id])</code>
+          <code class="ruby">    find_sub_category_and_breadcrumbs</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="24">
-          <span class="hits">5</span>
-          
-          <code class="ruby">    add_sub_category_breadcrumbs_list</code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="25">
+        <li class="covered" data-hits="5" data-linenumber="19">
           <span class="hits">5</span>
           
           <code class="ruby">    @sub_categories = @sub_category.children.select(&#39;sub_categories.*, count(sub_category_taggings.id) as taggings_count&#39;).joins(&#39;left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id&#39;).joins(&#39;left outer join businesses on sub_category_taggings.business_id = businesses.id&#39;).where(&quot;businesses.state = (?)&quot;, @state).group(&#39;sub_categories.id&#39;).order(&quot;taggings_count DESC&quot;).limit(5)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="26">
-          <span class="hits">5</span>
-          
-          <code class="ruby">    @businesses = Business.where(state: @state, sid_category: @category).joins(:sub_category_taggings).where(&quot;sub_category_taggings.sub_category_id = (?)&quot;, @sub_category.id).count</code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="27">
+        <li class="covered" data-hits="5" data-linenumber="20">
           <span class="hits">5</span>
           
           <code class="ruby">    @cities = Business.where(state: @state, sid_category: @category).joins(:sub_category_taggings).where(&quot;sub_category_taggings.sub_category_id = (?)&quot;, @sub_category.id).group_by_city.limit(5)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="never" data-hits="" data-linenumber="21">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="29">
+        <li class="never" data-hits="" data-linenumber="22">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="30">
+        <li class="covered" data-hits="1" data-linenumber="23">
           <span class="hits">1</span>
           
           <code class="ruby">  private</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="31">
+        <li class="covered" data-hits="1" data-linenumber="24">
           <span class="hits">1</span>
           
-          <code class="ruby">    def add_sub_category_breadcrumbs_list</code>
+          <code class="ruby">    def add_sub_category_breadcrumbs</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="32">
+        <li class="covered" data-hits="5" data-linenumber="25">
           <span class="hits">5</span>
           
           <code class="ruby">      if @sub_category.ancestors.any?</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="33">
+        <li class="missed" data-hits="0" data-linenumber="26">
           
           
           <code class="ruby">        @sub_category.ancestors.each do |ancestor|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="34">
+        <li class="missed" data-hits="0" data-linenumber="27">
           
           
           <code class="ruby">          add_breadcrumb ancestor.label, state_category_sub_category_path(@state, @category, ancestor)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="35">
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby">        end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="36">
+        <li class="never" data-hits="" data-linenumber="29">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="37">
+        <li class="covered" data-hits="5" data-linenumber="30">
           <span class="hits">5</span>
           
           <code class="ruby">      add_breadcrumb @sub_category.label, state_category_sub_category_path(@state, @category, @sub_category)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="32">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="40">
+        <li class="covered" data-hits="1" data-linenumber="33">
           <span class="hits">1</span>
           
           <code class="ruby">    def find_state_and_breadcrumb</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="41">
+        <li class="covered" data-hits="12" data-linenumber="34">
           <span class="hits">12</span>
           
           <code class="ruby">      @state = params[:state_code]</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="42">
+        <li class="covered" data-hits="12" data-linenumber="35">
           <span class="hits">12</span>
           
           <code class="ruby">      add_breadcrumb @state, state_path(@state)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="43">
+        <li class="never" data-hits="" data-linenumber="36">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="44">
+        <li class="never" data-hits="" data-linenumber="37">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="45">
+        <li class="covered" data-hits="1" data-linenumber="38">
           <span class="hits">1</span>
           
           <code class="ruby">    def find_category_and_breadcrumb</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="46">
+        <li class="covered" data-hits="9" data-linenumber="39">
           <span class="hits">9</span>
           
           <code class="ruby">      @category = SidCategory.find(params[:category_id])</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="47">
+        <li class="covered" data-hits="9" data-linenumber="40">
           <span class="hits">9</span>
           
           <code class="ruby">      add_breadcrumb @category.label, state_category_path(@state, @category)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="48">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="49">
+        <li class="never" data-hits="" data-linenumber="42">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="43">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    def find_sub_category_and_breadcrumbs</code>
+        </li>
+      
+        <li class="covered" data-hits="5" data-linenumber="44">
+          <span class="hits">5</span>
+          
+          <code class="ruby">      @sub_category = SubCategory.find(params[:sub_category_id])</code>
+        </li>
+      
+        <li class="covered" data-hits="5" data-linenumber="45">
+          <span class="hits">5</span>
+          
+          <code class="ruby">      add_sub_category_breadcrumbs</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="46">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="47">
           
           
           <code class="ruby">end</code>
@@ -2508,8 +2496,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="14">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="4" data-linenumber="14">
+          <span class="hits">4</span>
           
           <code class="ruby">  scope :left_outer_join_businesses, -&gt; {joins(&#39;left outer join businesses on businesses.sid_category_id = sid_categories.id&#39;)}</code>
         </li>
@@ -2538,8 +2526,8 @@
           <code class="ruby">                                                  group(&#39;sid_categories.id&#39;).</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="19">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="3" data-linenumber="19">
+          <span class="hits">3</span>
           
           <code class="ruby">                                                  order(&quot;business_count DESC&quot;) } </code>
         </li>
@@ -2659,10 +2647,10 @@
         <div class="source_table" id="26b321fda7257a86d1e6569d255d1af47d9aec7c">
   <div class="header">
     <h3>app/models/sub_category.rb</h3>
-    <h4><span class="red">65.22 %</span> covered</h4>
+    <h4><span class="red">71.43 %</span> covered</h4>
     <div>
-      <b>23</b> relevant lines. 
-      <span class="green"><b>15</b> lines covered</span> and
+      <b>28</b> relevant lines. 
+      <span class="green"><b>20</b> lines covered</span> and
       <span class="red"><b>8</b> lines missed.</span>
     </div>
   </div>
@@ -2802,97 +2790,151 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="23">
+        <li class="covered" data-hits="9" data-linenumber="23">
+          <span class="hits">9</span>
+          
+          <code class="ruby">  scope :left_outer_join_taggings, -&gt; { joins(&#39;left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id&#39;) }</code>
+        </li>
+      
+        <li class="covered" data-hits="5" data-linenumber="24">
+          <span class="hits">5</span>
+          
+          <code class="ruby">  scope :left_outer_join_businesses, -&gt; { left_outer_join_taggings.joins(&#39;left outer join businesses on sub_category_taggings.business_id = businesses.id&#39;) }</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="25">
           <span class="hits">1</span>
           
-          <code class="ruby">  BLACKLISTED_FACTUAL_CATEGORIES = [&#39;Social&#39;,</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby">                                    &#39;Food and Dining&#39;,</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="25">
-          
-          
-          <code class="ruby">                                    &#39;Retail&#39;]</code>
+          <code class="ruby">  scope :join_and_order_by_taggings_count, -&gt; {   left_outer_join_taggings.</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="26">
           
           
+          <code class="ruby">                                                  select(&#39;sub_categories.*, count(sub_category_taggings.id) as taggings_count&#39;).</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
+          
+          
+          <code class="ruby">                                                  group(&#39;sub_categories.id&#39;).</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="28">
+          <span class="hits">4</span>
+          
+          <code class="ruby">                                                  order(&quot;taggings_count DESC&quot;) } </code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="29">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="27">
+        <li class="covered" data-hits="5" data-linenumber="30">
+          <span class="hits">5</span>
+          
+          <code class="ruby">  scope :with_taggings, -&gt; {join_and_order_by_taggings_count.having(&quot;count(sub_category_taggings.id) &gt; 0&quot;)}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="32">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  BLACKLISTED_FACTUAL_CATEGORIES = [&#39;Social&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="33">
+          
+          
+          <code class="ruby">                                    &#39;Food and Dining&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="34">
+          
+          
+          <code class="ruby">                                    &#39;Retail&#39;]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="36">
           <span class="hits">1</span>
           
           <code class="ruby">  def self.create_from_array(array, business)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="28">
+        <li class="missed" data-hits="0" data-linenumber="37">
           
           
           <code class="ruby">    array = array - BLACKLISTED_FACTUAL_CATEGORIES</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="29">
+        <li class="missed" data-hits="0" data-linenumber="38">
           
           
           <code class="ruby">    return if array.empty?</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="30">
+        <li class="missed" data-hits="0" data-linenumber="39">
           
           
           <code class="ruby">    @sub_category = self.find_or_create_by(label: array.first, sid_category_id: business.sid_category_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="31">
+        <li class="missed" data-hits="0" data-linenumber="40">
           
           
           <code class="ruby">    @sub_category.sub_category_taggings.create(business: business) unless @sub_category.businesses.where(id: business.id).first</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="32">
+        <li class="missed" data-hits="0" data-linenumber="41">
           
           
           <code class="ruby">    array.each do |cat|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="33">
+        <li class="missed" data-hits="0" data-linenumber="42">
           
           
           <code class="ruby">      next if @sub_category.label == cat</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="34">
+        <li class="missed" data-hits="0" data-linenumber="43">
           
           
           <code class="ruby">      @sub_category = self.create_with(parent: @sub_category).find_or_create_by(label: cat, sid_category_id: business.sid_category_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="35">
+        <li class="missed" data-hits="0" data-linenumber="44">
           
           
           <code class="ruby">      @sub_category.sub_category_taggings.create(business: business) unless @sub_category.businesses.where(id: business.id).first</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="36">
+        <li class="never" data-hits="" data-linenumber="45">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="37">
+        <li class="never" data-hits="" data-linenumber="46">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="never" data-hits="" data-linenumber="47">
           
           
           <code class="ruby">end</code>

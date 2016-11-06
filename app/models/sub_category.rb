@@ -20,6 +20,15 @@ class SubCategory < ActiveRecord::Base
   validates_presence_of :sid_category, :label
   validates_uniqueness_of :label, scope: :sid_category_id
 
+  scope :left_outer_join_taggings, -> { joins('left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id') }
+  scope :left_outer_join_businesses, -> { left_outer_join_taggings.joins('left outer join businesses on sub_category_taggings.business_id = businesses.id') }
+  scope :join_and_order_by_taggings_count, -> {   left_outer_join_taggings.
+                                                  select('sub_categories.*, count(sub_category_taggings.id) as taggings_count').
+                                                  group('sub_categories.id').
+                                                  order("taggings_count DESC") } 
+
+  scope :with_taggings, -> {join_and_order_by_taggings_count.having("count(sub_category_taggings.id) > 0")}
+
   BLACKLISTED_FACTUAL_CATEGORIES = ['Social',
                                     'Food and Dining',
                                     'Retail']
