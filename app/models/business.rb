@@ -61,14 +61,7 @@ class Business < ActiveRecord::Base
   end
 
   def geojsonify(color:)
-    case color
-      when "blue"
-        marker_color = "#229AD6"
-      when "orange"
-        marker_color = "#FF9000"
-      else
-        raise ArgumentError, "That's not a currently supported color."
-    end
+    marker_color = color_for_geojson(color)
     geojson = {
       type: 'Feature',
       geometry: {
@@ -85,18 +78,25 @@ class Business < ActiveRecord::Base
     }
   end
 
+  def color_for_geojson(color)
+    case color
+      when "blue"
+        "#229AD6"
+      when "orange"
+        "#FF9000"
+      else
+        raise ArgumentError, "That's not a currently supported color."
+    end
+  end
+
   def add_factual_categories(client=nil)
     client ||= FactualClient.new
-    begin
       response = client.find_business(external_id)
       response["category_labels"].each do |category_array|
         SubCategory.create_from_array(category_array, self)
       end
     rescue => e
-      if e =~ /There is no entity associated with the factual_id/
-        puts "This record can't be found in factual"
-      end
-    end
+      puts e.message
   end
 
   def self.batch_add_factual_categories

@@ -36,6 +36,13 @@ RSpec.describe SidCategory, type: :model do
     end
   end
 
+  context "#custom_sid_label" do 
+    let!(:category) {create(:sid_category, label: "Surf wax")}
+    it "returns label" do 
+      expect(category.custom_sid_label).to eq("Surf wax")
+    end
+  end
+
   context "scopes" do 
     let!(:category_with_businesses) {create(:sid_category, :category_with_businesses)}
     let!(:category_with_no_businesses) {create(:sid_category, label: "Surf wax", sid_category_id: "2")}

@@ -1,3 +1,4 @@
+require 'active_support/core_ext/kernel/reporting'
 require 'rails_helper'
 
 RSpec.describe Business, type: :model do
@@ -29,6 +30,17 @@ RSpec.describe Business, type: :model do
     end
   end
 
+  describe "before_import_save" do
+    let!(:business) {Business.new }
+    let!(:category) {create(:sid_category)}
+    let(:record) {{sid_category_data: category.sid_category_id}}
+    
+    it "should add category on import" do 
+      business.before_import_save(record)
+      expect(business.sid_category).to eq(category)
+    end
+  end
+
   describe "#add_sid_category" do
     let(:business) { create(:business) }
     
@@ -48,10 +60,39 @@ RSpec.describe Business, type: :model do
     end
   end
 
+  describe "#custom_biz_label" do 
+    let(:business) { create(:business) }
 
+    it "returns name" do 
+      expect(business.custom_biz_label).to eq(business.biz_name)
+    end
+  end
+
+  context "tests needing region" do 
+    let(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
+    let!(:region) {create(:region)}
+    describe "#find_region" do 
+      it "returns region" do 
+        expect(business.find_region).to eq(region)
+      end
+    end
+
+    describe "#link" do 
+      it "returns business link" do 
+        expect(business.link).to eq("/region/ucla/businesses/testy-mctesterson-s-tools")
+      end
+    end
+
+    describe ".geojsonify" do 
+      it "returns geojson" do 
+        geojson = business.geojsonify(color: "blue")
+        expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.2166504, 34.1253012]}, :properties=>{:url=>"/region/ucla/businesses/testy-mctesterson-s-tools", :name=>"Testy Mctesterson's Tools", :address=>"1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US", :"marker-color"=>"#229AD6", :"marker-size"=>"medium"}})
+      end
+    end
+  end
 
   describe "#region" do 
-    let(:business) { create(:business, :with_ungeocoded_address) }
+    let(:business) { create(:business, :with_lat_lng, :with_ungeocoded_address) }
     let!(:region) {create(:region, city: business.city, state: business.state)}
     it "returns the correct region" do 
       expect(business.region).to eq region
@@ -164,6 +205,16 @@ RSpec.describe Business, type: :model do
       end
     end
 
+    context "#lat_lng_to_a" do 
+      it "returns lat/lng if existing" do 
+        expect(biz_with_address_geocoded.lat_lng_to_a).to eq([34.1253012, -118.2166504])
+      end
+
+      it "returns nil if no lat/lng" do 
+        expect(biz_with_no_address.lat_lng_to_a).to be nil
+      end
+    end
+
     context "#full_address" do
       it "returns a string of full address" do
         expect(biz_with_address_geocoded.full_address).to eq ("1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US")
@@ -218,8 +269,17 @@ RSpec.describe Business, type: :model do
     end
 
     it "doesn't fail on a non-existant id" do 
+      expect(STDOUT).to receive(:puts).with("{\"version\":3,\"status\":\"error\",\"error_type\":\"NotFound\",\"message\":\"There is no entity associated with the factual_id 34056115-0a65-46d4-9e57-1f65a6ed8140\"}")
       business.update_attributes(external_id: "34056115-0a65-46d4-9e57-1f65a6ed8140")
       business.add_factual_categories
+    end
+  end
+
+  describe ".batch_add_factual_categories" do
+    let!(:business) { create(:business, :with_category) }
+    it "adds new sub categories from factual" do
+      Business.batch_add_factual_categories
+      expect(business.reload.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Fast Food", "Italian"])
     end
   end
 

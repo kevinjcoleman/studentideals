@@ -19,6 +19,7 @@ module AddressMethods
   end
 
   def lat_lng_to_a
+    return nil unless latitude && longitude
     [latitude, longitude]
   end
 

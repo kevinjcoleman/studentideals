@@ -10,14 +10,7 @@ class Region < ActiveRecord::Base
   validates :name, length: { minimum: 3 }, presence: true
 
   def geojsonify(color:)
-    case color
-      when "blue"
-        marker_color = "#229AD6"
-      when "orange"
-        marker_color = "#FF9000"
-      else
-        raise ArgumentError, "That's not a currently supported color."
-    end
+    marker_color = Color.fetch_color(color)
     geojson = {
       type: 'Feature',
       geometry: {

@@ -1,7 +1,5 @@
 class Linkify
   attr_accessor :background
-
-  LINK_REGEX = /$http|$www/
   
   def initialize(background)
     @background = background
@@ -25,10 +23,7 @@ class Linkify
   def uri?(string)
       uri = URI.parse(string)
       uri.scheme.in? %w(http https)
-    rescue URI::BadURIError
-      false
     rescue URI::InvalidURIError
       false
   end
-
 end

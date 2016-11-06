@@ -38,7 +38,7 @@ RSpec.describe Linkify, type: :model do
 
   describe ".modify!" do 
     let(:link) {"https://www.facebook.com/kevinjamescoleman.7"}
-    let(:string) {"Simple"}
+    let(:string) {"Simple content"}
     
     context "when not a link" do 
       it "returns the string" do 
@@ -51,6 +51,23 @@ RSpec.describe Linkify, type: :model do
       it "returns an <a> link" do 
         value = with_link.modify!(link)
         expect(value).to eq("<a href=\"https://www.facebook.com/kevinjamescoleman.7\" target=\"_blank\">https://www.facebook.com/kevinjamescoleman.7</a>")
+      end
+    end
+  end
+
+  describe "uri?" do 
+    let(:link) {"https://www.facebook.com/kevinjamescoleman.7"}
+    let(:string) {"Simple content"}
+    
+    context "when not a link" do 
+      it "returns the string" do 
+        expect(without_link.uri?(string)).to be_falsey
+      end
+    end
+
+    context "when a link" do 
+      it "returns an <a> link" do 
+        expect(with_link.uri?(link)).to be_truthy
       end
     end
   end
