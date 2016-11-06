@@ -96,7 +96,8 @@ class Business < ActiveRecord::Base
         SubCategory.create_from_array(category_array, self)
       end
     rescue => e
-      puts e.message
+      parsed_error = JSON.parse(e.message)
+      puts parsed_error["message"]
   end
 
   def self.batch_add_factual_categories

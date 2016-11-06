@@ -192,7 +192,7 @@ RSpec.describe Business, type: :model do
   end
 
   describe "geocoding methods" do
-    let(:biz_with_address_geocoded) { create(:business,:with_ungeocoded_address,:with_lat_lng) }
+    let(:biz_with_address_geocoded) { create(:business, :with_ungeocoded_address,:with_lat_lng) }
     let(:biz_with_no_address) {create(:business, biz_name: "Kevin's surfboards.")}
 
     context "#lat_lng" do
@@ -269,7 +269,7 @@ RSpec.describe Business, type: :model do
     end
 
     it "doesn't fail on a non-existant id" do 
-      expect(STDOUT).to receive(:puts).with("{\"version\":3,\"status\":\"error\",\"error_type\":\"NotFound\",\"message\":\"There is no entity associated with the factual_id 34056115-0a65-46d4-9e57-1f65a6ed8140\"}")
+      expect(STDOUT).to receive(:puts).with("There is no entity associated with the factual_id 34056115-0a65-46d4-9e57-1f65a6ed8140")
       business.update_attributes(external_id: "34056115-0a65-46d4-9e57-1f65a6ed8140")
       business.add_factual_categories
     end
