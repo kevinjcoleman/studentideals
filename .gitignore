@@ -27,3 +27,5 @@
 # Ignore coverage details
 /coverage
 /coverage/*
+/doc
+/doc/*
