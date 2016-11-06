@@ -37,11 +37,11 @@ class SubCategory < ActiveRecord::Base
     array = array - BLACKLISTED_FACTUAL_CATEGORIES
     return if array.empty?
     @sub_category = self.find_or_create_by(label: array.first, sid_category_id: business.sid_category_id)
-    @sub_category.sub_category_taggings.create(business: business) unless @sub_category.businesses.where(id: business.id).first
+    business.add_sub_category(@sub_category) 
     array.each do |cat|
       next if @sub_category.label == cat
-      @sub_category = self.create_with(parent: @sub_category).find_or_create_by(label: cat, sid_category_id: business.sid_category_id)
-      @sub_category.sub_category_taggings.create(business: business) unless @sub_category.businesses.where(id: business.id).first
+      sub_category = self.create_with(parent: @sub_category).find_or_create_by(label: cat, sid_category_id: business.sid_category_id)
+      business.add_sub_category(sub_category) 
     end
   end
 end

@@ -5,19 +5,29 @@ class StatesController < ApplicationController
 
   def show
     @categories = SidCategory.with_businesses.where(businesses: {state: @state})
-    @cities = Business.where(state: @state).group_by_city.limit(5)
+    @cities = Business.group_by_city.where(state: @state).limit(5)
   end
 
   def show_state_category
-    @sub_categories = @category.sub_categories.roots.left_outer_join_businesses.with_taggings.
-                                where(businesses: {state: @state})      
-    @cities = Business.where(state: @state, sid_category: @category).group_by_city.limit(5)
+    @sub_categories = @category.sub_categories.roots.
+                                left_outer_join_businesses.
+                                with_taggings.
+                                where(businesses: {state: @state})        
+    @cities = Business.group_by_city.
+                       where(state: @state, sid_category: @category).
+                       limit(5)
   end
 
   def show_state_category_sub_category
     find_sub_category_and_breadcrumbs
-    @sub_categories = @sub_category.children.select('sub_categories.*, count(sub_category_taggings.id) as taggings_count').joins('left outer join sub_category_taggings on sub_category_taggings.sub_category_id = sub_categories.id').joins('left outer join businesses on sub_category_taggings.business_id = businesses.id').where("businesses.state = (?)", @state).group('sub_categories.id').order("taggings_count DESC").limit(5)
-    @cities = Business.where(state: @state, sid_category: @category).joins(:sub_category_taggings).where("sub_category_taggings.sub_category_id = (?)", @sub_category.id).group_by_city.limit(5)
+    @sub_categories = @sub_category.children.
+                                    left_outer_join_businesses.
+                                    with_taggings.
+                                    where(businesses: {state: @state})                                       
+    @cities = Business.group_by_city.
+                       where(state: @state, sid_category: @category).
+                       with_specific_sub_category(@sub_category).
+                       limit(5)
   end
 
   private

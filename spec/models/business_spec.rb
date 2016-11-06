@@ -48,6 +48,8 @@ RSpec.describe Business, type: :model do
     end
   end
 
+
+
   describe "#region" do 
     let(:business) { create(:business, :with_ungeocoded_address) }
     let!(:region) {create(:region, city: business.city, state: business.state)}
@@ -102,6 +104,20 @@ RSpec.describe Business, type: :model do
       it "returns accurate count" do 
         expect(@first_group.count).to eq(3)
         expect(@last_group.count).to eq(2)
+      end
+    end
+
+    context ".with_specific_sub_category" do 
+      let(:sub_category) {create(:sub_category)}
+      let!(:business_with_sub_category) do 
+        business = create(:business)
+        business.add_sub_category(sub_category)
+        business.reload
+      end
+      let!(:business_without_sub_category) {create(:business)}
+
+      it "returns only the associated business" do 
+        expect(Business.with_specific_sub_category(sub_category)).to eq([business_with_sub_category])
       end
     end
   end
@@ -171,7 +187,23 @@ RSpec.describe Business, type: :model do
     end
   end
 
-  describe "adding sub categories" do
+  describe "#add_sub_category" do 
+    let(:sub_category) { create(:sub_category) }
+    let(:business) { create(:business) }
+
+    it "adds a sub_category" do 
+      business.add_sub_category(sub_category)
+      expect(business.sub_categories).to eq([sub_category])
+    end
+    
+    it "doesn't add duplicate sub_category_taggings" do 
+      business.add_sub_category(sub_category)
+      business.add_sub_category(sub_category)
+      expect(business.sub_category_taggings.count).to eq(1)
+    end
+  end
+
+  describe "#add_factual_categories" do
     let(:business) { create(:business, :with_category) }
     it "adds new sub categories from factual" do 
       business.add_factual_categories

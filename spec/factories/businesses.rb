@@ -17,5 +17,12 @@ FactoryGirl.define do
     trait :with_category do
       association :sid_category, :factory => :sid_category
     end
+
+    trait :with_sub_category do
+      after(:create) do |business, evaluator|
+        business.sub_category_taggings.create(sub_category: create(:sub_category))
+        business.update_attributes!(sid_category: business.sub_categories.first.sid_category)
+      end
+    end
   end
 end

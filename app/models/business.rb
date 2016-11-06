@@ -30,6 +30,8 @@ class Business < ActiveRecord::Base
   scope :group_by_city, -> { group("businesses.city").
                              select("businesses.city, count(businesses.id) as count").
                              order("count DESC") }
+  scope :with_specific_sub_category, ->(sub_category) { joins(:sub_category_taggings).
+                                                        where(sub_category_taggings: {sub_category_id: sub_category.id})}
 
   def before_import_save(record)
     self.add_sid_category(record[:sid_category_data]) if record[:sid_category_data]
@@ -39,6 +41,10 @@ class Business < ActiveRecord::Base
     category = SidCategory.find_by(sid_category_id: id)
     raise ArgumentError, "Category doesn't exist!" if !category
     self.sid_category_id = category.id
+  end
+
+  def add_sub_category(category)
+    sub_category_taggings.create(sub_category: category) unless category.in? sub_categories
   end
 
   # Used for Rails Admin instances of model
