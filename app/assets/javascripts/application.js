@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
 //= require autocomplete-rails
@@ -20,7 +19,6 @@
 //= require react
 //= require react_ujs
 //= require components
-//= require turbolinks
 //= require_tree .
 
 function getGeoLocation() {

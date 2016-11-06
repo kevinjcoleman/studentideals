@@ -18,7 +18,9 @@
 </div>
 
 <script>
-$(document).ready(function() {
+var ready;
+ready = function() {
+  if (map != undefined) { map.remove(); } 
   L.mapbox.accessToken = 'pk.eyJ1Ijoia2V2aW5qY29sZW1hbjciLCJhIjoiY2lrN29mcWRlMDIybXVua3RyY2VjcGZqaiJ9.G8ZC3oCreukIyVHftgWXCQ';
   var map = L.mapbox.map('map', 'kevinjcoleman7.0b0f7dei').setView([<%= @business.latitude %>, <%= @business.longitude %>], 15 );
   var myLayer = L.mapbox.featureLayer().addTo(map);
@@ -44,5 +46,7 @@ $(document).ready(function() {
     // featureLayer.getBounds() returns the corners of the furthest-out markers,
     // and map.fitBounds() makes sure that the map contains these.
   map.fitBounds([<%= @other_businesses_lat_lng_array %>]);
-});
+};
+
+$(document).ready(ready);
 </script>
