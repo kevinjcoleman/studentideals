@@ -1,0 +1,22 @@
+<h1><%= @business.biz_name %><span class="biz-category" > <%= logo(@business.sid_category.sid_category_id) %></span></h1>
+
+<% if @business.sid_editorial %>
+  <p class="lead"><%= @business.website_description %></p>
+<% end %>
+
+<% if @business.address_line_1 %>
+  <p><strong>Address: </strong><%= "#{@business.address_line_1}" %></p>
+  <p><%= @business.address_line_2 %></p>
+<% end %>
+
+<% if @business.telephone %>
+  <p><strong>Phone: </strong><%= "#{@business.telephone}"  %></p>
+<% end %>
+
+<% if @business.email %>
+  <p><%= link_to @business.email, "<strong>mailto:#{@business.email}</strong>".html_safe, target: "_blank" %></p>
+<% end %>
+
+<% if @business.website %>
+  <p><%= link_to "<strong>Website</strong>".html_safe, @business.website.html_safe, target: "_blank" %></p>
+<% end %>

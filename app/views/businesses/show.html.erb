@@ -1,36 +1,9 @@
 <div class="col-md-7">
-  <h1><%= @business.biz_name %><span class="biz-category" > <%= logo(@business.sid_category.sid_category_id) %></span></h1>
-  <% if @business.sid_editorial %>
-    <p class="lead"><%= @business.website_description %></p>
-  <% end %>
-  <p><%= "<strong>Address:</strong> #{@business.address_line_1}".html_safe if @business.address_line_1 %></p>
-  <p><%= @business.address_line_2 if @business.address_line_2 %></p>
-  <p><%= "<strong>Phone:</strong> #{@business.telephone}".html_safe if @business.telephone %></p>
-  <% if @business.email %>
-    <p><%= link_to @business.email, "<strong>mailto:#{@business.email}</strong>".html_safe, target: "_blank" %></p>
-  <% end %>
-  <% if @business.website %>
-    <p><%= link_to "<strong>Website</strong>".html_safe, @business.website.html_safe, target: "_blank" %></p>
-  <% end %>
+  <%= render "business_details" %>
 </div>
 
 <div class="col-md-5"> 
-  <% if deal = @business.deal %>
-    <div class="deal-box well center">
-      <h3>What's the deal?</h3>
-      <h2><%= deal.desc_short %></h2>
-      <% if deal.details %>
-        <hr class="deal-break">
-        <h4>What are the deets?</h4>
-        <strong ><%= deal.details %></strong>
-      <% end %>
-      <% if deal.desc_student %>
-        <hr class="deal-break">
-        <h4>Special info for students</h4>
-        <p><%= deal.desc_student %></p>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render "business_deal" %>
 
   <div style="width: 100%;height: 350px" id="map"></div>
   <h6>Similar <%= @business.sid_category.label %> businesses</h6>

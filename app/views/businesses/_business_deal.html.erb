@@ -1,0 +1,18 @@
+<% if deal = @business.deal %>
+  <div class="deal-box well center">
+    <h3>What's the deal?</h3>
+    <h2><%= deal.desc_short %></h2>
+    
+    <% if deal.details %>
+      <hr class="deal-break">
+      <h4>What are the deets?</h4>
+      <strong ><%= deal.details %></strong>
+    <% end %>
+    
+    <% if deal.desc_student %>
+      <hr class="deal-break">
+      <h4>Special info for students</h4>
+      <p><%= deal.desc_student %></p>
+    <% end %>
+  </div>
+<% end %>
