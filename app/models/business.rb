@@ -61,7 +61,7 @@ class Business < ActiveRecord::Base
   end
 
   def geojsonify(color:)
-    marker_color = color_for_geojson(color)
+    marker_color = Color.fetch_color(color)
     geojson = {
       type: 'Feature',
       geometry: {
@@ -76,17 +76,6 @@ class Business < ActiveRecord::Base
         :'marker-size' => 'medium'
       }
     }
-  end
-
-  def color_for_geojson(color)
-    case color
-      when "blue"
-        "#229AD6"
-      when "orange"
-        "#FF9000"
-      else
-        raise ArgumentError, "That's not a currently supported color."
-    end
   end
 
   def add_factual_categories(client=nil)
