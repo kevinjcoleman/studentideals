@@ -386,6 +386,7 @@ footer {
   ul {
     margin: 0 auto;
     width: 75%;
+    padding: 0;
   }
   li {
     padding: 0;
@@ -418,13 +419,16 @@ footer {
 
 .secondary {
   margin: 0;
-  padding: 0 30px 10px; 
+  padding: 0 10px 10px; 
   .inside {
     color: $sid-white;
     padding-top: 10px;
   }
   ul {
-    text-align: left;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    text-align: center;
     li {
       padding: 3px;
       display: inline-block;
