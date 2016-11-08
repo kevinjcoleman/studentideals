@@ -1,16 +1,57 @@
 <footer>
+ <div class="secondary">
+  <div class="inside row">
+    <div class="col-md-6">
+      <div>
+        <ul id="footermenu" class="">
+          <li>
+            <%= link_to "Home", root_path %>
+          </li>
+          <li>
+            <a href="http://studentideals.com/merch" target="_blank">Merchants</a>
+          </li>
+          <li>
+            <a href="http://studentideals.com/what-we-do" target="_blank">About Us</a>
+          </li>
+          <li>
+            <a href="http://studentideals.com/support" target="_blank">Support</a>
+          </li>
+          <li>
+            <a href="http://studentideals.com/contact" target="_blank">Contact Us</a>
+          </li>
+          <li>
+            <a href="http://studentideals.com/privacy-policy-terms-of-service" target="_blank">Privacy Policy &amp; Terms of Service</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6 last text-center">
+      <p>© StudentIDeals, Inc. 2016. All Rights Reserved.<br> 
+        <a href="https://twitter.com/Studentideals" target="_blank"><img src="http://studentideals.com/wp-content/uploads/2014/08/TW1.png" title=""></a> 
+        <a href="http://instagram.com/studentideals/" target="_blank"><img src="http://studentideals.com/wp-content/uploads/2014/08/INSTAGRAM.png" title=""></a> 
+        <a href="https://www.facebook.com/studentideals" target="_blank"><img src="http://studentideals.com/wp-content/uploads/2014/08/FB.png" title=""></a>
+      </p>
+    </div>
+  </div>
+</div>
+<hr>
+
   <div class="row">
     <div class="col-md-6">
-      <h4>Categories</h4>
       <ul>
+        <li>
+          <h4>Categories</h4>
+        </li>
         <% @nav_categories.each do |category| %>
           <li><%= link_to category.label, businesses_for_category_path(category) %></li>
         <% end %>
       </ul>
     </div>
     <div class="col-md-6">
-      <h4>Top cities</h4>
       <ul>
+        <li> 
+          <h4>Top cities</h4>
+        </li>
         <% @nav_cities.each do |city| %>
           <li><%= link_to city.city, region_path(Region.where(city: city.city, state: city.state).first) %></li>
         <% end %>

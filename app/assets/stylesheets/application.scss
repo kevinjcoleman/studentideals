@@ -85,7 +85,7 @@ $sid-grey: #ecf0f1;
   -moz-transition : color 200ms ease-out;
   -o-transition : color 200ms ease-out;
   transition : color 200ms ease-out;
-  &:hover {
+  &:hover, &:focus {
     color: black;
     text-decoration: none
   }
@@ -367,12 +367,77 @@ a {
 //Footer styles
 
 footer {
-  background-color: #ecf0f1;
+  margin-top: 1.5em;
+  padding: 1em 0;
+  background-color: $sid-black;
+  h4 {
+    margin: 0 0 15px;
+    color: $sid-grey;
+    font-size: 26px;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+  p {
+    color: $sid-grey;
+    font-size: 18px;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+  ul {
+    margin: 0 auto;
+    width: 75%;
+  }
+  li {
+    padding: 0;
+    list-style: none;
+    margin: 0 0 5px;
+    a {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      line-height: 16px;
+      font-weight: bold;
+      &:hover, &:focus {
+        color: lighten($sid-blue, 50%);
+      }
+    }
+  }
+  hr {
+    margin: 3% 10%;
+    border-top: 2px solid $sid-blue;
+  }
 }
+
+.footer-links {
+  width: 70%;
+  margin: 10px auto;
+  a {
+    margin-bottom: 20px;
+  }
+}
+
+.secondary {
+  margin: 0;
+  padding: 0 30px 10px; 
+  .inside {
+    color: $sid-white;
+    padding-top: 10px;
+  }
+  ul {
+    text-align: left;
+    li {
+      padding: 3px;
+      display: inline-block;
+    }
+  }
+  .last {
+    margin: 0 auto;
+  }
+} 
 
 //Business styles
 .deal-break {
-  border-top: 2px solid #FFA433;
+  border-top: 2px solid $sid-orange;
   margin: 5% 0;
 }
 
