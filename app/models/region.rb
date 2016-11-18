@@ -29,4 +29,11 @@ class Region < ActiveRecord::Base
     self.close_biz_count = Business.geocoded.within(5, :origin => self).count
     self.save!
   end
+
+  def to_search_json
+    {label: name, 
+     searchable_type: "Locale",
+     id: slug,
+     url: "/region/#{slug}"}
+  end
 end

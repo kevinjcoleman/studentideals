@@ -50,4 +50,14 @@ RSpec.describe Region, type: :model do
       end
     end  
   end
+
+  describe ".to_search_json" do 
+    let(:region) {create(:region, :occidental)}
+    it "returns search json" do 
+      expect(region.to_search_json).to eq({:label=>"Occidental", 
+                                           :searchable_type=>"Locale", 
+                                           :id=>"occidental", 
+                                           :url=>"/region/occidental"})
+    end
+  end
 end

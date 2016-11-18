@@ -71,4 +71,14 @@ RSpec.describe SidCategory, type: :model do
       end
     end
   end
+
+  describe ".to_search_json" do 
+    let!(:sid_category) {create(:sid_category)}
+    it "should return search json" do 
+      expect(sid_category.to_search_json).to eq({:label=>"Cool stuff to do.", 
+                                                 :searchable_type=>"SID Category", 
+                                                 :id=>"cool-stuff-to-do", 
+                                                 :url=>"/category/cool-stuff-to-do"})
+    end
+  end
 end

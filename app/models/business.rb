@@ -110,4 +110,11 @@ class Business < ActiveRecord::Base
   def website_description
     Linkify.new(sid_editorial).add_links.html_safe
   end
+
+  def to_search_json
+    {label: biz_name, 
+     searchable_type: "Business",
+     id: slug,
+     url: "/region/#{region.slug}/businesses/#{slug}"}
+  end
 end

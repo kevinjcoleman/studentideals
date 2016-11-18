@@ -89,4 +89,14 @@ RSpec.describe SubCategory, type: :model do
       end
     end
   end
+
+  describe ".to_search_json" do 
+    let!(:sub_category) { create(:sub_category) }
+    it "returns search json" do 
+      expect(sub_category.to_search_json).to eq({:label=>"Restaurants", 
+                                                 :searchable_type=>"Category", 
+                                                 :id=>"restaurants", 
+                                                 :url=>"/category/cool-stuff-to-do/sub_category/restaurants"})
+    end
+  end
 end

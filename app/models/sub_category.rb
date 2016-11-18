@@ -44,4 +44,11 @@ class SubCategory < ActiveRecord::Base
       business.add_sub_category(sub_category) 
     end
   end
+
+  def to_search_json
+    {label:  label, 
+     searchable_type: "Category",
+     id: slug,
+     url: "/category/#{sid_category.slug}/sub_category/#{slug}"}
+  end
 end

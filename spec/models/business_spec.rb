@@ -258,7 +258,7 @@ RSpec.describe Business, type: :model do
     let(:business) { create(:business, :with_category) }
     it "adds new sub categories from factual" do 
       business.add_factual_categories
-      expect(business.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Fast Food", "Italian"])
+      expect(business.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Italian", "Japanese"])
     end
 
     it "doesn't duplicate existing sub categories or taggings." do
@@ -279,7 +279,7 @@ RSpec.describe Business, type: :model do
     let!(:business) { create(:business, :with_category) }
     it "adds new sub categories from factual" do
       Business.batch_add_factual_categories
-      expect(business.reload.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Fast Food", "Italian"])
+      expect(business.reload.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Italian", "Japanese"])
     end
   end
 
@@ -306,4 +306,15 @@ RSpec.describe Business, type: :model do
       end
     end   
   end
+  describe ".to_search_json" do 
+    let(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
+    let!(:region) {create(:region)}
+    it "should return search json" do 
+      expect(business.to_search_json).to eq({:label=>"Testy Mctesterson's Tools", 
+                                             :searchable_type=>"Business", 
+                                             :id=>"testy-mctesterson-s-tools", 
+                                             :url=>"/region/ucla/businesses/testy-mctesterson-s-tools"})
+    end
+  end
+
 end

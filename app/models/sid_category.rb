@@ -34,4 +34,11 @@ class SidCategory < ActiveRecord::Base
   def business_count
     Business.where(sid_category_id: id).count
   end
+
+  def to_search_json
+    {label: label, 
+     searchable_type: "SID Category",
+     id: slug,
+     url: "/category/#{slug}"}
+  end
 end
