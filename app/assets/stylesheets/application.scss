@@ -35,10 +35,10 @@
 @mixin box-shadow-mixin {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}    
+}
 
 
-body { 
+body {
   padding-top: 60px;
   font-family: 'Raleway', sans-serif;
   overflow-x: hidden;
@@ -67,7 +67,7 @@ $sid-grey: #ecf0f1;
 @media (min-width: 768px) {
   .container {
     width: 100%;
-  } 
+  }
 }
 
 .center {
@@ -95,7 +95,7 @@ a {
    @extend .link;
 }
 
-.navbar {  
+.navbar {
   min-height: 65px;
   @include box-shadow-mixin;
 }
@@ -127,13 +127,13 @@ a {
   .navbar-brand:hover {
     color: $sid-orange;
   }
-  .navbar-nav { 
+  .navbar-nav {
     margin-top: .85em;
     li {
       .active {
         a {
           background-color: $sid-orange !important;
-        }   
+        }
       }
       a {
           color: $sid-orange;
@@ -159,18 +159,18 @@ a {
 .btn-primary {
   color: $sid-white;
   background-color: $sid-blue;
-  border-color: #33799C;  
+  border-color: #33799C;
 }
 
 .btn-success {
   color: $sid-white;
   background-color: $sid-orange;
-  border-color: rgb(230, 152, 51); 
+  border-color: rgb(230, 152, 51);
 }
 
 .btn-success:hover, .btn-success:focus, .btn-success:active {
   background-color: $sid-blue !important;
-}  
+}
 
 .ui-autocomplete {
     z-index: 1000;
@@ -239,7 +239,7 @@ a {
 
 //Search styles
 .search-box-container {
-  border-bottom: 1px transparent; 
+  border-bottom: 1px transparent;
   padding-top: 8px;
   position: relative;
 }
@@ -266,7 +266,7 @@ a {
     color: #999;
   }
   &:hover {
-    background-color: $sid-blue; 
+    background-color: $sid-blue;
     color: white;
     .search-item-type {
       color: white;
@@ -330,7 +330,7 @@ a {
 .biz-deal-listing {
   position: absolute;
   right: 1.0em;
-  top: 1em; 
+  top: 1em;
 }
 
 //Listing Styles
@@ -355,8 +355,7 @@ a {
     line-height: 30px;
   }
   &:hover {
-    font-size: 1.6em;
-    background: #f6f6f6;  
+    background: #f6f6f6;
   }
 }
 
@@ -419,7 +418,7 @@ footer {
 
 .secondary {
   margin: 0;
-  padding: 0 10px 10px; 
+  padding: 0 10px 10px;
   .inside {
     color: $sid-white;
     padding-top: 10px;
@@ -437,7 +436,7 @@ footer {
   .last {
     margin: 0 auto;
   }
-} 
+}
 
 //Business styles
 .deal-break {
@@ -447,7 +446,7 @@ footer {
 
 
 
-//Biz show page 
+//Biz show page
 
 .biz-category {
   font-size: 16px;
@@ -469,7 +468,7 @@ footer {
   .ad-text {
     color: $sid-white;
     h3 {
-      margin: 5px 0px; 
+      margin: 5px 0px;
     }
   }
 }
