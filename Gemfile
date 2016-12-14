@@ -45,6 +45,7 @@ gem 'pg'
 gem 'react-rails'
 gem "awesome_print"
 gem 'metamagic'
+gem 'rack-rewrite'
 
 
 
