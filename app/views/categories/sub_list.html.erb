@@ -1,9 +1,12 @@
-<h1><%= @sub_category.label %></h1>
+<% meta title: @sub_category.label,
+   description: "IDeal #{@sub_category.label} Discounts and Info." %>
 
-<% if @sub_category.children.any? %>
+<h1>IDeal <strong><%= @sub_category.label %></strong> Discounts and Info.</h1>
+
+<% if @children.present? %>
   <div class="row">
     <div class="col-md-6">
-      <h2><%= @sub_category.label %> Categories</h2>
+      <h2>Subcategories</h2>
       <ul class="list">
       <% @children.each do |sub_cat| %>
         <li class="list-item"><%= link_to "#{sub_cat.label}", businesses_for_category_and_subcategory_path(@category, sub_cat) %></li>

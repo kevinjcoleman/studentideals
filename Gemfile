@@ -44,6 +44,7 @@ gem 'pg_search'
 gem 'pg'
 gem 'react-rails'
 gem "awesome_print"
+gem 'metamagic'
 
 
 
@@ -85,4 +86,3 @@ group :development do
   gem 'brakeman', :require => false
   gem 'simplecov', :require => false
 end
-

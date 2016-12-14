@@ -1,4 +1,7 @@
-<h1><%= @businesses %> <%= @sub_category.label %> Businesses in <%= @state %></h1>
+<% meta title: "#{@sub_category.label} in #{@state}",
+   description: "IDeal #{@sub_category.label} Discounts and Info in #{@state}." %>
+
+<h1>IDeal <%= @sub_category.label %> Discounts and Info in <%= @state %>.</h1>
 
 <% if @sub_categories.first %>
   <div class="row">

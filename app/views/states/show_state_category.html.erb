@@ -1,4 +1,7 @@
-<h1><%= @businesses %> <%= @category.label %> Businesses in <%= @state %></h1>
+<% meta title: "#{@category.label} in #{@state}",
+   description: "IDeal #{@category.label} Discounts and Info in #{@state}." %>
+
+<h1>IDeal <%= @category.label %> Discounts and Info in <%= @state %>.</h1>
 
 <div class="row">
   <div class="col-md-6">

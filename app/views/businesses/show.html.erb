@@ -1,8 +1,11 @@
+<% meta title: "#{@business.biz_name} - #{@region.name}",
+   description: @business.sid_editorial ? @business.sid_editorial : "IDeal discounts and info at #{@business.biz_name}" %>
+
 <div class="col-md-7">
   <%= render "business_details" %>
 </div>
 
-<div class="col-md-5"> 
+<div class="col-md-5">
   <%= render "business_deal" %>
 
   <div style="width: 100%;height: 350px" id="map"></div>
@@ -20,7 +23,7 @@
 <script>
 var ready;
 ready = function() {
-  if (map != undefined) { map.remove(); } 
+  if (map != undefined) { map.remove(); }
   L.mapbox.accessToken = 'pk.eyJ1Ijoia2V2aW5qY29sZW1hbjciLCJhIjoiY2lrN29mcWRlMDIybXVua3RyY2VjcGZqaiJ9.G8ZC3oCreukIyVHftgWXCQ';
   var map = L.mapbox.map('map', 'kevinjcoleman7.0b0f7dei').setView([<%= @business.latitude %>, <%= @business.longitude %>], 15 );
   var myLayer = L.mapbox.featureLayer().addTo(map);
