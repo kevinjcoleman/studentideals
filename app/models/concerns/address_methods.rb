@@ -1,5 +1,6 @@
 module AddressMethods
   extend ActiveSupport::Concern
+  DEFAULT_NEARBY_MILES = 5
 
   included do
     geocoded_by :full_address
@@ -12,6 +13,7 @@ module AddressMethods
     scope :geocoded, -> { where("latitude is not NULL and longitude is not NULL AND latitude != 0.0 AND longitude != 0.0") }
     scope :ungeocoded, -> { where("(latitude is NULL and longitude is NULL) OR (latitude = 0.0 AND longitude = 0.0)") }
     scope :lat_long_of_zero, -> { where(latitude: 0.0, longitude: 0.0) }
+    scope :nearby, -> (origin) {geocoded.within(DEFAULT_NEARBY_MILES, origin: origin).by_distance(origin: origin)}
   end
 
   def is_geocoded?
@@ -40,7 +42,7 @@ module AddressMethods
   end
 
   def address_line_2
-    return unless (city || zip) && state 
+    return unless (city || zip) && state
     "#{geocode_city}#{geocode_state}#{geocode_zip}#{geocode_country_code}".gsub(/^,/, '').strip
   end
 

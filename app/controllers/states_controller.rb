@@ -4,7 +4,7 @@ class StatesController < ApplicationController
   before_action :find_category_and_breadcrumb, except: [:show]
 
   def show
-    @categories = SidCategory.with_businesses.where(businesses: {state: @state})
+    @categories = SidCategory.with_businesses.where(businesses: {state: @state}).limit(5)
     @cities = Business.group_by_city.where(state: @state).limit(5)
   end
 
@@ -12,9 +12,9 @@ class StatesController < ApplicationController
     @sub_categories = @category.sub_categories.roots.
                                 left_outer_join_businesses.
                                 with_taggings.
-                                where(businesses: {state: @state})        
-    @cities = Business.group_by_city.
-                       where(state: @state, sid_category: @category).
+                                where(businesses: {state: @state}).limit(5)
+    @cities = @category.businesses.group_by_city.
+                       where(state: @state).
                        limit(5)
   end
 
@@ -23,10 +23,9 @@ class StatesController < ApplicationController
     @sub_categories = @sub_category.children.
                                     left_outer_join_businesses.
                                     with_taggings.
-                                    where(businesses: {state: @state})                                       
-    @cities = Business.group_by_city.
-                       where(state: @state, sid_category: @category).
-                       with_specific_sub_category(@sub_category).
+                                    where(businesses: {state: @state}).limit(5)
+    @cities = @sub_category.businesses.group_by_city.
+                       where(state: @state).
                        limit(5)
   end
 

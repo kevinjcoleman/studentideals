@@ -34,8 +34,8 @@ RSpec.describe Business, type: :model do
     let!(:business) {Business.new }
     let!(:category) {create(:sid_category)}
     let(:record) {{sid_category_data: category.sid_category_id}}
-    
-    it "should add category on import" do 
+
+    it "should add category on import" do
       business.before_import_save(record)
       expect(business.sid_category).to eq(category)
     end
@@ -43,10 +43,10 @@ RSpec.describe Business, type: :model do
 
   describe "#add_sid_category" do
     let(:business) { create(:business) }
-    
+
     context "with existing category" do
       let(:category) { create(:sid_category) }
-      
+
       it "creates an association" do
         business.add_sid_category(category.sid_category_id) && business.save!
         expect(business.sid_category).to eq category
@@ -60,41 +60,41 @@ RSpec.describe Business, type: :model do
     end
   end
 
-  describe "#custom_biz_label" do 
+  describe "#custom_biz_label" do
     let(:business) { create(:business) }
 
-    it "returns name" do 
+    it "returns name" do
       expect(business.custom_biz_label).to eq(business.biz_name)
     end
   end
 
-  context "tests needing region" do 
+  context "tests needing region" do
     let(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
     let!(:region) {create(:region)}
-    describe "#find_region" do 
-      it "returns region" do 
+    describe "#find_region" do
+      it "returns region" do
         expect(business.find_region).to eq(region)
       end
     end
 
-    describe "#link" do 
-      it "returns business link" do 
+    describe "#link" do
+      it "returns business link" do
         expect(business.link).to eq("/region/ucla/businesses/testy-mctesterson-s-tools")
       end
     end
 
-    describe ".geojsonify" do 
-      it "returns geojson" do 
+    describe ".geojsonify" do
+      it "returns geojson" do
         geojson = business.geojsonify(color: "blue")
         expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.2166504, 34.1253012]}, :properties=>{:url=>"/region/ucla/businesses/testy-mctesterson-s-tools", :name=>"Testy Mctesterson's Tools", :address=>"1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US", :"marker-color"=>"#229AD6", :"marker-size"=>"medium"}})
       end
     end
   end
 
-  describe "#region" do 
+  describe "#region" do
     let(:business) { create(:business, :with_lat_lng, :with_ungeocoded_address) }
     let!(:region) {create(:region, city: business.city, state: business.state)}
-    it "returns the correct region" do 
+    it "returns the correct region" do
       expect(business.region).to eq region
     end
   end
@@ -128,8 +128,8 @@ RSpec.describe Business, type: :model do
       end
     end
 
-    context ".group_by_city" do 
-      before do 
+    context ".group_by_city" do
+      before do
         3.times  {create(:business, :with_lat_lng, :with_ungeocoded_address)}
         2.times  {create(:business, :with_lat_lng, address1: "Address 1", city: "Huntington Beach", state: "CA")}
         @grouped_business = Business.group_by_city
@@ -137,27 +137,27 @@ RSpec.describe Business, type: :model do
         @last_group = @grouped_business.last
       end
 
-      it "orders by count" do 
+      it "orders by count" do
         expect(@first_group.city).to eq("Los Angeles")
         expect(@last_group.city).to eq("Huntington Beach")
       end
 
-      it "returns accurate count" do 
+      it "returns accurate count" do
         expect(@first_group.count).to eq(3)
         expect(@last_group.count).to eq(2)
       end
     end
 
-    context ".with_specific_sub_category" do 
+    context ".with_specific_sub_category" do
       let(:sub_category) {create(:sub_category)}
-      let!(:business_with_sub_category) do 
+      let!(:business_with_sub_category) do
         business = create(:business)
         business.add_sub_category(sub_category)
         business.reload
       end
       let!(:business_without_sub_category) {create(:business)}
 
-      it "returns only the associated business" do 
+      it "returns only the associated business" do
         expect(Business.with_specific_sub_category(sub_category)).to eq([business_with_sub_category])
       end
     end
@@ -167,7 +167,8 @@ RSpec.describe Business, type: :model do
     let!(:geocoded_business) { create(:business, :with_lat_lng, :with_ungeocoded_address)}
     let!(:ungeocoded_business) { create(:business, biz_name: "Kevin's surfboards.")}
     let!(:zero_lat_long_business) { create(:business, latitude: 0.0, longitude: 0.0, biz_name: "Mos Eisley Cantina")}
-    
+    let!(:region) {create(:region, :occidental)}
+
     context ".geocoded" do
       it "returns just geocoded businesses" do
         expect(Business.geocoded).to eq([geocoded_business])
@@ -180,13 +181,19 @@ RSpec.describe Business, type: :model do
       end
 
       it "returns businesses with lat and long of 0.0" do
-        expect(Business.ungeocoded.last).to eq(zero_lat_long_business) 
+        expect(Business.ungeocoded.last).to eq(zero_lat_long_business)
       end
     end
 
     context ".lat_long_of_zero" do
       it "returns just businesses with lat and long of 0.0" do
-        expect(Business.lat_long_of_zero).to eq([zero_lat_long_business]) 
+        expect(Business.lat_long_of_zero).to eq([zero_lat_long_business])
+      end
+    end
+
+    context ".nearby" do
+      it "returns only close addresses" do
+        expect(Business.nearby(region)).to eq([geocoded_business])
       end
     end
   end
@@ -205,12 +212,12 @@ RSpec.describe Business, type: :model do
       end
     end
 
-    context "#lat_lng_to_a" do 
-      it "returns lat/lng if existing" do 
+    context "#lat_lng_to_a" do
+      it "returns lat/lng if existing" do
         expect(biz_with_address_geocoded.lat_lng_to_a).to eq([34.1253012, -118.2166504])
       end
 
-      it "returns nil if no lat/lng" do 
+      it "returns nil if no lat/lng" do
         expect(biz_with_no_address.lat_lng_to_a).to be nil
       end
     end
@@ -238,16 +245,16 @@ RSpec.describe Business, type: :model do
     end
   end
 
-  describe "#add_sub_category" do 
+  describe "#add_sub_category" do
     let(:sub_category) { create(:sub_category) }
     let(:business) { create(:business) }
 
-    it "adds a sub_category" do 
+    it "adds a sub_category" do
       business.add_sub_category(sub_category)
       expect(business.sub_categories).to eq([sub_category])
     end
-    
-    it "doesn't add duplicate sub_category_taggings" do 
+
+    it "doesn't add duplicate sub_category_taggings" do
       business.add_sub_category(sub_category)
       business.add_sub_category(sub_category)
       expect(business.sub_category_taggings.count).to eq(1)
@@ -256,7 +263,7 @@ RSpec.describe Business, type: :model do
 
   describe "#add_factual_categories" do
     let(:business) { create(:business, :with_category) }
-    it "adds new sub categories from factual" do 
+    it "adds new sub categories from factual" do
       business.add_factual_categories
       expect(business.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Italian", "Japanese"])
     end
@@ -268,7 +275,7 @@ RSpec.describe Business, type: :model do
       expect(business.sub_category_taggings.count).to eq 4
     end
 
-    it "doesn't fail on a non-existant id" do 
+    it "doesn't fail on a non-existant id" do
       expect(STDOUT).to receive(:puts).with("There is no entity associated with the factual_id 34056115-0a65-46d4-9e57-1f65a6ed8140")
       business.update_attributes(external_id: "34056115-0a65-46d4-9e57-1f65a6ed8140")
       business.add_factual_categories
@@ -283,36 +290,36 @@ RSpec.describe Business, type: :model do
     end
   end
 
-  describe "deal info" do 
+  describe "deal info" do
     let!(:business) { create(:business, biz_id: 1) }
     let!(:deal) { create(:deal) }
-    it ".deal returns the first deal" do 
+    it ".deal returns the first deal" do
       expect(business.deal).to eq deal
     end
   end
 
-  describe ".website_description" do 
+  describe ".website_description" do
     let(:business_with_link_in_bio) { create(:business, sid_editorial: "http://www.yelp.com/biz/i-love-thai-arlington Eco-friendly residential and commercial cleaning service; uses HEPA vacuum filters and homemade, non-toxic cleaning products.") }
     let(:business_without_link_in_bio) { create(:business, sid_editorial: "Eco-friendly residential and commercial cleaning service; uses HEPA vacuum filters and homemade, non-toxic cleaning products.") }
-    context "with a link" do 
-      it "adds <a>" do 
+    context "with a link" do
+      it "adds <a>" do
         expect(business_with_link_in_bio.website_description).to eq "<a href=\"http://www.yelp.com/biz/i-love-thai-arlington\" target=\"_blank\">http://www.yelp.com/biz/i-love-thai-arlington</a> Eco-friendly residential and commercial cleaning service; uses HEPA vacuum filters and homemade, non-toxic cleaning products."
       end
     end
 
-    context "without a link" do 
-      it "returns same sid_editorial" do 
+    context "without a link" do
+      it "returns same sid_editorial" do
         expect(business_without_link_in_bio.website_description).to eq business_without_link_in_bio.sid_editorial
       end
-    end   
+    end
   end
-  describe ".to_search_json" do 
+  describe ".to_search_json" do
     let(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
     let!(:region) {create(:region)}
-    it "should return search json" do 
-      expect(business.to_search_json).to eq({:label=>"Testy Mctesterson's Tools", 
-                                             :searchable_type=>"Business", 
-                                             :id=>"testy-mctesterson-s-tools", 
+    it "should return search json" do
+      expect(business.to_search_json).to eq({:label=>"Testy Mctesterson's Tools",
+                                             :searchable_type=>"Business",
+                                             :id=>"testy-mctesterson-s-tools",
                                              :url=>"/region/ucla/businesses/testy-mctesterson-s-tools"})
     end
   end

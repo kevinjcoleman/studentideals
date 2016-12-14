@@ -14,8 +14,6 @@ class Business < ActiveRecord::Base
     ]
   end
 
-
-
   validates :biz_name, length: { minimum: 3 }, presence: true
   belongs_to :sid_category
   has_many :sub_category_taggings
@@ -30,6 +28,11 @@ class Business < ActiveRecord::Base
   scope :group_by_city, -> { group("businesses.city").
                              select("businesses.city, count(businesses.id) as count").
                              order("count DESC") }
+  scope :group_by_state, ->{ where.not(state: nil).
+                             group("businesses.state").
+                             select("state, count(businesses.id) as count").
+                             order("count DESC") }
+
   scope :with_specific_sub_category, ->(sub_category) { joins(:sub_category_taggings).
                                                         where(sub_category_taggings: {sub_category_id: sub_category.id})}
 
@@ -103,7 +106,7 @@ class Business < ActiveRecord::Base
     Region.find_by(city: city, state:state)
   end
 
-  def deal 
+  def deal
     deals.first
   end
 
@@ -112,7 +115,7 @@ class Business < ActiveRecord::Base
   end
 
   def to_search_json
-    {label: biz_name, 
+    {label: biz_name,
      searchable_type: "Business",
      id: slug,
      url: "/region/#{region.slug}/businesses/#{slug}"}
