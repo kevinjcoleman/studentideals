@@ -20,6 +20,9 @@
   <%= render 'layouts/messages' %>
   <%= render 'layouts/breadcrumbs' %>
   <%= yield %>
+  <% unless splashed? %>
+  <%= render 'layouts/splash' %>
+  <% end %>
 </div>
 <%= render 'layouts/ad' %>
 <%= render 'layouts/footer' %>

@@ -18,6 +18,7 @@
 //= require bootstrap-sprockets
 //= require react
 //= require react_ujs
+//= require js.cookie
 //= require components
 //= require_tree .
 
@@ -31,8 +32,12 @@ function setGeoCookie(position) {
 }
 
 $(document).ready(function(){
-    $('.toggler').click(function(e){
-      $(this).parent().children().toggle();  //swaps the display:none between the two spans
-      $(this).parent().parent().find('.toggled_content').slideToggle();  //swap the display of the main content with slide action
-  }); 
+  $('.toggler').click(function(e){
+    $(this).parent().children().toggle();  //swaps the display:none between the two spans
+    $(this).parent().parent().find('.toggled_content').slideToggle();  //swap the display of the main content with slide action
+  });
+  if ($('#splash-modal').length) {
+    Cookies.set('splashed', 'true', { expires: 2});
+    $('#splash-modal').modal('show');
+  }
 });

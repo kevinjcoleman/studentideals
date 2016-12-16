@@ -23,6 +23,10 @@ module ApplicationHelper
       fa_icon "shopping-bag"
     else
       fa_icon "question"
-    end 
-  end       
+    end
+  end
+
+  def splashed?
+    cookies[:splashed]
+  end
 end
