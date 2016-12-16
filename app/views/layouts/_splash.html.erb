@@ -3,15 +3,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Popup form here</h4>
+        <h4 class="modal-title">Learn more about StudentIdeals!</h4>
       </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <%= form_tag(signups_path, method: :post) do %>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= label_tag(:q, "Email") %>
+            <%= text_field_tag :email, nil, placeholder: "student@school.edu", class: "form-control" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= submit_tag("Signup", class: "btn btn-primary") %>
+        </div>
+      <% end %>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

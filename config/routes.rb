@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  
+
+  resources :signups, only: [:create]
+
   get 'search/results'
 
   get 'search/show'
-  
+
   devise_for :admins,controllers: {
       registrations: 'registrations/registrations'
   }
-  
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'region/show'
   resources :region do
@@ -29,9 +31,9 @@ Rails.application.routes.draw do
   get '/coverage', :to => redirect('coverage/index.html')
 
 
-  
 
-  
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
