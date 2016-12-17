@@ -3,3 +3,4 @@
 <% else %>
   $('#modal-signup-form').html("<%= j (render 'layouts/signup_form') %>");
 <% end %>
+$("#notice").html('<%= j render partial: "layouts/messages" %>');

@@ -5,7 +5,7 @@ class SignupsController < ApplicationController
       if @saved = @signup.save
         format.js { flash.now[:notice] = "Succesfully joined!" }
       else
-        format.js { flash.now[:danger] = "<strong>Something went wrong</strong>" }
+        format.js
       end
     end
   end
