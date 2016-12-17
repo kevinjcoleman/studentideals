@@ -1,0 +1,5 @@
+<% if @saved %>
+  $("#splash-modal").modal('hide');
+<% else %>
+  $('#modal-signup-form').html("<%= j (render 'layouts/signup_form') %>");
+<% end %>

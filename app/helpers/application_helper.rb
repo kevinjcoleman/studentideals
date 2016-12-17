@@ -25,8 +25,4 @@ module ApplicationHelper
       fa_icon "question"
     end
   end
-
-  def splashed?
-    cookies[:splashed]
-  end
 end

@@ -5,18 +5,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Learn more about StudentIdeals!</h4>
       </div>
-      <%= form_tag(signups_path, method: :post) do %>
-        <div class="modal-body">
-          <div class="form-group">
-            <%= label_tag(:q, "Email") %>
-            <%= text_field_tag :email, nil, placeholder: "student@school.edu", class: "form-control" %>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= submit_tag("Signup", class: "btn btn-primary") %>
-        </div>
-      <% end %>
+      <div id="modal-signup-form">
+        <%= render "layouts/signup_form" %>
+      </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
