@@ -34,7 +34,6 @@ gem "breadcrumbs_on_rails"
 gem 'friendly_id', '~> 5.1.0'
 gem 'geokit-rails'
 gem "geokit"
-gem 'selenium-webdriver'
 gem "figaro"
 gem 'factual-api', '~> 1.3', '>= 1.3.19'
 gem 'where-or'
@@ -71,6 +70,7 @@ group :development, :test do
   gem 'launchy'
   gem 'faker'
   gem 'capybara'
+  gem 'poltergeist'
   gem 'guard-rspec'
   gem 'terminal-notifier-guard'
 end
