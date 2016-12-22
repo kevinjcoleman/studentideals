@@ -5,7 +5,7 @@ class Region < ActiveRecord::Base
 
   include PgSearch
   multisearchable :against => [:name]
-  
+
   validates_uniqueness_of :name
   validates :name, length: { minimum: 3 }, presence: true
 
@@ -31,7 +31,7 @@ class Region < ActiveRecord::Base
   end
 
   def to_search_json
-    {label: name, 
+    {label: name,
      searchable_type: "Locale",
      id: slug,
      url: "/region/#{slug}"}

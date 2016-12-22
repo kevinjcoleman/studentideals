@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216065325) do
+ActiveRecord::Schema.define(version: 20161222073506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20161216065325) do
     t.float    "longitude"
     t.text     "slug"
     t.integer  "close_biz_count"
+    t.string   "type"
   end
 
   add_index "regions", ["slug"], name: "index_regions_on_slug", unique: true, using: :btree

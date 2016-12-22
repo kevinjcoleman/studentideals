@@ -1,0 +1,2 @@
+class Locale < Region
+end
