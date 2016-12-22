@@ -14,20 +14,21 @@ describe "homepage experience", :type => :feature, :js => true do
   it "has correct content" do
     visit root_path
     expect(page).to have_content 'Get more when you go out.'
+    # Close popup
     click_on('Close')
+    # Open biz category dropdown and click on category.
     find('.toggler', text: 'Business Categories').click
-    page.save_screenshot('afterclick.png', :full => true)
     find('.list-item', text: category.label).click
-    page.save_screenshot('afterclick2.png', :full => true)
+    # Click on sub_category
     click_on("Restaurants")
-    page.save_screenshot('afterclick3.png', :full => true)
+    # Click on sub_category's child
     click_on("Pizza")
-    page.save_screenshot('afterclick4.png', :full => true)
+    # Click on the state
     click_on("CA")
-    page.save_screenshot('afterclick5.png', :full => true)
+    # Click on a region
     find('.list-item').find('a', text:region.city).click
-    page.save_screenshot('afterclick6.png', :full => true)
+    #Click thourgh to the business
     click_on(business.biz_name)
-    page.save_screenshot('afterclick7.png', :full => true)
+    # To save a screenshot of the test's current progress page.save_screenshot('afterclick7.png', :full => true)
   end
 end
