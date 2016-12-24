@@ -1,29 +1,38 @@
 Rails.application.routes.draw do
 
+  # This allows signups to be created through the popup form.
   resources :signups, only: [:create]
 
+  # Return json for search bar.
   get 'search/results'
-  get 'search/show'
 
+  # Devise config.
   devise_for :admins,controllers: {
       registrations: 'registrations/registrations'
   }
 
+  # Reroute admin traffic to RailsAdmin Engine.
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  get 'region/show'
-  resources :region do
-    get :autocomplete_region_name, :on => :collection
-    resources :categories, only: [:show]
+
+  # Currently the region only shows and has an index, it also has nested routes for category and category+subcategory.
+  resources :region, only: [:show, :index] do
+    get "category/:id", to: "categories#show", as: 'and_category'
+    get "category/:category_id/sub_category/:id", to: "categories#sub_show", as: 'category_and_subcategory'
     resources :businesses, only: [:show]
   end
 
+  # Click through category to the most deep subcategory
   get 'category/:id' => "categories#list", as: 'category'
-  get 'category/:category_id/sub_category/:id' => "categories#sub_list", as: 'category_and_subcategory'
-  get '/region/:region_id/category/:category_id/sub_category/:id' => "categories#sub_show", as: 'region_category_and_subcategory'
+  resources :category, only: [] do
+    get "sub_category/:id", to: "categories#sub_list", as: 'and_subcategory'
+  end
+
+  # Click through states to category & subcategory.
   get 'states/:state_code' => "states#show", as: 'state'
   get 'states/:state_code/category/:category_id' => "states#show_state_and_category", as: 'state_and_category'
   get 'states/:state_code/category/:category_id/subcategory/:sub_category_id' => "states#show_state_category_and_subcategory", as: 'state_category_and_subcategory'
 
+  # Testing for geocoding, only works in dev currently.
   get 'geocoder_test/test' => 'geocoder_test#test', as: 'geocoder_test'
   get 'geocoder_test/geolocation' => 'geocoder_test#geolocation_api', as: 'geocoder_api'
 

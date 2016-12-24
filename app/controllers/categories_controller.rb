@@ -60,7 +60,7 @@ class CategoriesController < ApplicationController
       @region = Region.find(region_id)
       @category = SidCategory.find(category_id)
       add_breadcrumb @region.name, region_path(@region)
-      add_breadcrumb @category.label, region_category_path(@region, @category)
+      add_breadcrumb @category.label, region_and_category_path(@region, @category)
     end
 
 
