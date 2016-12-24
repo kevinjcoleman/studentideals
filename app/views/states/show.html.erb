@@ -8,7 +8,7 @@
     <h2>Business Categories</h2>
     <ul class="list">
     <% @categories.each do |category| %>
-      <li class="list-item"><%= link_to "#{category.label}", state_category_path(@state, category) %></li>
+      <li class="list-item"><%= link_to "#{category.label}", state_and_category_path(@state, category) %></li>
     <% end %>
     </ul>
   </div>

@@ -19,10 +19,10 @@ RSpec.describe StatesController, type: :controller do
     end
   end
 
-  describe "GET #show_state_category" do
+  describe "GET #show_state_and_category" do
     before do  
       add_sub_category_tagging(business, category)
-      get :show_state_category, state_code: "CA",  category_id: category.id 
+      get :show_state_and_category, state_code: "CA",  category_id: category.id 
     end
 
     it { should respond_with(:success) }
@@ -39,11 +39,11 @@ RSpec.describe StatesController, type: :controller do
     end
   end
 
-  describe "GET #show_state_category_sub_category" do
+  describe "GET #show_state_category_and_subcategory" do
     before do 
       add_sub_category_tagging(business, category)
       @sub_sub_category = create_subcategory_children(business, sub_category)
-      get :show_state_category_sub_category, state_code: "CA",  category_id: category.id, sub_category_id: sub_category.id  
+      get :show_state_category_and_subcategory, state_code: "CA",  category_id: category.id, sub_category_id: sub_category.id  
     end
     it { should respond_with(:success) }
     it "should return a city" do 

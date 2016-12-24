@@ -120,14 +120,14 @@ RailsAdmin.config do |config|
   end
 
   config.model 'SidCategory' do
-    label "Business Category" 
+    label "Business Category"
     label_plural "Business Categories"
     object_label_method { :custom_sid_label }
     field :sid_category_id do
       searchable true
       label {"SID Category ID"}
     end
-    field :label do 
+    field :label do
       sortable true
     end
     field :count_of_businesses, :integer do
@@ -144,7 +144,8 @@ RailsAdmin.config do |config|
     field :country_code
     field :longitude
     field :latitude
-    list do 
+    field :type
+    list do
       scopes [nil, :geocoded, :ungeocoded]
     end
     import do
@@ -158,9 +159,9 @@ RailsAdmin.config do |config|
     field :password
     field :password_confirmation
     field :last_sign_in_at
-    list do 
+    list do
       field :email
-      exclude_fields :password, :password_confirmation 
+      exclude_fields :password, :password_confirmation
     end
   end
 

@@ -16,7 +16,7 @@
     <div class='toggled_content' style='display:none;'>
       <ul class="list center">
       <% @categories.each do |category| %>
-        <li class="list-item"><%= link_to "#{category.label}", businesses_for_category_path(category) %></li>
+        <li class="list-item"><%= link_to "#{category.label}", category_path(category) %></li>
       <% end %>
       </ul>
     </div>

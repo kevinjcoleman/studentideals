@@ -5,7 +5,7 @@
 <% if @sub_categories.present? %>
   <h3>Subcategories</h3>
   <% @sub_categories.each do |sub| %>
-    <span><%= link_to "#{sub.label}", businesses_for_category_region_and_subcategory_path(@region, @category, sub) %></span>
+    <span><%= link_to "#{sub.label}", region_category_and_subcategory_path(@region, @category, sub) %></span>
   <% end %>
 <% end %>
 

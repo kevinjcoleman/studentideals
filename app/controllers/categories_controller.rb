@@ -53,7 +53,7 @@ class CategoriesController < ApplicationController
 
     def find_category_and_breadcrumb(category_id)
       @category = SidCategory.find(category_id)
-      add_breadcrumb @category.label, businesses_for_category_path(@category)
+      add_breadcrumb @category.label, category_path(@category)
     end
 
     def find_region_and_category_and_breadcrumbs(region_id, category_id)
@@ -74,18 +74,18 @@ class CategoriesController < ApplicationController
     def add_sub_category_breadcrumbs_show
       if @sub_category.ancestors.any?
         @sub_category.ancestors.each do |ancestor|
-          add_breadcrumb ancestor.label, businesses_for_category_region_and_subcategory_path(@region, @category, ancestor)
+          add_breadcrumb ancestor.label, region_category_and_subcategory_path(@region, @category, ancestor)
         end
       end
-      add_breadcrumb @sub_category.label, businesses_for_category_region_and_subcategory_path(@region, @category, @sub_category)
+      add_breadcrumb @sub_category.label, region_category_and_subcategory_path(@region, @category, @sub_category)
     end
 
     def add_sub_category_breadcrumbs_list
       if @sub_category.ancestors.any?
         @sub_category.ancestors.each do |ancestor|
-          add_breadcrumb ancestor.label, businesses_for_category_and_subcategory_path(@category, ancestor)
+          add_breadcrumb ancestor.label, category_and_subcategory_path(@category, ancestor)
         end
       end
-      add_breadcrumb @sub_category.label, businesses_for_category_and_subcategory_path(@category, @sub_category)
+      add_breadcrumb @sub_category.label, category_and_subcategory_path(@category, @sub_category)
     end
 end

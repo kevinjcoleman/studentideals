@@ -8,7 +8,7 @@ class StatesController < ApplicationController
     @cities = Business.group_by_city.where(state: @state).limit(5)
   end
 
-  def show_state_category
+  def show_state_and_category
     @sub_categories = @category.sub_categories.roots.
                                 left_outer_join_businesses.
                                 with_taggings.
@@ -18,7 +18,7 @@ class StatesController < ApplicationController
                        limit(5)
   end
 
-  def show_state_category_sub_category
+  def show_state_category_and_subcategory
     find_sub_category_and_breadcrumbs
     @sub_categories = @sub_category.children.
                                     left_outer_join_businesses.
@@ -33,10 +33,10 @@ class StatesController < ApplicationController
     def add_sub_category_breadcrumbs
       if @sub_category.ancestors.any?
         @sub_category.ancestors.each do |ancestor|
-          add_breadcrumb ancestor.label, state_category_sub_category_path(@state, @category, ancestor)
+          add_breadcrumb ancestor.label, state_category_and_subcategory_path(@state, @category, ancestor)
         end
       end
-      add_breadcrumb @sub_category.label, state_category_sub_category_path(@state, @category, @sub_category)
+      add_breadcrumb @sub_category.label, state_category_and_subcategory_path(@state, @category, @sub_category)
     end
 
     def find_state_and_breadcrumb
@@ -46,7 +46,7 @@ class StatesController < ApplicationController
 
     def find_category_and_breadcrumb
       @category = SidCategory.find(params[:category_id])
-      add_breadcrumb @category.label, state_category_path(@state, @category)
+      add_breadcrumb @category.label, state_and_category_path(@state, @category)
     end
 
     def find_sub_category_and_breadcrumbs
