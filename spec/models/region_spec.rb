@@ -22,41 +22,41 @@ RSpec.describe Region, type: :model do
     end
   end
 
-  describe ".geojsonify" do 
+  describe ".geojsonify" do
     let!(:region) {create(:region)}
-    it "returns geojson" do 
+    it "returns geojson" do
       geojson = region.geojsonify(color: "blue")
-      expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.4431764, 34.0729489]}, :properties=>{:name=>"UCLA", :"marker-color"=>"#229AD6", :"marker-size"=>"medium"}})
+      expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.4431764, 34.0729489]}, :properties=>{:name=>"UCLA", :icon=>{:iconUrl=>"https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/location.png", :iconSize=>[50, 50], :iconAnchor=>[25, 25], :popupAnchor=>[0, -25], :className=>"current-location"}}})
     end
   end
 
-  describe ".cache_biz_count" do 
+  describe ".cache_biz_count" do
     let(:region) {create(:region, :occidental)}
     let!(:business) { create(:business, :with_lat_lng, :with_ungeocoded_address) }
     let(:other_region) {create(:region, city: "Washington", state: "DC")}
 
     context "with a close address" do
-      it "updates close_biz_count" do 
-        region.cache_biz_count 
+      it "updates close_biz_count" do
+        region.cache_biz_count
         expect(region.reload.close_biz_count).to eq(1)
       end
     end
 
 
-    context "without a close address" do 
+    context "without a close address" do
       it "close_biz_count stays at zero" do
-        other_region.cache_biz_count 
+        other_region.cache_biz_count
         expect(other_region.reload.close_biz_count).to eq(0)
       end
-    end  
+    end
   end
 
-  describe ".to_search_json" do 
+  describe ".to_search_json" do
     let(:region) {create(:region, :occidental)}
-    it "returns search json" do 
-      expect(region.to_search_json).to eq({:label=>"Occidental", 
-                                           :searchable_type=>"Locale", 
-                                           :id=>"occidental", 
+    it "returns search json" do
+      expect(region.to_search_json).to eq({:label=>"Occidental",
+                                           :searchable_type=>"Locale",
+                                           :id=>"occidental",
                                            :url=>"/region/occidental"})
     end
   end

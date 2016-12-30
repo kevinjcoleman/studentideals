@@ -86,7 +86,7 @@ RSpec.describe Business, type: :model do
     describe ".geojsonify" do
       it "returns geojson" do
         geojson = business.geojsonify(color: "blue")
-        expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.2166504, 34.1253012]}, :properties=>{:url=>"/region/ucla/businesses/testy-mctesterson-s-tools", :name=>"Testy Mctesterson's Tools", :address=>"1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US", :"marker-color"=>"#229AD6", :"marker-size"=>"medium"}})
+        expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.2166504, 34.1253012]}, :properties=>{:url=>"/region/ucla/businesses/testy-mctesterson-s-tools", :name=>"Testy Mctesterson's Tools", :address=>"1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US", :icon=>{:iconUrl=>"https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/location.png", :iconSize=>[50, 50], :iconAnchor=>[25, 25], :popupAnchor=>[0, -25], :className=>"current-location"}}})
       end
     end
   end
