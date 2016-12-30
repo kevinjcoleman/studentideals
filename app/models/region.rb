@@ -19,8 +19,13 @@ class Region < ActiveRecord::Base
       },
       properties: {
         name: name,
-        :'marker-color' => marker_color,
-        :'marker-size' => 'medium'
+        icon: {
+          iconUrl: 'https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/location.png',
+          iconSize: [50, 50], # size of the icon
+          iconAnchor: [25, 25], # point of the icon which will correspond to marker's location
+          popupAnchor: [0, -25], # point from which the popup should open relative to the iconAnchor
+          className: 'current-location'
+        }
       }
     }
   end

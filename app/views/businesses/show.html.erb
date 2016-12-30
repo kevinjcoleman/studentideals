@@ -31,6 +31,7 @@ ready = function() {
     var marker, popupContent, properties;
     marker = e.layer;
     properties = marker.feature.properties;
+    marker.setIcon(L.icon(properties.icon));
     popupContent = '<div class="popup"><a href="' + properties.url + '"><h3>' + properties.name + '</h3></a><p><strong>Address:</strong> ' + properties.address + '</p></div>';
     return marker.bindPopup(popupContent, {
       closeButton: true,
@@ -51,5 +52,7 @@ ready = function() {
   map.fitBounds([<%= @other_businesses_lat_lng_array %>]);
 };
 
+
 $(document).ready(ready);
+
 </script>

@@ -5,7 +5,7 @@
     <% end %>
     <%= paginate @businesses %>
   </div>
-  <div class="col-md-5 well well-lg"> 
+  <div class="col-md-5 well well-lg">
     <div style="width: 100%;height: 350px" id="map"></div>
   </div>
 </div>
@@ -19,6 +19,7 @@ $(document).ready(function() {
     var marker, popupContent, properties;
     marker = e.layer;
     properties = marker.feature.properties;
+    marker.setIcon(L.icon(properties.icon));
     popupContent = '<div class="popup"><a href="' + properties.url + '"><h3>' + properties.name + '</h3></a><p>' + properties.address + '</p></div>';
     return marker.bindPopup(popupContent, {
       closeButton: true,
@@ -30,7 +31,7 @@ $(document).ready(function() {
     <% if @sub_category %>
     url: '/region/<%= @region.slug %>/category/<%= @category.slug %>/sub_category/<%= @sub_category.id %>.json',
     <% elsif @category %>
-    url: '/region/<%= @region.slug %>/categories/<%= @category.slug %>.json',
+    url: '/region/<%= @region.slug %>/category/<%= @category.slug %>.json',
     <% else %>
     url: '/region/<%= @region.slug %>.json',
     <% end %>

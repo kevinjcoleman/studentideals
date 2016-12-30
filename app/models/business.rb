@@ -64,7 +64,6 @@ class Business < ActiveRecord::Base
   end
 
   def geojsonify(color:)
-    marker_color = Color.fetch_color(color)
     geojson = {
       type: 'Feature',
       geometry: {
@@ -75,8 +74,20 @@ class Business < ActiveRecord::Base
         url: link,
         name: biz_name,
         address: full_address,
-        :'marker-color' => marker_color,
-        :'marker-size' => 'medium'
+        icon:
+          if color == "blue"
+            {iconUrl: 'https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/location.png',
+            iconSize: [50, 50], # size of the icon
+            iconAnchor: [25, 25], # point of the icon which will correspond to marker's location
+            popupAnchor: [0, -25], # point from which the popup should open relative to the iconAnchor
+            className: 'current-location'}
+          else
+            {iconUrl: 'https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/better_large_deal_tag.png',
+            iconSize: [40, 40], # size of the icon
+            iconAnchor: [25, 25], # point of the icon which will correspond to marker's location
+            popupAnchor: [0, -25], # point from which the popup should open relative to the iconAnchor
+            className: 'dot'}
+          end
       }
     }
   end
