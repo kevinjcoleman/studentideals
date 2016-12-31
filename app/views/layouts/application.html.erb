@@ -20,6 +20,9 @@
 <body>
   <%= render 'layouts/nav' %>
 <div class="container main-container">
+  <% unless current_page?(:controller => 'pages', :action => 'home') %>
+    <%= react_component('Search') %>
+  <% end %>
   <%= render 'layouts/messages' %>
   <%= render 'layouts/breadcrumbs' %>
   <%= yield %>

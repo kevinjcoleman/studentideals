@@ -1,5 +1,4 @@
 //= require_self
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require react_ujs
 //= require js.cookie

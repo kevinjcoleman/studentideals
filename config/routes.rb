@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   # Return json for search bar.
   get 'search/results'
+  get 'search/locations'
 
   # Devise config.
   devise_for :admins,controllers: {

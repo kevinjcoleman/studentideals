@@ -20,8 +20,12 @@
     "browserify": "^13.1.1",
     "browserify-incremental": "^3.1.1",
     "jquery": "^3.1.1",
+    "jsonp": "^0.2.1",
+    "material-ui": "^0.16.6",
     "react": "^15.4.1",
+    "react-autosuggest": "^7.0.2",
     "react-dom": "^15.4.1",
+    "react-tap-event-plugin": "^2.0.1",
     "reactify": "^1.1.0"
   }
 }
