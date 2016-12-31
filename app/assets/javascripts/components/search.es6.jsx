@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 var Search = React.createClass({
   getInitialState: function(){
     return { searchString: '',
@@ -27,18 +30,18 @@ var Search = React.createClass({
   },
 
 
-  render: function() {
+  render() {
     return (
       <div className="search-box-container homepage-search">
         <div className="input-group input-group-lg">
           <span className="input-group-addon"><i className="fa fa-map-marker home-search-icon"></i></span>
-          <input type="text" 
-             name="region_name" 
-             id="region_name" 
-             className="form-control ui-autocomplete-input" 
-             placeholder="Search by city/school, business, category..." 
-             value={this.state.searchString} 
-             onChange={this.handleChange} 
+          <input type="text"
+             name="region_name"
+             id="region_name"
+             className="form-control ui-autocomplete-input"
+             placeholder="Search by city/school, business, category..."
+             value={this.state.searchString}
+             onChange={this.handleChange}
           />
           <span className="input-group-btn">
           <input type="submit" name="commit" value="Search" className="btn btn-success" />
@@ -49,3 +52,5 @@ var Search = React.createClass({
     );
   }
 });
+
+export default Search

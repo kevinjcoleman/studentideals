@@ -1,6 +1,9 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 var SearchItem = React.createClass({
 
-  render: function() {
+  render() {
     var link
     return (
       <a href={this.props.url}>
@@ -12,3 +15,5 @@ var SearchItem = React.createClass({
       );
   }
 });
+
+export default SearchItem

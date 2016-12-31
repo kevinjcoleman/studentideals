@@ -29,3 +29,4 @@
 /coverage/*
 /doc
 /doc/*
+/node_modules
