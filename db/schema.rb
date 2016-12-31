@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222073506) do
+ActiveRecord::Schema.define(version: 20161230235403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,8 +113,11 @@ ActiveRecord::Schema.define(version: 20161222073506) do
     t.text     "slug"
     t.integer  "close_biz_count"
     t.string   "type"
+    t.string   "display_name"
+    t.integer  "school_id"
   end
 
+  add_index "regions", ["school_id"], name: "index_regions_on_school_id", unique: true, using: :btree
   add_index "regions", ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
 
   create_table "sid_categories", force: :cascade do |t|

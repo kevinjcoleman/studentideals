@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def results
-    @results = PgSearch.multisearch(params[:query])
+    @results = PgSearch.multisearch(params[:query]).limit(20)
     render_json
   end
 

@@ -1,3 +1,6 @@
 PgSearch.multisearch_options = {
-  :using => [:tsearch, :trigram]
+  :using => {
+              :tsearch => {:prefix => true},
+              :trigram => {:threshold => 0.5}
+            }
 }
