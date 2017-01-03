@@ -9,7 +9,6 @@ var ReactDOM = window.ReactDOM = global.ReactDOM = require('react-dom');
 
 require('./components');
 
-
 function getGeoLocation() {
   navigator.geolocation.getCurrentPosition(setGeoCookie);
 }

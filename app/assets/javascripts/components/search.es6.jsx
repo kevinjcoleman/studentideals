@@ -50,7 +50,7 @@ class Search extends React.Component {
     this.onClearBizCats = this.onClearBizCats.bind(this);
     this.getBizCatValue = this.getBizCatValue.bind(this);
     this.getLocationValue = this.getLocationValue.bind(this);
-    var current_location_cookie = Cookies.get('location') ? JSON.parse(Cookies.get('location')) : '';
+    var current_location_cookie = Cookies.get('location') ? JSON.parse(Cookies.get('location')) : {label: ''};
     this.state = {
       locations : [],
       current_location : current_location_cookie,
@@ -165,6 +165,7 @@ class Search extends React.Component {
     return (
       <div className="row">
         <Autosuggest
+          id="location-search"
           className="col-md-6"
           suggestions={this.state.locations}
           onSuggestionsFetchRequested={this.performLocationSearch}
@@ -177,6 +178,7 @@ class Search extends React.Component {
         />
 
         <Autosuggest
+          id="bizcat-search"
           className="col-md-6"
           suggestions={this.state.bizCats}
           onSuggestionsFetchRequested={this.performBizCatSearch}
