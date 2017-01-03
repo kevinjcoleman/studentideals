@@ -23,7 +23,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_admin'
-gem "rails_admin_import", "~> 1.2"
+gem "rails_admin_import", "~> 2.0"
 gem "pry"
 gem "geocoder"
 gem 'kaminari'
