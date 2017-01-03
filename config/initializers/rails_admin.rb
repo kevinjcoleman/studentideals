@@ -115,7 +115,7 @@ RailsAdmin.config do |config|
       end
       field :external_id
       field :biz_name
-      fields :sid_category_data
+      field :sid_category_data
     end
   end
 
@@ -168,7 +168,7 @@ RailsAdmin.config do |config|
   config.model 'Deal' do
     import do
       mapping_key :deal_id
-      fields :bizd_id
+      field :bizd_id
     end
   end
 end

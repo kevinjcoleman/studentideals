@@ -11,7 +11,12 @@ function getLocationValue(suggestion) {
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
-    {suggestion.label}
+    <div className="search-item-name">
+      <b>{suggestion.label}</b>
+    </div>
+    <div className="search-item-type">
+      <i>{suggestion.type}</i>
+    </div>
   </div>
 );
 
@@ -76,7 +81,7 @@ class Search extends React.Component {
 
   render() {
     const inputProps = {
-      placeholder: 'Please type a location',
+      placeholder: 'Please type a location/school',
       value: this.state.locationValue,
       onChange: this.onLocationUpdateInput
     };
