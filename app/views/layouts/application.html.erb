@@ -19,10 +19,12 @@
 </head>
 <body>
   <%= render 'layouts/nav' %>
-<div class="container main-container">
   <% unless current_page?(:controller => 'pages', :action => 'home') %>
-    <%= react_component('Search') %>
+    <div class="well search-container">
+      <%= react_component('Search') %>
+    </div>
   <% end %>
+<div class="container main-container">
   <%= render 'layouts/messages' %>
   <%= render 'layouts/breadcrumbs' %>
   <%= yield %>

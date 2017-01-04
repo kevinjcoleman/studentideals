@@ -5,12 +5,8 @@ import Autosuggest from 'react-autosuggest';
 // Logic to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
-    <div className="search-item-name">
-      <b>{suggestion.label}</b>
-    </div>
-    <div className="search-item-type">
-      <i>{suggestion.type}</i>
-    </div>
+    <div className="search-item-name">{suggestion.label}</div>
+    <div className="search-item-type">{suggestion.type}</div>
   </div>
 );
 
