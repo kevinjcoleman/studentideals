@@ -192,6 +192,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     oauth (0.4.7)
+    oj (2.12.14)
     orm_adapter (0.5.0)
     pg (0.19.0)
     pg_search (2.0.1)
@@ -280,6 +281,8 @@ GEM
     remotipart (1.3.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rollbar (2.14.0)
+      multi_json
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -398,6 +401,7 @@ DEPENDENCIES
   launchy
   meta_request
   metamagic
+  oj (~> 2.12.14)
   pg
   pg_search
   poltergeist
@@ -409,6 +413,7 @@ DEPENDENCIES
   rails_admin
   rails_admin_import (~> 2.0)
   react-rails
+  rollbar
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

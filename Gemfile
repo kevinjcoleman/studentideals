@@ -47,6 +47,8 @@ gem 'metamagic'
 gem 'rack-rewrite'
 gem 'js_cookie_rails'
 gem "browserify-rails"
+gem 'rollbar'
+gem 'oj', '~> 2.12.14'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
