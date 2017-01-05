@@ -23,6 +23,7 @@
 
 # Ignore application configuration
 /config/application.yml
+/config/skylight.yml
 
 # Ignore coverage details
 /coverage

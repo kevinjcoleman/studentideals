@@ -330,6 +330,8 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    skylight (1.0.1)
+      activesupport (>= 3.0.0)
     slop (3.6.0)
     spring (2.0.0)
       activesupport (>= 4.2)
@@ -420,6 +422,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   simple_form
   simplecov
+  skylight
   spring
   spring-commands-rspec
   terminal-notifier-guard
