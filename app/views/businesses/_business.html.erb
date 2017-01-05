@@ -1,6 +1,6 @@
 <%= link_to region_business_path(@region, business ) do %>
 <div class="well well-lg biz-listing">
-  <span class="biz-deal-listing"><%= business.deal.desc_short %></span>
+  <span class="biz-deal-listing"><%= business.deal ? business.deal.desc_short : "NA"  %></span>
   <h3><%= business.biz_name %>  <span class="list-category" ><%= business.sid_category.label %> <%= logo(business.sid_category.sid_category_id) %></span></h3>
   <span> <%= business.distance_to(@region).round(2) %> Miles away</span>
   <h6><%= business.full_address %></h6>
