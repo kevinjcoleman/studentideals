@@ -50,6 +50,7 @@ gem "browserify-rails"
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
 gem 'skylight'
+gem 'sitemap_generator'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
