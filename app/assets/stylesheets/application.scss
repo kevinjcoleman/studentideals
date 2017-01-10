@@ -160,16 +160,20 @@ a {
   color: $sid-white;
   background-color: $sid-blue;
   border-color: #33799C;
+  &:hover {
+    background-color: darken($sid-blue, 10);
+  }
 }
 
 .btn-success {
   color: $sid-white;
   background-color: $sid-orange;
-  border-color: rgb(230, 152, 51);
+  border-color: darken($sid-orange, 10);
 }
 
 .btn-success:hover, .btn-success:focus, .btn-success:active {
-  background-color: $sid-blue !important;
+  background-color: darken($sid-orange, 10) !important;
+  border-color: darken($sid-orange, 20);
 }
 
 .ui-autocomplete {
@@ -516,7 +520,6 @@ footer {
 
 //AD
 
-
 .ad-container {
   background-color: $sid-blue;
   border: 7.5px solid $sid-orange;
@@ -536,4 +539,66 @@ footer {
 
 .current-location {
   opacity: .5;
+}
+
+// MODAL
+
+.splash-modal {
+  margin: 40px auto;
+  padding: 20px 0;
+  padding-bottom: 0px;
+  .btn {
+    width: 100%;
+  }
+  h2 {
+    font-weight: 400;
+    color: $sid-blue;
+    margin-bottom: 21px;
+    text-shadow: 1px 1px 1px darken($sid-grey, 10);
+  }
+}
+
+.modal-header {
+  padding: 0;
+  border-bottom: 2px solid transparent;
+  .close {
+    margin-top: -17px;
+    right: 13px;
+    position: relative;
+  }
+}
+
+.modal-body {
+  padding: 20px;
+  padding-bottom: 0px;
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  margin-top: 0px;
+  color: $sid-black;
+  text-shadow: 1px 1px 1px darken($sid-grey, 10);
+  padding: 0 20px;
+  font-size: 24px;
+}
+
+.modal-footer {
+  border-top: 2px solid transparent;
+  padding-bottom: 7.5px;
+}
+
+.close-link {
+  float: left;
+  font-size: 14px;
+  position: relative;
+  top: -5px;
+  right: 10px;
+}
+
+.modal-categories {
+  padding-bottom: 15px;
+  .col-xs-2 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }

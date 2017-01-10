@@ -1,11 +1,9 @@
 <%= simple_form_for @signup, :url => signups_path, remote: true do |f| %>
-  <div class="modal-body">
-    <div class="form-group">
-       <%= f.input :email, placeholder: "student@school.edu"  %>
-    </div>
+  <div class="form-group">
+     <%= f.input :email, placeholder: "student@school.edu", label: false, required: false  %>
+     <%= f.button :submit, "Find Great Deals By You", class: "btn btn-success" %>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <%= f.button :submit, class: "btn btn-primary" %>
-  </div>
+  <button type="button" class="close close-link" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">Close</span>
+  </button>
 <% end %>
