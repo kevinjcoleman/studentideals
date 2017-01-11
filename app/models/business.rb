@@ -60,10 +60,12 @@ class Business < ActiveRecord::Base
     "#{biz_name}"
   end
 
+  # Should most likely be deleted.
   def find_region
     Region.where(city: city, state: state).first
   end
 
+  # This will need to be updated when the route changes.
   def link
      Rails.application.routes.url_helpers.region_business_path(find_region, self)
   end

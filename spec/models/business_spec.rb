@@ -309,5 +309,4 @@ RSpec.describe Business, type: :model do
       end
     end
   end
-
 end
