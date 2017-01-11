@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230235403) do
+ActiveRecord::Schema.define(version: 20170111020442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,9 +56,11 @@ ActiveRecord::Schema.define(version: 20161230235403) do
     t.text     "website"
     t.text     "email"
     t.text     "sid_editorial"
+    t.integer  "region_id"
   end
 
   add_index "businesses", ["biz_id"], name: "index_businesses_on_biz_id", unique: true, using: :btree
+  add_index "businesses", ["region_id"], name: "index_businesses_on_region_id", using: :btree
   add_index "businesses", ["sid_category_id"], name: "index_businesses_on_sid_category_id", using: :btree
   add_index "businesses", ["slug"], name: "index_businesses_on_slug", unique: true, using: :btree
 
@@ -160,4 +162,5 @@ ActiveRecord::Schema.define(version: 20161230235403) do
   add_index "sub_category_taggings", ["business_id"], name: "index_sub_category_taggings_on_business_id", using: :btree
   add_index "sub_category_taggings", ["sub_category_id"], name: "index_sub_category_taggings_on_sub_category_id", using: :btree
 
+  add_foreign_key "businesses", "regions"
 end

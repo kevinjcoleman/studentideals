@@ -15,13 +15,16 @@ class Business < ActiveRecord::Base
   end
 
   validates :biz_name, length: { minimum: 3 }, presence: true
+
   belongs_to :sid_category
   has_many :sub_category_taggings
   has_many :sub_categories, through: :sub_category_taggings
   has_many :deals, foreign_key: "biz_id", primary_key: "biz_id"
+  belongs_to :region
 
   scope :without_sid_category, -> { where(sid_category_id: nil) }
   scope :with_factual, -> { where("external_id is not null") }
+  scope :without_region, -> {where.not(region_id: nil)}
   scope :no_sub_categories, -> { joins('LEFT OUTER JOIN sub_category_taggings ON businesses.id = sub_category_taggings.business_id').
                                  group('businesses.id').
                                  having('count(sub_category_taggings.id) = 0')}
@@ -35,6 +38,8 @@ class Business < ActiveRecord::Base
 
   scope :with_specific_sub_category, ->(sub_category) { joins(:sub_category_taggings).
                                                         where(sub_category_taggings: {sub_category_id: sub_category.id})}
+
+  after_create :add_region
 
   def before_import_save(record)
     self.add_sid_category(record[:sid_category_data]) if record[:sid_category_data]
@@ -113,8 +118,9 @@ class Business < ActiveRecord::Base
     end
   end
 
-  def region
-    Region.find_by(city: city, state:state)
+  def add_region
+    region = Region.nearby(self).first
+    update_attributes!(region_id: region.id) if region
   end
 
   def deal
@@ -123,12 +129,5 @@ class Business < ActiveRecord::Base
 
   def website_description
     Linkify.new(sid_editorial).add_links.html_safe
-  end
-
-  def to_search_json
-    {label: biz_name,
-     searchable_type: "Business",
-     id: slug,
-     url: "/region/#{region.slug}/businesses/#{slug}"}
   end
 end

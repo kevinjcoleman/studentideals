@@ -27,4 +27,9 @@ namespace :cleanup_scripts do
     end
   end
 
+  task add_regions: :environment do
+    Business.without_region.find_each do |business|
+      business.add_region 
+    end
+  end
 end

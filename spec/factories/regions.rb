@@ -22,5 +22,9 @@ FactoryGirl.define do
     trait :locale do
       type "Locale"
     end
+    trait :with_lat_lng do
+      latitude 34.1253012
+      longitude -118.2166504
+    end
   end
 end

@@ -3,6 +3,8 @@ require 'rails_helper'
 
 RSpec.describe Business, type: :model do
   it { should have_many(:deals) }
+  it { should belong_to(:region) }
+
   describe ".create" do
     context "with good info" do
       let(:business) { create(:business) }
@@ -69,11 +71,13 @@ RSpec.describe Business, type: :model do
   end
 
   context "tests needing region" do
-    let(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
-    let!(:region) {create(:region)}
-    describe "#find_region" do
+    let!(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
+    let!(:region) {create(:region, :with_lat_lng)}
+
+    describe "#add_region" do
+      before {business.add_region}
       it "returns region" do
-        expect(business.find_region).to eq(region)
+        expect(business.region).to eq(region)
       end
     end
 
@@ -88,14 +92,6 @@ RSpec.describe Business, type: :model do
         geojson = business.geojsonify(color: "blue")
         expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.2166504, 34.1253012]}, :properties=>{:url=>"/region/ucla/businesses/testy-mctesterson-s-tools", :name=>"Testy Mctesterson's Tools", :address=>"1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US", :icon=>{:iconUrl=>"https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/location.png", :iconSize=>[50, 50], :iconAnchor=>[25, 25], :popupAnchor=>[0, -25], :className=>"current-location"}}})
       end
-    end
-  end
-
-  describe "#region" do
-    let(:business) { create(:business, :with_lat_lng, :with_ungeocoded_address) }
-    let!(:region) {create(:region, city: business.city, state: business.state)}
-    it "returns the correct region" do
-      expect(business.region).to eq region
     end
   end
 
@@ -311,16 +307,6 @@ RSpec.describe Business, type: :model do
       it "returns same sid_editorial" do
         expect(business_without_link_in_bio.website_description).to eq business_without_link_in_bio.sid_editorial
       end
-    end
-  end
-  describe ".to_search_json" do
-    let(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
-    let!(:region) {create(:region)}
-    it "should return search json" do
-      expect(business.to_search_json).to eq({:label=>"Testy Mctesterson's Tools",
-                                             :searchable_type=>"Business",
-                                             :id=>"testy-mctesterson-s-tools",
-                                             :url=>"/region/ucla/businesses/testy-mctesterson-s-tools"})
     end
   end
 
