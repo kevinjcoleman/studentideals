@@ -11,12 +11,12 @@
   <div style="width: 100%;height: 350px" id="map"></div>
   <h6>Similar <%= @business.sid_category.label %> businesses</h6>
   <% @close_similar_businesses.each do |business| %>
-    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
+    <%= link_to business_path(business) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
   <% end %>
   <hr>
   <h6>Other businesses nearby</h6>
   <% @close_businesses.each do |business| %>
-    <%= link_to region_business_path(@region, business ) do %><h3><%= business.biz_name %><% end %><span class="list-category" >  <%= business.sid_category.label %> <%= logo(business.sid_category.sid_category_id) %></h3><span> <%= business.distance_to(business).round(2) %> Miles away</span>
+    <%= link_to business_path(business) do %><h3><%= business.biz_name %><% end %><span class="list-category" >  <%= business.sid_category.label %> <%= logo(business.sid_category.sid_category_id) %></h3><span> <%= business.distance_to(business).round(2) %> Miles away</span>
   <% end %>
 </div>
 
@@ -40,7 +40,7 @@ ready = function() {
   });
   $.ajax({
     dataType: 'text',
-    url: '/region/<%= @region.slug %>/businesses/<%= @business.slug %>.json',
+    url: '/businesses/<%= @business.slug %>.json',
     success: function(data) {
       var geojson;
       geojson = $.parseJSON(data);

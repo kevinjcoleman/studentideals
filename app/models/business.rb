@@ -2,16 +2,14 @@ class Business < ActiveRecord::Base
   include AddressMethods
   include PgSearch
   multisearchable :against => [:biz_name]
-
   extend FriendlyId
+
   friendly_id :slug_candidates, use: [:slugged, :finders]
   def slug_candidates
-    [
-      :biz_name,
+      [:biz_name,
       [:biz_name, :city],
       [:biz_name, :city, :state],
-      [:biz_name, :city, :state, :address1]
-    ]
+      [:biz_name, :city, :state, :address1]]
   end
 
   validates :biz_name, length: { minimum: 3 }, presence: true
@@ -35,9 +33,9 @@ class Business < ActiveRecord::Base
                              group("businesses.state").
                              select("state, count(businesses.id) as count").
                              order("count DESC") }
-
   scope :with_specific_sub_category, ->(sub_category) { joins(:sub_category_taggings).
                                                         where(sub_category_taggings: {sub_category_id: sub_category.id})}
+
 
   after_create :add_region
 
@@ -60,14 +58,9 @@ class Business < ActiveRecord::Base
     "#{biz_name}"
   end
 
-  # Should most likely be deleted.
-  def find_region
-    Region.where(city: city, state: state).first
-  end
-
   # This will need to be updated when the route changes.
   def link
-     Rails.application.routes.url_helpers.region_business_path(find_region, self)
+     Rails.application.routes.url_helpers.business_path(self)
   end
 
   def geojsonify(color:)
@@ -101,13 +94,13 @@ class Business < ActiveRecord::Base
 
   def add_factual_categories(client=nil)
     client ||= FactualClient.new
-      response = client.find_business(external_id)
-      response["category_labels"].each do |category_array|
+    response = client.find_business(external_id)
+    response["category_labels"].each do |category_array|
         SubCategory.create_from_array(category_array, self)
-      end
-    rescue => e
-      parsed_error = JSON.parse(e.message)
-      puts parsed_error["message"]
+    end
+  rescue => e
+    parsed_error = JSON.parse(e.message)
+    puts parsed_error["message"]
   end
 
   def self.batch_add_factual_categories
@@ -121,10 +114,8 @@ class Business < ActiveRecord::Base
   end
 
   def add_region
-    region = Region.nearby(self).first
-    region = find_region unless region
-    region = Region.where(city: city).first unless region
-    update_attributes!(region_id: region.id) if region
+    region = find_region
+    self.update_attributes!(region_id: region.id) if region
   end
 
   def deal
@@ -134,4 +125,12 @@ class Business < ActiveRecord::Base
   def website_description
     Linkify.new(sid_editorial).add_links.html_safe
   end
+
+  private
+
+    def find_region
+      region = Region.nearby(self).first
+      region = Region.where("(city = :city AND state = :state) OR city = :city", city: self.city, state: self.state).first unless region
+      region
+    end
 end

@@ -6,11 +6,12 @@ describe "homepage experience", :type => :feature, :js => true do
   let!(:business) {update_biz_with_address(category)}
   let(:sub_category) {category.sub_categories.first}
   before do
-    business.update_attributes(biz_id: 1)
+    business.update_attributes!(biz_id: 1, region_id: region.id)
     create(:deal)
     add_sub_category_tagging(business, category)
     create_subcategory_children(business, sub_category)
   end
+
   it "has correct content" do
     visit root_path
     expect(page).to have_content 'Get more when you go out.'
@@ -28,6 +29,7 @@ describe "homepage experience", :type => :feature, :js => true do
     # Click on a region
     find('.list-item').find('a', text:region.city).click
     #Click thourgh to the business
+    binding.pry
     click_on(business.biz_name)
     # To save a screenshot of the test's current progress page.save_screenshot('afterclick7.png', :full => true)
   end

@@ -72,25 +72,47 @@ RSpec.describe Business, type: :model do
 
   context "tests needing region" do
     let!(:business) { create(:business,:with_lat_lng, :with_ungeocoded_address) }
-    let!(:region) {create(:region, :with_lat_lng)}
 
     describe "#add_region" do
-      before {business.add_region}
-      it "returns region" do
-        expect(business.region).to eq(region)
+      context "with geocoded region" do
+        let!(:geocoded_region) {create(:region, :with_lat_lng, :occidental)}
+        before {business.add_region}
+
+        it "returns region" do
+          expect(business.region).to eq(geocoded_region)
+        end
+      end
+      context "with ungeocoded region" do
+        let!(:ungeocoded_region) {create(:region)}
+        before {business.add_region}
+
+        it "returns region" do
+          expect(business.region).to eq(ungeocoded_region)
+        end
+      end
+
+      context "with ungeocoded region, with a nil state" do
+        let!(:ungeocoded_region) {create(:region)}
+        before {business.add_region}
+
+        it "returns region" do
+          expect(business.region).to eq(ungeocoded_region)
+        end
       end
     end
 
     describe "#link" do
+      let!(:geocoded_region) {create(:region, :with_lat_lng, :occidental)}
       it "returns business link" do
-        expect(business.link).to eq("/region/ucla/businesses/testy-mctesterson-s-tools")
+        expect(business.link).to eq("/businesses/testy-mctesterson-s-tools")
       end
     end
 
     describe ".geojsonify" do
+      let!(:geocoded_region) {create(:region, :with_lat_lng, :occidental)}
       it "returns geojson" do
         geojson = business.geojsonify(color: "blue")
-        expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.2166504, 34.1253012]}, :properties=>{:url=>"/region/ucla/businesses/testy-mctesterson-s-tools", :name=>"Testy Mctesterson's Tools", :address=>"1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US", :icon=>{:iconUrl=>"https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/location.png", :iconSize=>[50, 50], :iconAnchor=>[25, 25], :popupAnchor=>[0, -25], :className=>"current-location"}}})
+        expect(geojson).to eq({:type=>"Feature", :geometry=>{:type=>"Point", :coordinates=>[-118.2166504, 34.1253012]}, :properties=>{:url=>"/businesses/testy-mctesterson-s-tools", :name=>"Testy Mctesterson's Tools", :address=>"1600 Alumni Avenue, Apt 8-201, Los Angeles, CA, 90041, US", :icon=>{:iconUrl=>"https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/location.png", :iconSize=>[50, 50], :iconAnchor=>[25, 25], :popupAnchor=>[0, -25], :className=>"current-location"}}})
       end
     end
   end

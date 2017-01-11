@@ -22,7 +22,7 @@ class SearchController < ApplicationController
     instance = klass.find(params[:bizCat])
     @region = Region.find(params[:location]) if params[:location]
     if instance.is_a?(Business)
-      business_redirect(instance, @region)
+      business_redirect(instance)
     elsif instance.is_a?(SidCategory)
       sid_cat_redirect(instance, @region)
     else
@@ -30,12 +30,8 @@ class SearchController < ApplicationController
     end
   end
 
-  def business_redirect(business, region)
-    if region
-      redirect_to region_business_path(region, business)
-    else
-      redirect_to region_business_path(business.region, business)
-    end
+  def business_redirect(business)
+      redirect_to business_path(business)
   end
 
   def sid_cat_redirect(sid_cat, region)

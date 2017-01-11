@@ -21,8 +21,9 @@ Rails.application.routes.draw do
   resources :region, only: [:show, :index] do
     get "category/:id", to: "categories#show", as: 'and_category'
     get "category/:category_id/sub_category/:id", to: "categories#sub_show", as: 'category_and_subcategory'
-    resources :businesses, only: [:show]
   end
+
+  resources :businesses, only: [:show]
 
   # Click through category to the most deep subcategory
   get 'category/:id' => "categories#list", as: 'category'
