@@ -60,11 +60,9 @@ SitemapGenerator::Sitemap.create do
     add category_path(category)
   end
 
-
-
-
-
-
+  Business.find_each do |business|
+    add business_path(business)
+  end
 
   # Put links creation logic here.
   #
