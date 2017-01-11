@@ -1,9 +1,9 @@
-<%= simple_form_for @signup, :url => signups_path, remote: true do |f| %>
+<%= simple_form_for @signup, url: signups_path, remote: true do |f| %>
   <div class="form-group">
      <%= f.input :email, placeholder: "student@school.edu", label: false, required: false  %>
      <%= f.button :submit, "Find Great Deals By You", class: "btn btn-success" %>
   </div>
   <button type="button" class="close close-link" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">Close</span>
+  <span aria-hidden="true">Close</span>
   </button>
 <% end %>

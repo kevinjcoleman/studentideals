@@ -1,6 +1,7 @@
 //= require_self
 //= require bootstrap-sprockets
 //= require react_ujs
+//= require jquery_ujs
 //= require js.cookie
 
 window.$ = window.jQuery = global.$ = require('jquery');

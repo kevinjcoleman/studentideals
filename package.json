@@ -20,6 +20,7 @@
     "browserify": "^13.1.1",
     "browserify-incremental": "^3.1.1",
     "jquery": "^3.1.1",
+    "jquery-ujs": "^1.2.2",
     "jsonp": "^0.2.1",
     "material-ui": "^0.16.6",
     "react": "^15.4.1",
