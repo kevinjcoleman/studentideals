@@ -122,6 +122,8 @@ class Business < ActiveRecord::Base
 
   def add_region
     region = Region.nearby(self).first
+    region = find_region unless region
+    region = Region.where(city: city).first unless region
     update_attributes!(region_id: region.id) if region
   end
 

@@ -1,6 +1,6 @@
 module AddressMethods
   extend ActiveSupport::Concern
-  DEFAULT_NEARBY_MILES = 5
+  DEFAULT_NEARBY_MILES = 20
 
   included do
     geocoded_by :full_address
