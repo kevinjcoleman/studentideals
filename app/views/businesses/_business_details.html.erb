@@ -14,7 +14,7 @@
 <% end %>
 
 <% if @business.email %>
-  <p><%= link_to @business.email, "<strong>mailto:#{@business.email}</strong>".html_safe, target: "_blank" %></p>
+  <p><strong><%= link_to @business.email, "mailto:#{@business.email}", target: "_blank" %></strong></p>
 <% end %>
 
 <% if @business.website %>

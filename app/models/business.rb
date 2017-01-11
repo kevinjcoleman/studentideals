@@ -24,7 +24,7 @@ class Business < ActiveRecord::Base
 
   scope :without_sid_category, -> { where(sid_category_id: nil) }
   scope :with_factual, -> { where("external_id is not null") }
-  scope :without_region, -> {where.not(region_id: nil)}
+  scope :without_region, -> {where(region_id: nil)}
   scope :no_sub_categories, -> { joins('LEFT OUTER JOIN sub_category_taggings ON businesses.id = sub_category_taggings.business_id').
                                  group('businesses.id').
                                  having('count(sub_category_taggings.id) = 0')}
