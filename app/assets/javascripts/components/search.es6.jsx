@@ -49,6 +49,7 @@ class Search extends React.Component {
     var current_location_cookie = Cookies.get('location') ? JSON.parse(Cookies.get('location')) : {label: ''};
     this.state = {
       locations : [],
+      current_location_value: current_location_cookie.label,
       current_location : current_location_cookie,
       bizCats : [],
       bizCatTerm : ''
@@ -58,9 +59,8 @@ class Search extends React.Component {
   //Update the current location object's label to be the new value.
   onLocationUpdateInput(event, {newValue}){
     console.log("Changed!",newValue);
-    this.state.current_location.label = newValue;
     this.setState({
-      current_location: this.state.current_location
+      current_location_value: newValue
     });
   }
 
@@ -129,7 +129,7 @@ class Search extends React.Component {
   // Correctly set cookie and state.
   getLocationValue(suggestion) {
     Cookies.set('location', suggestion, { expires: 365});
-    console.log("Set cookie to:", suggestion)
+    console.log("Set cookie to:", suggestion.id)
     this.setState({
       current_location: suggestion
     });
@@ -148,7 +148,7 @@ class Search extends React.Component {
   render() {
     const inputLocationProps = {
       placeholder: 'Please type a location/school',
-      value: this.state.current_location.label,
+      value: this.state.current_location_value,
       onChange: this.onLocationUpdateInput
     };
 
