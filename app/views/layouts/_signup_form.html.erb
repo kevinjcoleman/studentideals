@@ -1,7 +1,9 @@
 <%= simple_form_for @signup, url: signups_path, remote: true do |f| %>
   <div class="form-group">
      <%= f.input :email, placeholder: "student@school.edu", label: false, required: false  %>
-     <%= f.button :submit, "Find Great Deals By You", class: "btn btn-success" %>
+     <%= f.button :submit, "Join the movement", class: "btn btn-success" %>
+     <p class="tos text-center"><small>By clicking "Join the Movement" you agree to our <a href="http://studentideals.com/privacy-policy-terms-of-service" target="_blank">Privacy Policy & Terms of Service</a>.</small></p>
+     <p class="tagline text-center"><small>Look out for great savings and cool businesses coming your way.</small></p>
   </div>
   <button type="button" class="close close-link" data-dismiss="modal" aria-label="Close">
   <span aria-hidden="true">Close</span>

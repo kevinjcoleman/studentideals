@@ -585,6 +585,18 @@ footer {
 .modal-footer {
   border-top: 2px solid transparent;
   padding-bottom: 7.5px;
+  p {
+    margin: 0 0 0 0;
+  }
+  .tos {
+    font-size: 14px;
+    font-weight: 200;
+  }
+  .tagline {
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 1px 1px 1px #cfd9db;
+  }
 }
 
 .close-link {
