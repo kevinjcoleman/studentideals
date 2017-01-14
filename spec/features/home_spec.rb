@@ -29,7 +29,6 @@ describe "homepage experience", :type => :feature, :js => true do
     # Click on a region
     find('.list-item').find('a', text:region.city).click
     #Click thourgh to the business
-    binding.pry
     click_on(business.biz_name)
     # To save a screenshot of the test's current progress page.save_screenshot('afterclick7.png', :full => true)
   end

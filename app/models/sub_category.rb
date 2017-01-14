@@ -25,7 +25,7 @@ class SubCategory < ActiveRecord::Base
   scope :join_and_order_by_taggings_count, -> {   left_outer_join_taggings.
                                                   select('sub_categories.*, count(sub_category_taggings.id) as taggings_count').
                                                   group('sub_categories.id').
-                                                  order("taggings_count DESC") } 
+                                                  order("taggings_count DESC") }
 
   scope :with_taggings, -> {join_and_order_by_taggings_count.having("count(sub_category_taggings.id) > 0")}
 
@@ -37,18 +37,15 @@ class SubCategory < ActiveRecord::Base
     array = array - BLACKLISTED_FACTUAL_CATEGORIES
     return if array.empty?
     @sub_category = self.find_or_create_by(label: array.first, sid_category_id: business.sid_category_id)
-    business.add_sub_category(@sub_category) 
+    business.add_sub_category(@sub_category)
     array.each do |cat|
       next if @sub_category.label == cat
       sub_category = self.create_with(parent: @sub_category).find_or_create_by(label: cat, sid_category_id: business.sid_category_id)
-      business.add_sub_category(sub_category) 
+      business.add_sub_category(sub_category)
     end
   end
 
-  def to_search_json
-    {label:  label, 
-     searchable_type: "Category",
-     id: slug,
-     url: "/category/#{sid_category.slug}/sub_category/#{slug}"}
+  def singularized_label
+    label.split(" ").map(&:singularize).join(" ")
   end
 end

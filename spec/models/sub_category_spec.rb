@@ -8,7 +8,7 @@ RSpec.describe SubCategory, type: :model do
   it { should validate_presence_of(:label) }
   it { should validate_uniqueness_of(:label).scoped_to(:sid_category_id) }
 
-  describe "ancestry stuff" do 
+  describe "ancestry stuff" do
     let!(:sub_category) { create(:sub_category) }
     context "root sub_category" do
       it "returns as root" do
@@ -19,7 +19,7 @@ RSpec.describe SubCategory, type: :model do
         expect(sub_category.sid_category).to eq(SidCategory.first)
       end
 
-      it "takes child categories" do 
+      it "takes child categories" do
         sub_category.children.create(label: "American", sid_category: sub_category.sid_category)
         expect(sub_category.children.first).to eq(SubCategory.find_by(label: "American"))
       end
@@ -35,7 +35,7 @@ RSpec.describe SubCategory, type: :model do
       expect(root_sub_cat.children.first.label).to eq("American")
     end
 
-    it "doesn't create any categories from the blacklist" do 
+    it "doesn't create any categories from the blacklist" do
       SubCategory.create_from_array(["Social", "Food and Dining", "Restaurants", "American"], business)
       root_sub_cat = SubCategory.roots.first
       expect(root_sub_cat.label).to eq("Restaurants")
@@ -54,49 +54,39 @@ RSpec.describe SubCategory, type: :model do
     end
   end
 
-  context "scopes" do 
+  context "scopes" do
     let!(:sub_category_with_tagging) {create(:sub_category, :sub_category_with_tagging)}
     let!(:sub_category_without_tagging) {create(:sub_category, label: "Pizza", sid_category: sub_category_with_tagging.sid_category)}
-    describe ".left_outer_join_taggings" do 
+    describe ".left_outer_join_taggings" do
       let!(:sub_categories_joined_with_taggings) {SubCategory.left_outer_join_taggings}
-      it "returns sub categories with and without taggings" do 
+      it "returns sub categories with and without taggings" do
         expect(sub_categories_joined_with_taggings).to eq([sub_category_with_tagging, sub_category_without_tagging])
       end
     end
 
-    describe ".left_outer_join_businesses" do 
+    describe ".left_outer_join_businesses" do
       let!(:sub_categories_joined_businesses) {SubCategory.left_outer_join_businesses}
-      it "returns categories with and without businesses" do 
+      it "returns categories with and without businesses" do
         expect(sub_categories_joined_businesses).to eq([sub_category_with_tagging, sub_category_without_tagging])
       end
     end
 
-    describe ".join_and_order_by_taggings_count" do 
+    describe ".join_and_order_by_taggings_count" do
       let!(:sub_categories_ordered_by_taggings) {SubCategory.join_and_order_by_taggings_count}
-      it "returns the category with the most businesses first" do 
+      it "returns the category with the most businesses first" do
         expect(sub_categories_ordered_by_taggings.first).to eq(sub_category_with_tagging)
       end
 
-      it "returns the category with the least businesses last" do 
+      it "returns the category with the least businesses last" do
         expect(sub_categories_ordered_by_taggings.last).to eq(sub_category_without_tagging)
       end
     end
 
-    describe ".with_taggings" do 
+    describe ".with_taggings" do
       let!(:sub_categories_with_businesses) {SubCategory.with_taggings}
-      it "returns only categories with businesses" do 
+      it "returns only categories with businesses" do
         expect(sub_categories_with_businesses).to eq([sub_category_with_tagging])
       end
-    end
-  end
-
-  describe ".to_search_json" do 
-    let!(:sub_category) { create(:sub_category) }
-    it "returns search json" do 
-      expect(sub_category.to_search_json).to eq({:label=>"Restaurants", 
-                                                 :searchable_type=>"Category", 
-                                                 :id=>"restaurants", 
-                                                 :url=>"/category/cool-stuff-to-do/sub_category/restaurants"})
     end
   end
 end

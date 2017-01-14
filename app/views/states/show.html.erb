@@ -1,11 +1,11 @@
 <% meta title: @state,
    description: "IDeal Discounts and Info in #{@state}." %>
 
-<h1>IDeal Discounts and Info in <%= @state %>.</h1>
+<h1>IDeal Discounts and Info in <strong><%= @state %></strong>.</h1>
 
 <div class="row">
   <div class="col-md-6">
-    <h2>Business Categories</h2>
+    <h2 class="text-center">Business Categories</h2>
     <ul class="list">
     <% @categories.each do |category| %>
       <li class="list-item"><%= link_to "#{category.label}", state_and_category_path(@state, category) %></li>
@@ -13,7 +13,7 @@
     </ul>
   </div>
   <div class="col-md-6">
-    <h2>Cities</h2>
+    <h2 class="text-center">Cities</h2>
     <ul class="list">
     <% @cities.each do |city| %>
       <li class="list-item"><%= link_to "#{city.city}", region_path(Region.where(city: city.city, state: @state).first) %></li>
