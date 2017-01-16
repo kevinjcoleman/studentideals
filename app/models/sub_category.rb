@@ -34,7 +34,7 @@ class SubCategory < ActiveRecord::Base
                                     'Retail']
 
   def self.create_from_array(array, business)
-    array = array - BLACKLISTED_FACTUAL_CATEGORIES
+    array -= BLACKLISTED_FACTUAL_CATEGORIES
     return if array.empty?
     @sub_category = self.find_or_create_by(label: array.first, sid_category_id: business.sid_category_id)
     business.add_sub_category(@sub_category)

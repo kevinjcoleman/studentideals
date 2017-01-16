@@ -15,9 +15,11 @@ class Business < ActiveRecord::Base
   validates :biz_name, length: { minimum: 3 }, presence: true
 
   belongs_to :sid_category
+
   has_many :sub_category_taggings
   has_many :sub_categories, through: :sub_category_taggings
   has_many :deals, foreign_key: "biz_id", primary_key: "biz_id"
+  has_many :hours, class_name: "BizHour"
   belongs_to :region
 
   scope :without_sid_category, -> { where(sid_category_id: nil) }
@@ -124,6 +126,31 @@ class Business < ActiveRecord::Base
 
   def website_description
     Linkify.new(sid_editorial).add_links.html_safe
+  end
+
+
+  # Hours related goodness.
+
+  def has_day?(day)
+    hours.where(day: day).present?
+  end
+
+  def add_business_hours(args)
+    unless has_day?(args[:day])
+      hours.create(day: day.to_i,
+                   timezone: timezone,
+                   open_at: "#{args[:biz_open]} #{timezone}",
+                   close_at: "#{args[:biz_close]} #{timezone}")
+    end
+  end
+
+  EST = %w(DC NY MD VA WV)
+  PST = %w(CA)
+
+  def timezone
+    return "est" if state.in?(EST)
+    return "pst" if state.in?(PST)
+    raise "No known timezone for #{state}!\nUpdate timezone method in business.rb!"
   end
 
   private

@@ -11,6 +11,8 @@ module StudentIdeals
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
+    config.time_zone = "Pacific Time (US & Canada)"
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -34,7 +36,7 @@ module StudentIdeals
     end
 
     config.autoload_paths += %W(#{config.root}/lib)
-    
+
     config.browserify_rails.commandline_options = "-t [ babelify --presets es2015,react ] --extension=\".jsx\""
     config.browserify_rails.force = true
     # Do not swallow errors in after_commit/after_rollback callbacks.

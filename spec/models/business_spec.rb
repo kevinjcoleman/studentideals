@@ -2,8 +2,10 @@ require 'active_support/core_ext/kernel/reporting'
 require 'rails_helper'
 
 RSpec.describe Business, type: :model do
-  it { should have_many(:deals) }
   it { should belong_to(:region) }
+
+  it { should have_many(:deals) }
+  it { should have_many(:hours) }
 
   describe ".create" do
     context "with good info" do
@@ -328,6 +330,39 @@ RSpec.describe Business, type: :model do
     context "without a link" do
       it "returns same sid_editorial" do
         expect(business_without_link_in_bio.website_description).to eq business_without_link_in_bio.sid_editorial
+      end
+    end
+  end
+
+  describe "hour related methods" do
+    let(:business) { create(:business, :with_ungeocoded_address,:with_lat_lng) }
+    describe "#has_day?" do
+      context "with existing hour" do
+        let!(:hour) {create(:biz_hour, business: business)}
+        it "is true" do
+          expect(business.has_day?(0)).to be_truthy
+        end
+      end
+
+      context "without existing hour" do
+        it "is false" do
+          expect(business.has_day?(0)).to be_falsey
+        end
+      end
+    end
+
+    describe "#timezone" do
+      context "Eastern state" do
+        let(:eastern_state) { create(:business, :with_ungeocoded_address,:with_lat_lng, state: "MD") }
+        it "is EST" do
+          expect(eastern_state.timezone).to eq("EST")
+        end
+      end
+
+      context "western state" do
+        it "is PST" do
+          expect(business.timezone).to eq("PST")
+        end
       end
     end
   end
