@@ -137,10 +137,10 @@ class Business < ActiveRecord::Base
 
   def add_business_hours(args)
     unless has_day?(args[:day])
-      hours.create(day: day.to_i,
-                   timezone: timezone,
-                   open_at: "#{args[:biz_open]} #{timezone}",
-                   close_at: "#{args[:biz_close]} #{timezone}")
+      hours.create(day: args[:day].to_i,
+                   timezone: timezone.strip,
+                   open_at: "#{args[:open_at]} #{timezone}",
+                   close_at: "#{args[:close_at]} #{timezone}")
     end
   end
 

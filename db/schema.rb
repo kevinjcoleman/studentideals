@@ -19,16 +19,16 @@ ActiveRecord::Schema.define(version: 20170116222533) do
   enable_extension "fuzzystrmatch"
 
   create_table "admins", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.text     "email",                  default: "", null: false
+    t.text     "encrypted_password",     default: "", null: false
+    t.text     "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.text     "current_sign_in_ip"
+    t.text     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
@@ -40,24 +40,24 @@ ActiveRecord::Schema.define(version: 20170116222533) do
 #   Unknown type 'time with time zone' for column 'open_at'
 
   create_table "businesses", force: :cascade do |t|
-    t.string   "biz_name"
-    t.string   "biz_id"
-    t.string   "external_id"
+    t.text     "biz_name"
+    t.text     "biz_id"
+    t.text     "external_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "country_code"
+    t.text     "address1"
+    t.text     "address2"
+    t.text     "city"
+    t.text     "state"
+    t.text     "zip"
+    t.text     "country_code"
     t.integer  "sid_category_id"
-    t.string   "slug"
-    t.string   "telephone"
-    t.string   "website"
-    t.string   "email"
+    t.text     "slug"
+    t.text     "telephone"
+    t.text     "website"
+    t.text     "email"
     t.text     "sid_editorial"
     t.integer  "region_id"
   end
@@ -81,10 +81,10 @@ ActiveRecord::Schema.define(version: 20170116222533) do
   add_index "deals", ["deal_id"], name: "index_deals_on_deal_id", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
+    t.text     "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
-    t.string   "scope"
+    t.text     "scope"
     t.datetime "created_at"
   end
 
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20170116222533) do
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.integer  "searchable_id"
-    t.string   "searchable_type"
+    t.text     "searchable_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -104,18 +104,18 @@ ActiveRecord::Schema.define(version: 20170116222533) do
   add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "country_code"
+    t.text     "name"
+    t.text     "address1"
+    t.text     "address2"
+    t.text     "city"
+    t.text     "state"
+    t.text     "zip"
+    t.text     "country_code"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "slug"
+    t.text     "slug"
     t.integer  "close_biz_count"
     t.string   "type"
     t.string   "display_name"
@@ -126,11 +126,11 @@ ActiveRecord::Schema.define(version: 20170116222533) do
   add_index "regions", ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
 
   create_table "sid_categories", force: :cascade do |t|
-    t.string   "sid_category_id"
-    t.string   "label"
+    t.text     "sid_category_id"
+    t.text     "label"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "slug"
+    t.text     "slug"
   end
 
   add_index "sid_categories", ["sid_category_id"], name: "index_sid_categories_on_sid_category_id", unique: true, using: :btree
@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(version: 20170116222533) do
 
   create_table "sub_categories", force: :cascade do |t|
     t.integer  "sid_category_id"
-    t.string   "label"
-    t.string   "ancestry"
+    t.text     "label"
+    t.text     "ancestry"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "slug"
@@ -167,8 +167,4 @@ ActiveRecord::Schema.define(version: 20170116222533) do
 
   add_foreign_key "biz_hours", "businesses"
   add_foreign_key "businesses", "regions"
-  add_foreign_key "businesses", "sid_categories"
-  add_foreign_key "sub_categories", "sid_categories"
-  add_foreign_key "sub_category_taggings", "businesses"
-  add_foreign_key "sub_category_taggings", "sub_categories"
 end
