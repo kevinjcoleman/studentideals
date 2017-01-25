@@ -3,7 +3,7 @@ class BusinessesController < ApplicationController
   respond_to :html, :js
 
   def show
-    @business = Business.find(params[:id])
+    @business = Business.includes(:hours, :deals).find(params[:id])
     @region = @business.region
     @category = SidCategory.find(@business.sid_category_id)
     add_breadcrumb @region.name, region_path(@region)

@@ -8,6 +8,8 @@
 <div class="col-md-5">
   <%= render "business_deal" %>
 
+  <%= render "biz_hours" %>
+
   <div style="width: 100%;height: 350px" id="map"></div>
   <h6>Similar <%= @business.sid_category.label %> businesses</h6>
   <% @close_similar_businesses.each do |business| %>
