@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :region, only: [:show, :index] do
     get "category/:id", to: "categories#show", as: 'and_category'
     get "category/:category_id/sub_category/:id", to: "categories#sub_show", as: 'category_and_subcategory'
+    get "businesses/:business_id", to: "businesses#redirect", as: "region_business_redirect"
   end
 
   resources :businesses, only: [:show]

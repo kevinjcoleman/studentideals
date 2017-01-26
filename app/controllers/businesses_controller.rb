@@ -17,4 +17,8 @@ class BusinessesController < ApplicationController
       format.html
     end
   end
+
+  def redirect
+    redirect_to business_path(params[:business_id])
+  end
 end
