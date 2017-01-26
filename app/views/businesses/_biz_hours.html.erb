@@ -1,8 +1,6 @@
 <% if @business.hours.any? %>
   <h3>Hours</h3>
-  <% @business.hours.order(:day).each do |hour| %>
-    <p><strong><%= hour.day_display %></strong> <%= hour.open_at_display %> - <%= hour.close_at_display %> <% if hour.today? %><%= hour.open? ? "<span class='open'>Open</span>".html_safe :  "<span class='closed'>Closed</span>".html_safe %><% end %></p>
-  <% end %>
+  <%= HoursPresenter.new(@business.hours).display_hours %>
 <% else %>
   <h3>There aren't any hours currently for this business.</h3>
 <% end %>

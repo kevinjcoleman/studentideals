@@ -1,7 +1,9 @@
 FactoryGirl.define do
   factory :biz_hour do
     day 0
-    open_at "2017-01-14 17:33:14"
-    close_at "2017-01-14 17:33:14"
+    association :business, :factory => :business
+    open_at "10:00:00-08"
+    close_at "21:00:00-08"
+    timezone "pst"
   end
 end
