@@ -29,7 +29,11 @@ namespace :cleanup_scripts do
 
   task add_regions: :environment do
     Business.without_region.find_each do |business|
-      business.add_region 
+      business.add_region
     end
+  end
+
+  task add_hours: :environment do
+    Business.batch_add_factual_hours
   end
 end
