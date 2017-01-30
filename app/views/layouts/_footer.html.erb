@@ -55,9 +55,7 @@
           <h4>Top cities</h4>
         </li>
         <% @nav_cities.each do |city| %>
-          <% cache city do %>
-            <li><%= link_to city.city, region_path(Region.where(city: city.city, state: city.state).first) %></li>
-          <% end %>
+          <li><%= link_to city.city, region_path(Region.where(city: city.city, state: city.state).first) %></li>
         <% end %>
       </ul>
     </div>
