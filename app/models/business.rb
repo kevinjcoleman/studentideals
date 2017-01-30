@@ -115,6 +115,26 @@ class Business < ActiveRecord::Base
     end
   end
 
+  def self.batch_add_factual_hours
+    client = FactualClient.new
+    self.find_each do |biz|
+      next if biz.hours.count == 7
+      biz.add_factual_hours(client)
+    end
+  end
+
+  def add_factual_hours(client=nil)
+    client ||= FactualClient.new
+    response = client.find_business(self.external_id)
+    return unless response["hours"]
+    response["hours"].each do |hour|
+        BizHour.add_hour(hour, self)
+    end
+    rescue => e
+      parsed_error = JSON.parse(e.message)
+      puts parsed_error["message"]
+  end
+
   def add_region
     region = find_region
     self.update_attributes!(region_id: region.id) if region
@@ -150,7 +170,16 @@ class Business < ActiveRecord::Base
   def timezone
     return "est" if state.in?(EST)
     return "pst" if state.in?(PST)
-    raise "No known timezone for #{state}!\nUpdate timezone method in business.rb!"
+    raise "No known timezone for #{state}! Update timezone method in business.rb!"
+  end
+
+  def timezone_for_time_settings 
+    case timezone
+    when "est"
+      "Eastern Time (US & Canada)"
+    when "pst"
+      "Pacific Time (US & Canada)"
+    end
   end
 
   private

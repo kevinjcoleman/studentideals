@@ -488,6 +488,19 @@ footer {
   padding-left: 4px;
 }
 
+.side-info {
+  padding-left: 30px;
+  border-left: 1px $sid-grey solid;
+  h3 {
+    color: $sid-blue;
+  }
+  .hours-container {
+    p {
+      font-size: 1.2em;
+    }
+  }
+}
+
 //AD
 
 .ad-container {

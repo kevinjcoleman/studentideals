@@ -5,18 +5,17 @@
 <% end %>
 
 <% if @business.address_line_1 %>
-  <p><strong>Address: </strong><%= "#{@business.address_line_1}" %></p>
-  <p><%= @business.address_line_2 %></p>
+  <p><%= fa_icon "map-marker"%> <%= "#{@business.address_line_1}" %>, <%= @business.address_line_2 %></p>
 <% end %>
 
 <% if @business.telephone %>
-  <p><strong>Phone: </strong><%= "#{@business.telephone}"  %></p>
+  <p><%= fa_icon "phone"%> <%= link_to "#{@business.telephone}", "tel:+1#{@business.telephone.gsub(/[^\d]/, '')}"  %></p>
 <% end %>
 
 <% if @business.email %>
-  <p><strong><%= link_to @business.email, "mailto:#{@business.email}", target: "_blank" %></strong></p>
+  <p><%= fa_icon "envelope-o" %> <%= link_to @business.email, "mailto:#{@business.email}", target: "_blank" %></p>
 <% end %>
 
 <% if @business.website %>
-  <p><%= link_to "<strong>Website</strong>".html_safe, @business.website.html_safe, target: "_blank" %></p>
+  <p><%= fa_icon "window-maximize" %> <%= link_to "Website", @business.website.html_safe, target: "_blank" %></p>
 <% end %>

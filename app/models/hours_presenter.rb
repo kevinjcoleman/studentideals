@@ -1,5 +1,5 @@
 class HoursPresenter
-  attr_accessor :hours
+  attr_accessor :hours, :timezone
   DAYS_OF_THE_WEEK = %w(monday
                         tuesday
                         wednesday
@@ -8,8 +8,10 @@ class HoursPresenter
                         saturday
                         sunday)
 
-  def initialize(hours)
+  def initialize(hours, timezone)
     @hours = hours
+    @timezone = timezone
+    set_timezone
   end
 
   def each_with_hour_order
@@ -43,5 +45,9 @@ class HoursPresenter
   def wrap_in_tags(tag, text, css_class=nil)
     display_class = css_class ? " class=\"#{css_class}\"" : ""
     "\n<#{tag}#{display_class}>#{text}</#{tag}>".html_safe
+  end
+
+  def set_timezone
+    Time.zone = timezone if timezone != Time.zone.name
   end
 end

@@ -1,11 +1,11 @@
 <% meta title: "#{@business.biz_name} - #{@region.name}",
    description: @business.sid_editorial ? @business.sid_editorial : "IDeal discounts and info at #{@business.biz_name}" %>
 
-<div class="col-md-7">
+<div class="col-md-7 main-info">
   <%= render "business_details" %>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-5 side-info">
   <%= render "business_deal" %>
 
   <%= render "biz_hours" %>

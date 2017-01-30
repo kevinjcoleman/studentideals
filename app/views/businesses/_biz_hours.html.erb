@@ -1,6 +1,8 @@
 <% if @business.hours.any? %>
   <h3>Hours</h3>
-  <%= HoursPresenter.new(@business.hours).display_hours %>
+  <div class="hours-container">
+    <%= HoursPresenter.new(@business.hours, @business.timezone_for_time_settings).display_hours %>
+  </div>
 <% else %>
   <h3>There aren't any hours currently for this business.</h3>
 <% end %>
