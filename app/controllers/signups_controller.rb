@@ -1,5 +1,4 @@
 class SignupsController < ApplicationController
-
   def create
     @signup = Signup.new(signup_params)
     respond_to do |format|
