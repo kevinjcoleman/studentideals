@@ -14,7 +14,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% @nav_categories.each do |category| %>
-          <li><%= link_to category.label, category_path(category) %></li>
+          <% cache category do %>
+            <li><%= link_to category.label, category_path(category) %></li>
+          <% end %>
         <% end %>
       </ul>
     </div><!--/.nav-collapse -->

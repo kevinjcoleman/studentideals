@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :sid_category do
     sid_category_id "3"
     label "Cool stuff to do."
+    order 1
 
     trait :category_with_businesses do
       after(:create) do |category, evaluator|

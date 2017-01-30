@@ -133,6 +133,14 @@ RailsAdmin.config do |config|
     field :count_of_businesses, :integer do
       formatted_value { bindings[:object].business_count }
     end
+    field :order, :enum do
+      label {"Order"}
+      enum { (1..5).to_a }
+    end
+
+    edit do
+      exclude_fields :count_of_businesses
+    end
   end
 
   config.model 'Region' do
