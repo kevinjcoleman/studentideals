@@ -2,4 +2,4 @@ startup_directory() { cd /var/app/current ; }
 
 startup_directory
 
-export PS1="\[\e[34m\]production\[\e[m\] \[\e[31;40m\]\W\[\e[m\] \[\e[33m\]\\$\[\e[m\]  "
+export PS1="\[\e[34m\]SID-production\[\e[m\] \[\e[31;40m\]\W\[\e[m\] \[\e[33m\]\\$\[\e[m\]  "
