@@ -46,6 +46,7 @@ class Search extends React.Component {
     this.onClearBizCats = this.onClearBizCats.bind(this);
     this.getBizCatValue = this.getBizCatValue.bind(this);
     this.getLocationValue = this.getLocationValue.bind(this);
+    this.redirectToController = this.redirectToController.bind(this);
     var current_location_cookie = Cookies.get('location') ? JSON.parse(Cookies.get('location')) : {label: ''};
     this.state = {
       locations : [],
@@ -145,6 +146,13 @@ class Search extends React.Component {
     return suggestion.label;
   }
 
+  // This occurs when the search button is clicked. I'd like to apply it to the getBizCatValue as well.
+  redirectToController() {
+    console.log("Search button was clicked!");
+  }
+
+
+
   render() {
     const inputLocationProps = {
       placeholder: 'Please type a location/school',
@@ -161,8 +169,21 @@ class Search extends React.Component {
     return (
       <div className="row">
         <Autosuggest
+          id="bizcat-search"
+          className="col-md-5"
+          suggestions={this.state.bizCats}
+          onSuggestionsFetchRequested={this.performBizCatSearch}
+          onSuggestionsClearRequested={this.onClearBizCats}
+          getSuggestionValue={this.getBizCatValue}
+          shouldRenderSuggestions={shouldRenderSuggestions}
+          renderSuggestion={renderSuggestion}
+          renderInputComponent={renderBizCatInputComponent}
+          inputProps={inputBizCatProps}
+        />
+
+        <Autosuggest
           id="location-search"
-          className="col-md-6"
+          className="col-md-5"
           suggestions={this.state.locations}
           onSuggestionsFetchRequested={this.performLocationSearch}
           onSuggestionsClearRequested={this.onClearLocations}
@@ -173,18 +194,8 @@ class Search extends React.Component {
           inputProps={inputLocationProps}
         />
 
-        <Autosuggest
-          id="bizcat-search"
-          className="col-md-6"
-          suggestions={this.state.bizCats}
-          onSuggestionsFetchRequested={this.performBizCatSearch}
-          onSuggestionsClearRequested={this.onClearBizCats}
-          getSuggestionValue={this.getBizCatValue}
-          shouldRenderSuggestions={shouldRenderSuggestions}
-          renderSuggestion={renderSuggestion}
-          renderInputComponent={renderBizCatInputComponent}
-          inputProps={inputBizCatProps}
-        />
+      <button className="btn btn-success search-button col-xs-12 col-md-2"
+              onClick={this.redirectToController}>Search</button>
       </div>
     );
   }
