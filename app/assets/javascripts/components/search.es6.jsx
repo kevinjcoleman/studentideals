@@ -53,7 +53,8 @@ class Search extends React.Component {
       current_location_value: current_location_cookie.label,
       current_location : current_location_cookie,
       bizCats : [],
-      bizCatTerm : ''
+      bizCatTerm : '',
+      suggestion : {}
     };
   }
 
@@ -139,19 +140,20 @@ class Search extends React.Component {
 
   // Redirect to redirect controller action with params.
   getBizCatValue(suggestion) {
-    let location = this.state.current_location.id;
-    let locationQuery = location ? `location=${location}&` : '';
-    let bizCatQuery = `bizCat=${suggestion.id}&bizCatType=${suggestion.type}`
-    window.location = '/search/redirect?'+locationQuery+bizCatQuery;
+    this.setState({suggestion: suggestion}, function afterTitleChange () {
+      this.redirectToController();
+    });
     return suggestion.label;
   }
 
   // This occurs when the search button is clicked. I'd like to apply it to the getBizCatValue as well.
   redirectToController() {
-    console.log("Search button was clicked!");
+    window.location = Routes.search_redirect_path({bizCat: this.state.suggestion.id,
+                                                  bizCatType: this.state.suggestion.type,
+                                                  location: this.state.current_location.id,
+                                                  bizCatTerm: this.state.bizCatTerm,
+                                                  currentLocationValue: this.state.current_location_value})
   }
-
-
 
   render() {
     const inputLocationProps = {

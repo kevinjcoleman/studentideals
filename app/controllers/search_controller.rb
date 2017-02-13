@@ -18,15 +18,20 @@ class SearchController < ApplicationController
   end
 
   def redirect
-    klass = Object.const_get params[:bizCatType]
-    instance = klass.find(params[:bizCat])
+    klass = Object.const_get params[:bizCatType] if params[:bizCatType]
+    @instance = klass.find(params[:bizCat]) if params[:bizCat]
     @region = Region.find(params[:location]) if params[:location]
-    if instance.is_a?(Business)
-      business_redirect(instance)
-    elsif instance.is_a?(SidCategory)
-      sid_cat_redirect(instance, @region)
+    @biz_cat_term = params[:bizCatTerm] if params[:bizCatTerm]
+    @biz_cat_term = params[:bizCatTerm] if params[:bizCatTerm]
+    if @instance && @region
+      biz_cat_redirect
+    elsif @instance
+      biz_cat_redirect
+    elsif @region && params[:bizCatTerm].blank?
+      region_redirect
     else
-      sub_cat_redirect(instance, @region)
+      flash.now[:danger] = "You must provide a search term!"
+      redirect_to root_path
     end
   end
 
@@ -47,6 +52,20 @@ class SearchController < ApplicationController
       redirect_to region_category_and_subcategory_path(region, sub_cat.sid_category, sub_cat)
     else
       redirect_to category_and_subcategory_path(sub_cat.sid_category, sub_cat)
+    end
+  end
+
+  def region_redirect
+    redirect_to region_path(@region)
+  end
+
+  def biz_cat_redirect
+    if @instance.is_a?(Business)
+      business_redirect(@instance)
+    elsif @instance.is_a?(SidCategory)
+      sid_cat_redirect(@instance, @region)
+    else
+      sub_cat_redirect(@instance, @region)
     end
   end
 end

@@ -3,6 +3,7 @@
 //= require react_ujs
 //= require jquery_ujs
 //= require js.cookie
+//= require js-routes
 
 window.$ = window.jQuery = global.$ = require('jquery');
 var React = window.React = global.React = require('react');
