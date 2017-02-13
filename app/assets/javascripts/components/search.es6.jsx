@@ -193,9 +193,10 @@ class Search extends React.Component {
           renderInputComponent={renderLocationInputComponent}
           inputProps={inputLocationProps}
         />
-
-      <button className="btn btn-success search-button col-xs-12 col-md-2"
-              onClick={this.redirectToController}>Search</button>
+        <div className="search-button-container col-xs-12 col-md-2">
+          <button className="btn btn-success search-button"
+                  onClick={this.redirectToController}>Search</button>
+        </div>
       </div>
     );
   }
