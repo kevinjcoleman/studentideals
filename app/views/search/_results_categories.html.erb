@@ -1,0 +1,20 @@
+<ul class="list">
+<% categories.each do |category| %>
+  <li class="list-item">
+  <% case category.class.name %>
+    <% when "SidCategory" %>
+      <% if region %>
+        <%= link_to category.label, region_and_category_path(region, category) %>
+      <% else %>
+        <%= link_to category.label, category_path(category) %>
+      <% end %>
+    <% when "SubCategory" %>
+      <% if region %>
+        <%= link_to category.label, region_category_and_subcategory_path(region, category.sid_category, category) %>
+      <% else %>
+        <%= link_to category.label, category_and_subcategory_path(category.sid_category, category) %>
+      <% end %>
+  <% end %>
+  </li>
+<% end %>
+</ul>

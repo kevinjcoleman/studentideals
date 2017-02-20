@@ -52,6 +52,7 @@ gem 'oj', '~> 2.12.14'
 gem 'skylight'
 gem 'sitemap_generator'
 gem "timecop"
+gem "js-routes"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

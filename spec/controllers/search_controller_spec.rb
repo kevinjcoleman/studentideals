@@ -1,83 +1,164 @@
 require 'rails_helper'
-=begin
-RSpec.describe SearchController, type: :controller do
 
+RSpec.describe SearchController, type: :controller do
   let!(:region) {create(:region, name: "test region")}
   let!(:sid_category) {create(:sid_category, label: "test sid_category")}
   let!(:sub_category) {create(:sub_category, label: "test sub_category", sid_category: sid_category)}
   let!(:business) {create(:business, :with_ungeocoded_address, :with_lat_lng, biz_name: "test business")}
+  let(:blank_params) { {bizCat: nil,
+                         bizCatType: nil,
+                         location: nil,
+                         bizCatTerm: nil,
+                         currentLocationValue: nil}}
 
   describe "GET #results" do
     context "it's successful with random query" do
       before { get :results, query: "random query" }
       it { should respond_with(:success) }
     end
+  end
 
-    context "json rendering" do
-    before do
-      get :results, query: "test"
-    end
+  describe "GET redirect" do
+    context "with region and bizCat" do
+      let!(:region_params)  {blank_params.merge(location: region.id)}
 
-    let!(:results) {JSON.parse(response.body)["results"]}
-      it "returns the business json correctly" do
-        business_json = find_searchable_type(results, "Business")
-        expect(business_json["label"]).to eq(business.biz_name)
-        expect(business_json["id"]).to eq(business.slug)
-        expect(business_json["url"]).to eq("/region/#{business.region.slug}/businesses/#{business.slug}")
+      context "business" do
+        let(:params) {region_params.merge(biz_cat_params(business))}
+
+        before { get :redirect, params }
+        it { should redirect_to business_path(business) }
       end
 
-      it "returns the sid_category json correctly" do
-        sid_category_json = find_searchable_type(results, "SID Category")
-        expect(sid_category_json["label"]).to eq(sid_category.label)
-        expect(sid_category_json["id"]).to eq(sid_category.slug)
-        expect(sid_category_json["url"]).to eq("/category/#{sid_category.slug}")
+      context "sid_category" do
+        let(:params) {region_params.merge(biz_cat_params(sid_category))}
+
+        before { get :redirect, params }
+        it { should redirect_to region_and_category_path(region, sid_category) }
       end
 
-      it "returns the sub_category json correctly" do
-        sub_category_json = find_searchable_type(results, "Category")
-        expect(sub_category_json["label"]).to eq(sub_category.label)
-        expect(sub_category_json["id"]).to eq(sub_category.slug)
-        expect(sub_category_json["url"]).to eq("/category/#{sub_category.sid_category.slug}/sub_category/#{sub_category.slug}")
-      end
+      context "sub_category" do
+        let(:params) {region_params.merge(biz_cat_params(sub_category))}
 
-      it "returns the region json correctly" do
-        region_json = find_searchable_type(results, "Locale")
-        expect(region_json["label"]).to eq(region.name)
-        expect(region_json["id"]).to eq(region.slug)
-        expect(region_json["url"]).to eq("/region/#{region.slug}")
+        before { get :redirect, params }
+        it { should redirect_to region_category_and_subcategory_path(region, sid_category, sub_category) }
       end
     end
 
-    context "ordering" do
-      before do
-        get :results, query: "test"
+    context "with just a biz cat" do
+      context "business" do
+        let(:params) {blank_params.merge(biz_cat_params(business))}
+
+        before { get :redirect, params }
+        it { should redirect_to business_path(business) }
       end
 
-      let!(:results) {JSON.parse(response.body)["results"]}
+      context "sid_category" do
+        let(:params) {blank_params.merge(biz_cat_params(sid_category))}
 
-      it "returns Locale first" do
-        expect(results.first["searchable_type"]).to eq "Locale"
+        before { get :redirect, params }
+        it { should redirect_to category_path(sid_category) }
       end
 
-      it "returns sid_category second" do
-        expect(results[1]["searchable_type"]).to eq "SID Category"
-      end
+      context "sub_category" do
+        let(:params) {blank_params.merge(biz_cat_params(sub_category))}
 
-      it "returns sub_category third" do
-        expect(results[2]["searchable_type"]).to eq "Category"
-      end
-
-      it "returns business last" do
-        expect(results.last["searchable_type"]).to eq "Business"
+        before { get :redirect, params }
+        it { should redirect_to category_and_subcategory_path(sid_category, sub_category) }
       end
     end
 
+    context "with just a region" do
+      let(:params) {blank_params.merge(location: region.id)}
 
+      before { get :redirect, params }
+      it { should redirect_to region_path(region) }
+    end
 
-    def find_searchable_type(results, searchable_type)
-      results.find {|r| r["searchable_type"].to_s ==  searchable_type }
+    context "with region and bizCatTerm" do
+      let(:params) {blank_params.merge(location: region.id, bizCatTerm: "test")}
+
+      before { get :redirect, params }
+      it { should redirect_to search_results_path({region: region.id, bizCatTerm: "test"}) }
+    end
+
+    context "with both a currentLocationValue & bizCatTerm" do
+      let(:params) {blank_params.merge(currentLocationValue: "test", bizCatTerm: "test")}
+
+      before { get :redirect, params }
+      it { should redirect_to search_results_path({currentLocationValue: "test", bizCatTerm: "test"}) }
+    end
+
+    context "with just bizCatTerm" do
+      let(:params) {blank_params.merge(bizCatTerm: "test")}
+
+      before { get :redirect, params }
+      it { should redirect_to search_results_path({bizCatTerm: "test"}) }
+    end
+
+    context "with just a currentLocationValue" do
+      let(:params) {blank_params.merge(currentLocationValue: "test")}
+
+      before { get :redirect, params }
+      it { should redirect_to search_results_path({currentLocationValue: "test"}) }
+    end
+
+    context "with no values" do
+      before { get :redirect, blank_params }
+      it { should redirect_to root_path }
+      it { should set_flash[:danger].to('You must provide a search term!') }
     end
   end
-end
 
-=end
+  describe "#results" do
+    context "with region and bizCatTerm" do
+      let(:params) {blank_params.merge(region: region.id, bizCatTerm: "test")}
+
+      before { get :results, params }
+      it { should respond_with(:success) }
+
+      it "assigns the region with corresponding categories and businesses correctly" do
+        expect(assigns(:region)).to eq(region)
+        expect(assigns(:categories).map(&:searchable)).to eq([sid_category, sub_category])
+        expect(assigns(:businesses)).to eq([business])
+      end
+    end
+
+    context "with both a currentLocationValue & bizCatTerm" do
+      let(:params) {blank_params.merge(currentLocationValue: "test", bizCatTerm: "test")}
+
+      before { get :results, params }
+      it { should respond_with(:success) }
+
+      it "assigns regions, categories and businesses correctly" do
+        expect(assigns(:regions)).to eq([region])
+        expect(assigns(:bizCats).map(&:searchable)).to eq([business, sid_category, sub_category])
+      end
+    end
+
+    context "with just bizCatTerm" do
+      let(:params) {blank_params.merge(bizCatTerm: "test")}
+
+      before { get :results, params }
+      it { should respond_with(:success) }
+
+      it "assigns just categories and businesses" do
+        expect(assigns(:bizCats).map(&:searchable)).to eq([business, sid_category, sub_category])
+      end
+    end
+
+    context "with just a currentLocationValue" do
+      let(:params) {blank_params.merge(currentLocationValue: "test")}
+
+      before { get :results, params }
+      it { should respond_with(:success) }
+
+      it "assigns just regions" do
+        expect(assigns(:regions)).to eq([region])
+      end
+    end
+  end
+
+  def biz_cat_params(instance)
+    {bizCat: instance.id, bizCatType: instance.class.name}
+  end
+end

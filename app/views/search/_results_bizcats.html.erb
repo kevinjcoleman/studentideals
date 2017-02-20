@@ -1,0 +1,20 @@
+<% categories = bizCats.select {|searchable| /^Sid|^Sub/.match(searchable.searchable_type)}.map(&:searchable) %>
+<% businesses = bizCats.select {|searchable| /^Bus/.match(searchable.searchable_type)}.map(&:searchable) %>
+<div>
+  <% if any?(categories) && any?(businesses) %>
+    <div class="col-md-6">
+      <h2 class="text-center">Categories</h2>
+      <%= render partial: "results_categories", locals: {categories: categories, region: nil} %>
+    </div>
+    <div class="col-md-6">
+      <h2 class="text-center">Businesses</h2>
+      <%= render partial: "results_businesses", locals: {businesses: businesses} %>
+    </div>
+  <% elsif any?(categories) %>
+    <h2 class="text-center">Categories</h2>
+    <%= render partial: "results_categories", locals: {categories: categories, region: nil} %>
+  <% elsif any?(businesses) %>
+    <h2 class="text-center">Businesses</h2>
+    <%= render partial: "results_businesses", locals: {businesses: businesses} %>
+  <% end %>
+</div>

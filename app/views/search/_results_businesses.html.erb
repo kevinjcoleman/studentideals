@@ -1,0 +1,7 @@
+<ul class="list">
+<% businesses.each do |business| %>
+  <li class="list-item">
+    <%= link_to business.biz_name, business_path(business) %>
+  </li>
+<% end %>
+</ul>
