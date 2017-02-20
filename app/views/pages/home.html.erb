@@ -4,6 +4,37 @@
 <div class="jumbotron center homepage-container">
   <h1>Get more when you go out.</h1>
   <%= react_component('Search') %>
+  <div class="homepage-categories center-block">
+    <%= link_to category_path(SidCategory.find_by_label("Food & Drink")) do %>
+      <div class="category-img">
+        <img src="http://studentideals.com/wp-content/uploads/2014/09/icon_food_drink_hollow_hover.png" title="">
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("Something To Do")) do %>
+      <div class="category-img">
+        <img src="http://studentideals.com/wp-content/uploads/2014/09/icon_somethingtodo_hollow_Hover.png" title="">
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("Health & Beauty")) do %>
+      <div class="category-img">
+        <img src="http://studentideals.com/wp-content/uploads/2014/09/health_beauty_hollow_Hover.png" title="">
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("Shopping")) do %>
+      <div class="category-img">
+        <img src="http://studentideals.com/wp-content/uploads/2014/09/icon_shopping_hollow_Hover.png" title="">
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("More")) do %>
+      <div class="category-img">
+        <img src="http://studentideals.com/wp-content/uploads/2014/09/more_cateogry_hollow_hover.png" title="">
+      </div>
+    <% end %>
+  </div>
   <%= render "layouts/app_store_badge" %>
 </div>
 

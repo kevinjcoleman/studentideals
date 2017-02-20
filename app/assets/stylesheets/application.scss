@@ -333,6 +333,25 @@ a {
   }
 }
 
+.homepage-categories {
+  margin-bottom: 1em;
+  .category-img {
+    @include box-shadow-mixin;
+    margin-right: 1px;
+    background-color: $sid-white;
+    display: inline-block;
+    margin-right: -3.8px;
+    border-right: $sid-grey solid 1px;
+    &:hover {
+      opacity: .75;
+    }
+    img {
+      width: 62px;
+      padding: 5px;
+    }
+  }
+}
+
 //Homepage Styles
 .toggler {
    @extend .link;
