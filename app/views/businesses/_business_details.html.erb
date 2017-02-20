@@ -12,10 +12,6 @@
   <p><%= fa_icon "phone"%> <%= link_to "#{@business.telephone}", "tel:+1#{@business.telephone.gsub(/[^\d]/, '')}"  %></p>
 <% end %>
 
-<% if @business.email %>
-  <p><%= fa_icon "envelope-o" %> <%= link_to @business.email, "mailto:#{@business.email}", target: "_blank" %></p>
-<% end %>
-
 <% if @business.website %>
   <p><%= fa_icon "window-maximize" %> <%= link_to "Website", @business.website.html_safe, target: "_blank" %></p>
 <% end %>
