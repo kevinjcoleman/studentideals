@@ -83,6 +83,12 @@ class Business < ActiveRecord::Base
             iconAnchor: [25, 25], # point of the icon which will correspond to marker's location
             popupAnchor: [0, -25], # point from which the popup should open relative to the iconAnchor
             className: 'current-location'}
+          elsif color == "orange-big"
+              {iconUrl: 'https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/better_large_deal_tag.png',
+              iconSize: [70, 70], # size of the icon
+              iconAnchor: [25, 25], # point of the icon which will correspond to marker's location
+              popupAnchor: [0, -25], # point from which the popup should open relative to the iconAnchor
+              className: 'dot'}
           else
             {iconUrl: 'https://s3-us-west-1.amazonaws.com/studentidealswebapp/uploads/images/better_large_deal_tag.png',
             iconSize: [40, 40], # size of the icon
@@ -173,7 +179,7 @@ class Business < ActiveRecord::Base
     raise "No known timezone for #{state}! Update timezone method in business.rb!"
   end
 
-  def timezone_for_time_settings 
+  def timezone_for_time_settings
     case timezone
     when "est"
       "Eastern Time (US & Canada)"
