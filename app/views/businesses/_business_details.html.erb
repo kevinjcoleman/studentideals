@@ -1,4 +1,6 @@
-<h1><%= @business.biz_name %><span class="biz-category" > <%= logo(@business.sid_category.sid_category_id) %></span></h1>
+<div class="page-header">
+  <h1><%= @business.biz_name %><span class="biz-category" > <%= logo(@business.sid_category.sid_category_id) %></span></h1>
+</div>
 
 <% if @business.sid_editorial %>
   <p class="lead"><%= @business.website_description %></p>
