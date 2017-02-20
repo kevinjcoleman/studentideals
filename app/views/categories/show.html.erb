@@ -1,7 +1,7 @@
 <% meta title: "#{@category.label} in #{@region.name}",
-   description: "IDeal #{@category.label} discounts and info near #{@region.name}." %>
+   description: "IDeal discounts and info for #{@category.label} near #{@region.name}." %>
 
-<h1>IDeal <strong><%= @category.label %></strong> discounts and info near <strong><%= @region.name %></strong>.</h1>
+<h1>IDeal discounts and info for <strong><%= @category.label %></strong> near <strong><%= @region.name %></strong>.</h1>
 <% if @sub_categories.present? %>
   <h3>Subcategories</h3>
   <% @sub_categories.each do |sub| %>
