@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe SearchController, type: :controller do
-  let(:region) {create(:region, name: "test region")}
-  let(:sid_category) {create(:sid_category, label: "test sid_category")}
-  let(:sub_category) {create(:sub_category, label: "test sub_category", sid_category: sid_category)}
-  let(:business) {create(:business, :with_ungeocoded_address, :with_lat_lng, biz_name: "test business")}
+  let!(:region) {create(:region, name: "test region")}
+  let!(:sid_category) {create(:sid_category, label: "test sid_category")}
+  let!(:sub_category) {create(:sub_category, label: "test sub_category", sid_category: sid_category)}
+  let!(:business) {create(:business, :with_ungeocoded_address, :with_lat_lng, biz_name: "test business")}
   let(:blank_params) { {bizCat: nil,
                          bizCatType: nil,
                          location: nil,
@@ -111,13 +111,15 @@ RSpec.describe SearchController, type: :controller do
 
   describe "#results" do
     context "with region and bizCatTerm" do
-      let(:params) {blank_params.merge(location: region.id, bizCatTerm: "test")}
+      let(:params) {blank_params.merge(region: region.id, bizCatTerm: "test")}
 
       before { get :results, params }
       it { should respond_with(:success) }
 
       it "assigns the region with corresponding categories and businesses correctly" do
-
+        expect(assigns(:region)).to eq(region)
+        expect(assigns(:categories).map(&:searchable)).to eq([sid_category, sub_category])
+        expect(assigns(:businesses)).to eq([business])
       end
     end
 
@@ -128,7 +130,8 @@ RSpec.describe SearchController, type: :controller do
       it { should respond_with(:success) }
 
       it "assigns regions, categories and businesses correctly" do
-
+        expect(assigns(:regions)).to eq([region])
+        expect(assigns(:bizCats).map(&:searchable)).to eq([business, sid_category, sub_category])
       end
     end
 
@@ -139,7 +142,7 @@ RSpec.describe SearchController, type: :controller do
       it { should respond_with(:success) }
 
       it "assigns just categories and businesses" do
-
+        expect(assigns(:bizCats).map(&:searchable)).to eq([business, sid_category, sub_category])
       end
     end
 
@@ -150,7 +153,7 @@ RSpec.describe SearchController, type: :controller do
       it { should respond_with(:success) }
 
       it "assigns just regions" do
-
+        expect(assigns(:regions)).to eq([region])
       end
     end
   end

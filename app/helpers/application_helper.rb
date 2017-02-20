@@ -25,4 +25,8 @@ module ApplicationHelper
       fa_icon "question"
     end
   end
+
+  def any?(object)
+    !object.nil? && object.any?
+  end
 end

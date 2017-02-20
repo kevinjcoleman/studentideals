@@ -1,0 +1,20 @@
+<h1>Ideal discounts and info in <strong><%= @region.name %></strong></h1>
+<h5><%= any?(@categories) && any?(@businesses) ? "Results for #{params[:bizCatTerm]}." : "No results for #{params[:bizCatTerm]}." %></h5>
+<div class="row">
+  <% if any?(@categories) && any?(@businesses) %>
+    <div class="col-md-6">
+      <h2 class="text-center">Categories</h2>
+      <%= render partial: "results_categories", locals: {categories: @categories.map(&:searchable), region: @region} %>
+    </div>
+    <div class="col-md-6">
+      <h2 class="text-center">Businesses</h2>
+      <%= render partial: "results_businesses", locals: {businesses: @businesses} %>
+    </div>
+  <% elsif any?(@categories) %>
+    <h2 class="text-center">Categories</h2>
+    <%= render partial: "results_categories", locals: {categories: @categories.map(&:searchable), region: @region} %>
+  <% elsif any?(@businesses) %>
+    <h2 class="text-center">Businesses</h2>
+    <%= render partial: "results_businesses", locals: {businesses: @businesses} %>
+  <% end %>
+</div>

@@ -1,2 +1,16 @@
-<h1>Search#results</h1>
-<p>Find me in app/views/search/results.html.erb</p>
+<% if @region %>
+  <%= render "region_results" %>
+<% elsif any?(@regions) && any?(@bizCats) %>
+  <h1 class="text-center">Regions/Schools matching <strong><%= params[:currentLocationValue] %></strong></h1>
+  <%= render partial: "results_regions", locals: {regions: @regions} %>
+  <h2 class="text-center">Results matching <strong><%= params[:bizCatTerm] %></strong></h2>
+  <%= render partial: "results_bizcats", locals: {bizCats: @bizCats} %>
+<% elsif any?(@regions) %>
+  <h1 class="text-center">Regions/Schools matching <strong><%= params[:currentLocationValue] %></strong></h1>
+  <%= render partial: "results_regions", locals: {regions: @regions} %>
+<% elsif any?(@bizCats) %>
+  <h1 class="text-center">Results matching <strong><%= params[:bizCatTerm] %></strong></h2>
+  <%= render partial: "results_bizcats", locals: {bizCats: @bizCats} %>
+<% else %>
+  <h1>No results match that search term.</h1>
+<% end %>

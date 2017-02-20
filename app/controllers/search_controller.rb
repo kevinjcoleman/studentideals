@@ -36,6 +36,13 @@ class SearchController < ApplicationController
   def results
     if params[:region] && params[:bizCatTerm]
       obtain_region_search_results(params[:region], params[:bizCatTerm])
+    elsif params[:currentLocationValue] && params[:bizCatTerm]
+      @regions = Region.where("name ~* ?", "#{params[:currentLocationValue]}").limit(20)
+      @bizCats = PgSearch.multisearch(params[:bizCatTerm]).where(:searchable_type => ["SubCategory", "SidCategory", "Business"]).reorder(searchable_type: :ASC).limit(20)
+    elsif params[:bizCatTerm]
+      @bizCats = PgSearch.multisearch(params[:bizCatTerm]).where(:searchable_type => ["SubCategory", "SidCategory", "Business"]).reorder(searchable_type: :ASC).limit(20)
+    elsif params[:currentLocationValue]
+      @regions = Region.where("name ~* ?", "#{params[:currentLocationValue]}").limit(20)
     end
   end
 
@@ -76,11 +83,10 @@ class SearchController < ApplicationController
     end
 
     def obtain_region_search_results(region, bizcat)
-      binding.pry
       @categories = PgSearch.multisearch(bizcat).where(:searchable_type => ["SubCategory", "SidCategory"]).reorder(searchable_type: :ASC).limit(20)
       if region
-        region = Region.find(region)
-        @businesses = Business.nearby(region).where("biz_name ~* ?", "#{bizcat}").limit(5)
+        @region = Region.find(region)
+        @businesses = Business.nearby(@region).where("biz_name ~* ?", "#{bizcat}").limit(5)
       else
         @businesses = Business.where("biz_name ~* ?", "#{bizcat}").limit(5)
       end

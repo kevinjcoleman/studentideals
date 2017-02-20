@@ -1,0 +1,7 @@
+<ul class="list">
+<% regions.each do |region| %>
+  <li class="list-item">
+    <%= link_to region.name, region_path(region) %>
+  </li>
+<% end %>
+</ul>
