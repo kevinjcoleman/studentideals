@@ -1,4 +1,4 @@
-<%= link_to business_path(business ) do %>
+<%= link_to business_path(business) do %>
 <div class="well well-lg biz-listing">
   <span class="biz-deal-listing"><%= business.deal ? business.deal.desc_short : "NA"  %></span>
   <h3><%= business.biz_name %>  <span class="list-category" ><%= business.sid_category.label %> <%= logo(business.sid_category.sid_category_id) %></span></h3>
