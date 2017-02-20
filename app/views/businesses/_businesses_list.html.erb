@@ -29,11 +29,11 @@ $(document).ready(function() {
   $.ajax({
     dataType: 'text',
     <% if @sub_category %>
-    url: '/region/<%= @region.slug %>/category/<%= @category.slug %>/sub_category/<%= @sub_category.id %>.json',
+    url: '/region/<%= @region.slug %>/category/<%= @category.slug %>/sub_category/<%= @sub_category.id %>.json<%= params[:page] ? "?page=#{params[:page]}": ""%>',
     <% elsif @category %>
-    url: '/region/<%= @region.slug %>/category/<%= @category.slug %>.json',
+    url: '/region/<%= @region.slug %>/category/<%= @category.slug %>.json<%= params[:page] ? "?page=#{params[:page]}": ""%>',
     <% else %>
-    url: '/region/<%= @region.slug %>.json',
+    url: '/region/<%= @region.slug %>.json<%= params[:page] ? "?page=#{params[:page]}": ""%>',
     <% end %>
     success: function(data) {
       var geojson;
