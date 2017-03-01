@@ -187,6 +187,14 @@ a {
   }
 }
 
+@media (max-width: 768px) {
+  .homepage-container {
+    h1 {
+      font-size: 40px;
+    }
+  }
+}
+
 .homepage-search,.react-autosuggest__container {
   @extend .col-md-5;
   position: relative;
@@ -334,20 +342,27 @@ a {
 }
 
 .homepage-categories {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
+  margin-top: 1em;
   .category-img {
-    @include box-shadow-mixin;
     margin-right: 1px;
-    background-color: $sid-white;
     display: inline-block;
-    margin-right: -3.8px;
-    border-right: $sid-grey solid 1px;
     &:hover {
       opacity: .75;
     }
     img {
-      width: 62px;
+      width: 80px;
       padding: 5px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .homepage-categories {
+    .category-img {
+      img {
+        width: 63px;
+      }
     }
   }
 }
