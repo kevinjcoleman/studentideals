@@ -426,6 +426,16 @@ a {
   top: 1em;
 }
 
+.main-category-link {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.list-link {
+  font-size: 12px;
+  line-height: 24px;
+}
+
 //Listing Styles
 .listing-well {
   @include box-shadow-mixin;

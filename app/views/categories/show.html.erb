@@ -7,7 +7,7 @@
     <h3>Subcategories</h3>
     <div class="row">
       <% @sub_categories.each do |sub| %>
-        <div class="col-md-2 col-sm-2 col-xs-4"><%= link_to "#{sub.label}", region_category_and_subcategory_path(@region, @category, sub) %></div>
+        <div class="col-md-2 col-sm-4 col-xs-6  list-link"><%= link_to "#{sub.label}", region_category_and_subcategory_path(@region, @category, sub) %></div>
       <% end %>
     </div>
   <% end %>

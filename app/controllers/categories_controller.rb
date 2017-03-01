@@ -8,8 +8,7 @@ class CategoriesController < ApplicationController
     @businesses = @businesses_all.page params[:page]
     @sub_categories = @category.sub_categories.roots.
                                 join_and_order_by_taggings_count.
-                                where(sub_category_taggings: {business_id: @businesses_all.pluck(:id)}).
-                                limit(5)
+                                where(sub_category_taggings: {business_id: @businesses_all.pluck(:id)})
     return_geojson
   end
 
@@ -20,8 +19,7 @@ class CategoriesController < ApplicationController
     @businesses = @businesses_all.page params[:page]
     @sub_categories = @sub_category.children.
                                     join_and_order_by_taggings_count.
-                                    where(sub_category_taggings: {business_id: @businesses_all.pluck(:id)}).
-                                    limit(5)
+                                    where(sub_category_taggings: {business_id: @businesses_all.pluck(:id)})
     add_sub_category_breadcrumbs_show
     return_geojson
   end
