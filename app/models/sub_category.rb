@@ -48,4 +48,13 @@ class SubCategory < ActiveRecord::Base
   def singularized_label
     label.split(" ").map(&:singularize).join(" ")
   end
+
+  def each_with_children(&block)
+    block.(self)
+    children.each {|child| block.(child)}
+  end
+
+  def duplicates
+    SubCategory.where(label: self.label).where.not(sid_category_id: self.sid_category_id)
+  end
 end

@@ -1,9 +1,9 @@
 class SearchController < ApplicationController
   def locations
     if params[:query].empty?
-      @results = Region.order("RANDOM()").limit(20)
+      @results = Region.with_businesses.order("RANDOM()").limit(20)
     else
-      @results = PgSearch.multisearch(params[:query]).where(:searchable_type => "Region").limit(20)
+      @results = Region.with_businesses.where("LOWER(name) LIKE LOWER(?)", "%#{params[:query]}%").limit(20)
     end
   end
 

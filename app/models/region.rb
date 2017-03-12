@@ -9,6 +9,10 @@ class Region < ActiveRecord::Base
   validates_uniqueness_of :name
   validates :name, length: { minimum: 3 }, presence: true
 
+  CLOSE_BIZ_COUNT_MINIMUM = 10
+  scope :with_businesses, -> {where("close_biz_count > ?", CLOSE_BIZ_COUNT_MINIMUM)}
+
+
   def geojsonify(color:)
     marker_color = Color.fetch_color(color)
     geojson = {
