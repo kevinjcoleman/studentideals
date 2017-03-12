@@ -16,8 +16,8 @@ RSpec.describe Business, type: :model do
     context "with address info" do
       let(:biz_with_address) { create(:business,:with_ungeocoded_address) }
         it "creates with lat/lng" do
-          expect(biz_with_address.latitude).to eq (34.1253012)
-          expect(biz_with_address.longitude).to eq (-118.2166504)
+          expect(biz_with_address.latitude).to eq (34.125297)
+          expect(biz_with_address.longitude).to eq (-118.2166763)
         end
     end
 
@@ -285,7 +285,7 @@ RSpec.describe Business, type: :model do
     let(:business) { create(:business, :with_category) }
     it "adds new sub categories from factual" do
       business.add_factual_categories
-      expect(business.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Italian", "Japanese"])
+      expect(business.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Barbecue", "Italian"])
     end
 
     it "doesn't duplicate existing sub categories or taggings." do
@@ -306,7 +306,7 @@ RSpec.describe Business, type: :model do
     let!(:business) { create(:business, :with_category) }
     it "adds new sub categories from factual" do
       Business.batch_add_factual_categories
-      expect(business.reload.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Italian", "Japanese"])
+      expect(business.reload.sub_categories.map(&:label)).to eq(["Restaurants", "American", "Barbecue", "Italian"])
     end
   end
 
@@ -354,14 +354,14 @@ RSpec.describe Business, type: :model do
     describe "#timezone" do
       context "Eastern state" do
         let(:eastern_state) { create(:business, :with_ungeocoded_address,:with_lat_lng, state: "MD") }
-        it "is EST" do
-          expect(eastern_state.timezone).to eq("EST")
+        it "is est" do
+          expect(eastern_state.timezone).to eq("est")
         end
       end
 
       context "western state" do
-        it "is PST" do
-          expect(business.timezone).to eq("PST")
+        it "is pst" do
+          expect(business.timezone).to eq("pst")
         end
       end
     end

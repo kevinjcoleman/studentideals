@@ -2,7 +2,6 @@ class BizHour < ActiveRecord::Base
   belongs_to :business
 
   validates_presence_of :open_at, :close_at, :day, :business, :timezone
-  validates_uniqueness_of :business_id, scope: :day
 
   enum day: [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
   enum timezone: [:pst, :mst, :cst, :est]
@@ -11,6 +10,7 @@ class BizHour < ActiveRecord::Base
                "pst" => "-08"}
 
   scope :today, -> {where(day: CurrentTime.new.dow)}
+  scope :hours_between, -> (open_hour, close_hour) {where("(open_at <= '#{open_hour}' AND close_at >= '#{open_hour}') OR (open_at <= '#{close_hour}' AND close_at >= '#{close_hour}')")}
 
   def open?
     Time.current.between?(Time.parse(open_at).in_time_zone, Time.parse(close_at).in_time_zone)
@@ -38,7 +38,7 @@ class BizHour < ActiveRecord::Base
 
   def self.add_hour(hour, biz)
     parsed_hour = factual_hour_hash(hour, biz)
-    return if biz.hours.where(day: parsed_hour[:day]).any?
+    return if biz.hours.where(day: parsed_hour[:day]).hours_between(parsed_hour[:open_at], parsed_hour[:close_at]).any?
     create!(parsed_hour)
   end
 

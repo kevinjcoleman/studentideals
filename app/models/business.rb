@@ -124,7 +124,6 @@ class Business < ActiveRecord::Base
   def self.batch_add_factual_hours
     client = FactualClient.new
     self.find_each do |biz|
-      next if biz.hours.count == 7
       biz.add_factual_hours(client)
     end
   end
