@@ -187,6 +187,10 @@ class Business < ActiveRecord::Base
     end
   end
 
+  def open?
+    hours.today.open_now.any?
+  end
+
   private
 
     def find_region

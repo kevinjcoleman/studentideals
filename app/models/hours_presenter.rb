@@ -9,15 +9,15 @@ class HoursPresenter
                         sunday)
 
   def initialize(hours, timezone)
-    @hours = hours
+    @hours = hours.order(:open_at)
     @timezone = timezone
     set_timezone
   end
 
   def each_with_hour_order
     DAYS_OF_THE_WEEK.each do |day|
-      hour = hours.find {|h| h.day == day }
-      yield(hour, day)
+      hours_for_day = hours.select {|h| h.day == day }
+      yield(hours_for_day, day)
     end
   end
 
@@ -27,16 +27,18 @@ class HoursPresenter
     display_hours.html_safe
   end
 
-  def output_hour(hour=nil, day)
-    if hour
-      day = wrap_in_tags("strong", hour.day_display)
-      hours = "#{hour.open_at_display} - #{hour.close_at_display}"
-      open_for_display = if hour.today?
-        hour.open? ? wrap_in_tags("span", " Open now", "text-success lead") : wrap_in_tags("span", " Closed now", 'text-danger lead')
+  def output_hour(hours_for_day=nil, day)
+    if hours_for_day
+      day = wrap_in_tags("strong", hours_for_day.first.day_display)
+      hours_for_display = hours_for_day.map do |hour|
+        "#{hour.open_at_display} - #{hour.close_at_display}"
+      end.join(", ")
+      open_tag = if hours_for_day.first.today?
+        hours_for_day.first.business.open? ? wrap_in_tags("span", " Open now", "text-success lead") : wrap_in_tags("span", " Closed now", 'text-danger lead')
       else
         nil
       end
-      wrap_in_tags("p", "#{day} #{hours}#{open_for_display}\n")
+      return wrap_in_tags("p", "#{day} #{hours_for_display}#{open_tag}\n")
     else
       "<p><strong>#{day.match(/^(\w{3})/)[1].titlecase}</strong> Closed</p>\n".html_safe
     end

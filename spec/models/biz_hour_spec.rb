@@ -23,6 +23,10 @@ RSpec.describe BizHour, type: :model do
         it "whole hours between" do
           expect(BizHour.hours_between("11:00:00-08", "14:00:00-08").any?).to be_truthy
         end
+
+        it "checks for the start & end of the day" do
+          expect(BizHour.hours_between("00:00:00-08", "23:59:00-08").any?).to be_truthy
+        end
       end
 
       context "outside" do

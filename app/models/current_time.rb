@@ -1,7 +1,7 @@
 class CurrentTime
   attr_accessor :time
 
-  def initialize(time=Time.current)
+  def initialize(time=Time.zone.now)
     @time = time
   end
 
@@ -9,6 +9,10 @@ class CurrentTime
     time.strftime("%T+#{time_zone_formatted}")
   end
 
+  def time_for_search
+    time.strftime("%T-#{time_zone_formatted}")
+  end
+    
   def dow
     Time.current.strftime("%w").to_i
   end
