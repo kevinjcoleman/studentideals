@@ -28,7 +28,7 @@ class HoursPresenter
   end
 
   def output_hour(hours_for_day=nil, day)
-    if hours_for_day
+    if hours_for_day.any?
       day = wrap_in_tags("strong", hours_for_day.first.day_display)
       hours_for_display = hours_for_day.map do |hour|
         "#{hour.open_at_display} - #{hour.close_at_display}"

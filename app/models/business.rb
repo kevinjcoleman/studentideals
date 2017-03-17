@@ -125,6 +125,7 @@ class Business < ActiveRecord::Base
     client = FactualClient.new
     self.find_each do |biz|
       biz.add_factual_hours(client)
+      sleep(3)
     end
   end
 
