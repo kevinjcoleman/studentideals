@@ -49,6 +49,7 @@ class Search extends React.Component {
     this.redirectToController = this.redirectToController.bind(this);
     var current_location_cookie = Cookies.get('location') ? JSON.parse(Cookies.get('location')) : {label: ''};
     this.state = {
+      iframed: props.iframed,
       locations : [],
       current_location_value: current_location_cookie.label,
       current_location : current_location_cookie,
@@ -155,12 +156,17 @@ class Search extends React.Component {
                                                   location: this.state.current_location.id,
                                                   bizCatTerm: this.state.bizCatTerm,
                                                   currentLocationValue: this.state.current_location_value});
-
-    window.location = Routes.search_redirect_path({bizCat: this.state.suggestion.id,
+    var search_path = Routes.search_redirect_path({bizCat: this.state.suggestion.id,
                                                   bizCatType: this.state.suggestion.type,
                                                   location: this.state.current_location.id,
                                                   bizCatTerm: this.state.bizCatTerm,
-                                                  currentLocationValue: this.state.current_location_value})
+                                                  currentLocationValue: this.state.current_location_value});
+    if (this.state.iframed) {
+      window.open(search_path, '_blank');
+    }
+    else {
+      window.location = search_path;
+    }
   }
 
   render() {

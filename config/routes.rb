@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'iframe/search_box'
+
   # This allows signups to be created through the popup form.
   resources :signups, only: [:create]
 

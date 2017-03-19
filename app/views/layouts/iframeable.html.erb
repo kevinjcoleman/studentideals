@@ -28,22 +28,8 @@
     </script>
   <% end %>
 </head>
-<body>
-  <%= render 'layouts/nav' %>
-  <% unless controller.controller_name == 'sessions' || current_page?(:controller => 'pages', :action => 'home') %>
-    <div class="well search-container">
-      <%= react_component('Search', iframed: false) %>
-    </div>
-  <% end %>
-<div class="container main-container">
-  <%= render 'layouts/messages' %>
-  <%= render 'layouts/breadcrumbs' %>
-  <%= yield %>
-  <% unless splashed? %>
-  <%= render 'layouts/splash' %>
-  <% end %>
-</div>
-<%= render 'layouts/ad' %>
-<%= render 'layouts/footer' %>
+<body style="padding-top: 0px">
+<%= yield %>
+
 </body>
 </html>

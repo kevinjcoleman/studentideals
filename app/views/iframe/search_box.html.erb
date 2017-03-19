@@ -1,0 +1,38 @@
+<div class="jumbotron center homepage-container" style="
+    padding-right: 1em;
+    padding-left: 1em;">
+  <h1>Helping students find the college town in their city.</h1>
+  <%= react_component('Search', iframed: true) %>
+  <div class="homepage-categories center-block">
+    <%= link_to category_path(SidCategory.find_by_label("Food & Drink")) do %>
+      <div class="category-img">
+        <%= image_tag("/assets/food_sid.png") %>
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("Something To Do")) do %>
+      <div class="category-img">
+        <%= image_tag("/assets/something_sid.png") %>
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("Health & Beauty")) do %>
+      <div class="category-img">
+        <%= image_tag("/assets/health_fitness_sid.png") %>
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("Shopping")) do %>
+      <div class="category-img">
+        <%= image_tag("/assets/shopping_sid.png") %>
+      </div>
+    <% end %>
+
+    <%= link_to category_path(SidCategory.find_by_label("More")) do %>
+      <div class="category-img">
+        <%= image_tag("/assets/more_sid.png") %>
+      </div>
+    <% end %>
+  </div>
+  <%= render "layouts/app_store_badge" %>
+</div>
