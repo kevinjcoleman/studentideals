@@ -6,7 +6,7 @@ RSpec.describe SubCategory, type: :model do
   it { should have_many(:businesses).through(:sub_category_taggings) }
   it { should validate_presence_of(:sid_category) }
   it { should validate_presence_of(:label) }
-  it { should validate_uniqueness_of(:label).scoped_to(:sid_category_id) }
+  it { should validate_uniqueness_of(:label) }
 
   describe "ancestry stuff" do
     let!(:sub_category) { create(:sub_category) }
@@ -86,6 +86,80 @@ RSpec.describe SubCategory, type: :model do
       let!(:sub_categories_with_businesses) {SubCategory.with_taggings}
       it "returns only categories with businesses" do
         expect(sub_categories_with_businesses).to eq([sub_category_with_tagging])
+      end
+    end
+  end
+
+  describe "#create_subcategory_and_tree_from_row" do
+    let!(:business) {create(:business, :with_category)}
+    let!(:sub_category_hash) {{metadata_name: "mcategory_ids",
+                               metadata_value: "466",
+                               label: "Optometrist",
+                               category_path: "Healthcare > Optometrist"}}
+
+    context "with a category path" do
+      describe "nonexistant category" do
+        before do
+          SubCategory.create_subcategory_and_tree_from_row(sub_category_hash, business)
+          @sub_category = SubCategory.find_by_label("Optometrist")
+        end
+
+        it "creates the parent" do
+          expect(SubCategory.find_by_label("Healthcare")).to_not be_nil
+        end
+
+        it "creates the sub_category" do
+          expect(@sub_category).to_not be_nil
+        end
+
+        it "adds the parent" do
+          expect(@sub_category.parent.label).to eq("Healthcare")
+        end
+
+        it "has metadata" do
+          expect(@sub_category.metadata_name).to_not be_nil
+          expect(@sub_category.metadata_value).to_not be_nil
+        end
+      end
+
+      describe "existing category" do
+        let!(:parent) {create(:sub_category, label: "Healthcare", sid_category: business.sid_category)}
+        let!(:sub_category) {create(:sub_category, label: "Optometrist", parent: parent, sid_category: business.sid_category)}
+
+        before do
+          SubCategory.create_subcategory_and_tree_from_row(sub_category_hash, business)
+          @sub_category = SubCategory.find_by_label("Optometrist")
+        end
+
+        it "updates the sub_category" do
+          expect(@sub_category).to_not be_nil
+        end
+
+        it "has metadata" do
+          expect(@sub_category.metadata_name).to_not be_nil
+          expect(@sub_category.metadata_value).to_not be_nil
+        end
+      end
+    end
+
+    context "without a category path" do
+      let!(:sub_category_hash_wo_path) {sub_category_hash.merge({category_path: "Healthcare", label: nil})}
+      before do
+        SubCategory.create_subcategory_and_tree_from_row(sub_category_hash_wo_path, business)
+        @sub_category = SubCategory.find_by_label("Optometrist")
+      end
+
+      it "creates the sub_category" do
+        expect(@sub_category).to_not be_nil
+      end
+
+      it "has no parent" do
+        expect(@sub_category.parent).to be_nil
+      end
+
+      it "has metadata" do
+        expect(@sub_category.metadata_name).to_not be_nil
+        expect(@sub_category.metadata_value).to_not be_nil
       end
     end
   end

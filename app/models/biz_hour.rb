@@ -35,7 +35,7 @@ class BizHour < ActiveRecord::Base
 
   def display_time(time)
     time = Time.parse(time).in_time_zone
-    time -= 1.hour if Time.now.dst?
+    time -= 1.hour if Time.now.dst? && !Rails.env.production?
     time.strftime("%I:%M %P")
   end
 
