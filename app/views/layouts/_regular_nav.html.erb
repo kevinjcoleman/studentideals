@@ -1,0 +1,18 @@
+<nav id="nav" class="navbar navbar-inverse navbar-fixed-top regular-nav">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="margin-top: 8px; margin-bottom: 0px;">
+        <span class="sr-only">Toggle navigation</span>
+        <%= fa_icon "search", style: "color: white;" %>
+      </button>
+      <a class="navbar-brand" href=<%= root_path %>><img src="http://studentideals.com/wp-content/uploads/2014/12/logo_final.png" class="img-responsive" alt="logo"></a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <%= react_component('Search', iframed: false) %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>

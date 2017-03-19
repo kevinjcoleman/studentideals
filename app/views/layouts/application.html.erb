@@ -29,20 +29,25 @@
   <% end %>
 </head>
 <body>
-  <%= render 'layouts/nav' %>
-  <% unless controller.controller_name == 'sessions' || current_page?(:controller => 'pages', :action => 'home') %>
-    <div class="well search-container">
-      <%= react_component('Search', iframed: false) %>
-    </div>
-  <% end %>
+
+<% if controller.controller_name == 'sessions' || current_page?(:controller => 'pages', :action => 'home') %>
+  <%= render 'layouts/homepage_nav' %>
+<% else %>
+  <%= render 'layouts/regular_nav' %>
+<% end %>
+
 <%= render 'layouts/breadcrumbs' %>
+
 <div class="container main-container">
+
   <%= render 'layouts/messages' %>
 
   <%= yield %>
+
   <% unless splashed? %>
-  <%= render 'layouts/splash' %>
+    <%= render 'layouts/splash' %>
   <% end %>
+
 </div>
 <%= render 'layouts/ad' %>
 <%= render 'layouts/footer' %>
