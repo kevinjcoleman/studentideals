@@ -1,25 +1,33 @@
 <% meta title: "#{@business.biz_name} - #{@region.name}",
    description: @business.sid_editorial ? @business.sid_editorial : "IDeal discounts and info at #{@business.biz_name}" %>
 
-<div class="col-md-7 main-info">
+<div class="col-md-8 main-info">
   <%= render "business_details" %>
 </div>
 
-<div class="col-md-5 side-info">
-  <%= render "business_deal" %>
+<div class="col-md-4 side-info">
+  <div class="well ui-well side-container">
+    <h3>Nearby businesses</h3>
+    <hr class="divider"  />
+    <% (@close_similar_businesses + @close_businesses).each do |business| %>
+    <div class="nearby row">
+      <div class="col-xs-8">
+        <p class='header'><%= link_to business.biz_name, business_path(business) %></p>
+        <p class='info'><%= business.region.name %></p>
+      </div>
+      <div class="col-xs-4">
+        <% if deal = @business.deal %>
+          <h3 class="deal-label"><span class="label label-info"><%= deal.desc_short %></span></h3>
+        <% else %>
+          <h3 class="deal-label"><span class="label label-info">NA</span></h3>
+        <% end %>
+      </div>
+    </div>
+
+    <% end %>
+  </div>
 
   <%= render "biz_hours" %>
-
-  <div style="width: 100%;height: 350px" id="map"></div>
-  <h6>Similar <%= @business.sid_category.label %> businesses</h6>
-  <% @close_similar_businesses.each do |business| %>
-    <%= link_to business_path(business) do %><h3><%= business.biz_name %></h3><% end %><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
-  <% end %>
-  <hr>
-  <h6>Other businesses nearby</h6>
-  <% @close_businesses.each do |business| %>
-    <%= link_to business_path(business) do %><h3><%= business.biz_name %><% end %><span class="list-category" >  <%= business.sid_category.label %> <%= logo(business.sid_category.sid_category_id) %></h3><span> <%= business.distance_to(@business).round(2) %> Miles away</span>
-  <% end %>
 </div>
 
 <script>
@@ -27,7 +35,7 @@ var ready;
 ready = function() {
   if (map != undefined) { map.remove(); }
   L.mapbox.accessToken = 'pk.eyJ1Ijoia2V2aW5qY29sZW1hbjciLCJhIjoiY2lrN29mcWRlMDIybXVua3RyY2VjcGZqaiJ9.G8ZC3oCreukIyVHftgWXCQ';
-  var map = L.mapbox.map('map', 'kevinjcoleman7.0b0f7dei').setView([<%= @business.latitude %>, <%= @business.longitude %>], 15 );
+  var map = L.mapbox.map('map', 'kevinjcoleman7.0b0f7dei', { zoomControl:false }).setView([<%= @business.latitude %>, <%= @business.longitude %>], 15 );
   var myLayer = L.mapbox.featureLayer().addTo(map);
   myLayer.on('layeradd', function(e) {
     var marker, popupContent, properties;
@@ -51,7 +59,6 @@ ready = function() {
   });
     // featureLayer.getBounds() returns the corners of the furthest-out markers,
     // and map.fitBounds() makes sure that the map contains these.
-  map.fitBounds([<%= @other_businesses_lat_lng_array %>]);
 };
 
 

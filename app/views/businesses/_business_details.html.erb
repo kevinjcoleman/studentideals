@@ -1,19 +1,86 @@
-<div class="page-header">
-  <h1><%= @business.biz_name %><span class="biz-category" > <%= logo(@business.sid_category.sid_category_id) %></span></h1>
+<div class="page-header well ui-well">
+  <div class="row" >
+    <div class="col-xs-8">
+      <h1><%= @business.biz_name %></h1>
+      <p class="small"><%= link_to @business.region.name, region_path(@business.region) %></p>
+    </div>
+    <div class="col-xs-4">
+      <% if deal = @business.deal %>
+        <h3 class="deal-label"><span class="label label-info"><%= deal.desc_short %></span></h3>
+      <% else %>
+        <h3 class="deal-label"><span class="label label-info">NA</span></h3>
+      <% end %>
+    </div>
+  </div>
+  <hr class="divider"/>
+  <% if @business.sid_editorial %>
+    <p class="lead"><%= @business.website_description %></p>
+  <% end %>
+
+  <% if deal = @business.deal %>
+    <% if deal.details %>
+      <dl class="dl-horizontal">
+        <dt>Deal info</dt>
+        <dd><%= deal.details %></dd>
+      </dl>
+    <% end %>
+
+    <% if deal.desc_student %>
+      <dl class="dl-horizontal">
+        <dt>Student deal info</dt>
+        <dd><%= deal.details %></dd>
+      </dl>
+    <% end %>
+  <% end %>
 </div>
 
-<% if @business.sid_editorial %>
-  <p class="lead"><%= @business.website_description %></p>
-<% end %>
+<div class="well ui-well">
+  <div class="row">
+    <div class="col-md-4">
+      <% if @business.telephone %>
+        <dl>
+          <dt>Phone</dt>
+          <dd><%= link_to "#{@business.telephone}", "tel:+1#{@business.telephone.gsub(/[^\d]/, '')}"  %></dd>
+        </dl>
+      <% end %>
 
-<% if @business.address_line_1 %>
-  <p><%= fa_icon "map-marker"%> <%= "#{@business.address_line_1}" %>, <%= @business.address_line_2 %></p>
-<% end %>
+      <% if @business.website %>
+        <dl>
+          <dt>Website</dt>
+          <dd><%= link_to @business.website, @business.website.html_safe, target: "_blank" %></dd>
+        </dl>
+      <% end %>
+    </div>
 
-<% if @business.telephone %>
-  <p><%= fa_icon "phone"%> <%= link_to "#{@business.telephone}", "tel:+1#{@business.telephone.gsub(/[^\d]/, '')}"  %></p>
-<% end %>
+    <div class="col-md-4">
+      <% if @business.hours.today.any? %>
+        <dl>
+          <dt>Hours today <%= @business.open? ? "<span class='text-success'>Open</span>".html_safe : "<span class='text-danger'>Closed</span>".html_safe %></dt>
+          <dd><%= @business.hours.today.map {|hour| "#{hour.open_at_display} - #{hour.close_at_display}"}.join(', ') %></dd>
+        </dl>
+      <% end %>
+      <% if @business.address_line_1 %>
+        <dl>
+          <dt>Address</dt>
+          <dd><%= "#{@business.address_line_1}" %>, <%= @business.address_line_2 %></dd>
+        </dl>
+        <div style="width: 100%; height: 150px; border: 1px solid #EDEDED; border-radius: 3px; background: #f4f4f4;" id="map"></div>
+      <% end %>
+    </div>
 
-<% if @business.website %>
-  <p><%= fa_icon "window-maximize" %> <%= link_to "Website", @business.website.html_safe, target: "_blank" %></p>
-<% end %>
+    <div class="col-md-4">
+      <% if @business.sub_categories.any? %>
+        <% category_links = @business.sub_categories.includes(:sid_category).map {|sub| link_to(sub.label, region_category_and_subcategory_path(@business.region, sub.sid_category, sub)) }.join(", ") %>
+        <dl>
+          <dt>Categories</dt>
+          <dd><%= category_links.html_safe %></dd>
+        </dl>
+      <% end %>
+    </div>
+  </div>
+
+
+
+
+
+</div>

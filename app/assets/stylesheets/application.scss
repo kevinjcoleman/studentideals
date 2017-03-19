@@ -38,12 +38,20 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+/*** Variables **/
+$sid-blue: #229AD6;
+$sid-orange: #FF9000;
+$sid-white: #FFFFFF;
+$sid-black: #151516;
+$sid-grey: #ecf0f1;
+$light-grey: #F3F3F3;
 
 body {
   padding-top: 60px;
   font-family: 'Raleway', sans-serif;
   overflow-x: hidden;
   width: auto;
+  background-color: $light-grey;
   p {
     font-size: 1.4em;
   }
@@ -58,12 +66,7 @@ body {
 @import "bootswatch/flatly/bootswatch";
 @import url(https://fonts.googleapis.com/css?family=Raleway:200,400,500,700);
 
-/*** Variables **/
-$sid-blue: #229AD6;
-$sid-orange: #FF9000;
-$sid-white: #FFFFFF;
-$sid-black: #151516;
-$sid-grey: #ecf0f1;
+
 
 @media (min-width: 768px) {
   .container {
@@ -78,6 +81,7 @@ $sid-grey: #ecf0f1;
 
 .main-container {
   margin-top: 20px;
+  max-width: 1200px;
 }
 
 .link {
@@ -311,6 +315,7 @@ a {
 .search-container {
   background-color: $sid-blue;
   padding: 0px 14px;
+  margin-bottom: 3px;
   border: 0px solid transparent;
   border-radius: 0px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -567,14 +572,55 @@ footer {
 }
 
 .side-info {
-  padding-left: 30px;
-  border-left: 1px $sid-grey solid;
   h3 {
-    color: $sid-blue;
+    color: $sid-black;
+    margin-top: 0px;
+    font-size: 20px;
+    font-weight: 600;
   }
-  .hours-container {
+  .side-container {
+    hr {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
     p {
+      margin-bottom: 0px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid $light-grey;
       font-size: 1.1em;
+      &:last-child {
+        border-bottom: 1px solid transparent;
+      }
+    }
+    .nearby {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid $light-grey;
+      &:last-child {
+        border-bottom: 1px solid transparent;
+      }
+      p {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      .header {
+        a {
+          color: $sid-black;
+        }
+        font-size: .8em;
+        font-weight: 600;
+      }
+
+      .info {
+        font-size: .75em;
+        color: #89959B;
+      }
+
+      .deal-label {
+        margin-top: 2px;
+      }
     }
   }
 }
@@ -681,4 +727,59 @@ footer {
   font-size: .7em;
   position: relative;
   top: -.5em;
+}
+
+.ui-well {
+  border-radius: .28571429rem;
+  border: 1px solid #e7e7e7;
+  background-color: #fafafa;
+  .divider {
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid transparent;
+  }
+  .deal-label {
+    float: right;
+    margin-top: 0px;
+  }
+  h3 {
+    font-weight: 600;
+    margin-top: 0px;
+  }
+  h5 {
+    font-weight: 600;
+  }
+  h6 {
+    color: #89959B;
+  }
+  .dl-horizontal {
+    margin-bottom: 10px;
+  }
+}
+
+.page-header {
+  margin-top: 0;
+  h1 {
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 1.1em;
+    margin-top: 0;
+  }
+}
+
+
+.breadcrumb {
+  max-width: 1160px;
+  font-size: .7em;
+  font-weight: 400;
+  margin: auto;
+  background-color: $light-grey;
+  li {
+    + li:before {
+      content: "> ";
+    }
+  }
+}
+
+.label-info {
+  background-color: $sid-orange;
 }

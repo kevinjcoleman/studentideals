@@ -34,7 +34,7 @@ class HoursPresenter
         "#{hour.open_at_display} - #{hour.close_at_display}"
       end.join(", ")
       open_tag = if hours_for_day.first.today?
-        hours_for_day.first.business.open? ? wrap_in_tags("span", " Open now", "text-success lead") : wrap_in_tags("span", " Closed now", 'text-danger lead')
+        hours_for_day.first.business.open? ? wrap_in_tags("span", " Open now", "text-success") : wrap_in_tags("span", " Closed now", 'text-danger')
       else
         nil
       end

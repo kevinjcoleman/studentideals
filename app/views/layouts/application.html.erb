@@ -35,9 +35,10 @@
       <%= react_component('Search', iframed: false) %>
     </div>
   <% end %>
+<%= render 'layouts/breadcrumbs' %>
 <div class="container main-container">
   <%= render 'layouts/messages' %>
-  <%= render 'layouts/breadcrumbs' %>
+
   <%= yield %>
   <% unless splashed? %>
   <%= render 'layouts/splash' %>

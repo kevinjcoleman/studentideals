@@ -1,13 +1,56 @@
-<%= link_to business_path(business) do %>
-<div class="well well-lg biz-listing">
-  <span class="biz-deal-listing"><%= business.deal ? business.deal.desc_short : "NA"  %></span>
-  <h3><%= business.biz_name %>  <span class="list-category" ><%= business.sid_category.label %> <%= logo(business.sid_category.sid_category_id) %></span></h3>
-  <% if business.open? %>
-    <p class="text-success small">Open</p>
-  <% else %>
-    <p class="text-danger small">Closed</p>
+<div class="well well-lg ui-well">
+  <div class="row">
+    <div class="col-xs-8">
+      <h3><%= link_to business.biz_name, business_path(business) %> </h3>
+      <h5><%= business.region.name %></h5>
+      <h6><%= business.full_address %></h6>
+    </div>
+    <div class="col-xs-4">
+      <% if deal = business.deal %>
+        <h3 class="deal-label"><span class="label label-info"><%= deal.desc_short %></span></h3>
+      <% else %>
+        <h3 class="deal-label"><span class="label label-info">NA</span></h3>
+      <% end %>
+    </div>
+  </div>
+  <hr class="divider" />
+
+  <% if business.sub_categories.any? %>
+    <% category_links = business.sub_categories.includes(:sid_category).map {|sub| link_to(sub.label, region_category_and_subcategory_path(business.region, sub.sid_category, sub)) }.join(", ") %>
+    <dl class="dl-horizontal">
+      <dt>Categories:</dt>
+      <dd><%= category_links.html_safe %></dd>
+    </dl>
   <% end %>
-  <span> <%= business.distance_to(@region).round(2) %> Miles away</span>
-  <h6><%= business.full_address %></h6>
+
+  <% if deal = business.deal %>
+    <% if deal.details %>
+      <dl class="dl-horizontal">
+        <dt>Deal info:</dt>
+        <dd><%= deal.details %></dd>
+      </dl>
+    <% end %>
+
+    <% if deal.desc_student %>
+      <dl class="dl-horizontal">
+        <dt>Student deal info:</dt>
+        <dd><%= deal.details %></dd>
+      </dl>
+    <% end %>
+  <% end %>
+
+  <% if business.hours.today.any? %>
+    <dl class="dl-horizontal">
+      <dt>Hours today:</dt>
+      <dd><%= business.hours.today.map {|hour| "#{hour.open_at_display} - #{hour.close_at_display}"}.join(', ') %> <%= business.open? ? "<span class='text-success'>Open</span>".html_safe : "<span class='text-danger'>Closed</span>".html_safe %></dd>
+    </dl>
+  <% end %>
+
+  <% if business.telephone %>
+    <dl class="dl-horizontal">
+      <dt>Phone:</dt>
+      <dd><%= link_to "#{business.telephone}", "tel:+1#{business.telephone.gsub(/[^\d]/, '')}"  %></dd>
+    </dl>
+  <% end %>
+
 </div>
-<% end %>
