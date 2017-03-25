@@ -269,7 +269,7 @@ a {
     }
   }
   .react-autosuggest__container {
-    padding-top: 0;
+    padding-top: 4px;
   }
 }
 
@@ -440,6 +440,7 @@ a {
   position: relative;
   padding-bottom: 1em;
   margin: auto;
+  margin-top: 4px;
   text-align: center;
   border-bottom: 1px transparent;
 }
