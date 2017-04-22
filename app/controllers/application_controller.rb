@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def init_signup
     @signup = Signup.new unless splashed?
   end
+
+  def set_timezone
+    Time.zone = @businesses.first.timezone_for_time_settings if @businesses.first.timezone_for_time_settings != Time.zone.name
+  end
 end

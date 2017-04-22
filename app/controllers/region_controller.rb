@@ -9,18 +9,19 @@ class RegionController < ApplicationController
     @categories = SidCategory.where(id: @businesses_all.map {|b| b.sid_category_id}.uniq)
     @businesses = @businesses_all.includes(:sid_category).page params[:page]
     add_breadcrumb @region.name, region_path(@region)
+    set_timezone
     respond_to do |format|
       format.json { render json: [@region.geojsonify(color: "blue")] + @businesses.map {|b| b.geojsonify(color: "orange")}}  # respond with the created JSON object
       format.html
     end
   end
 
-  def index 
+  def index
     if region_name = params[:region_name]
       @regions = Region.where("name LIKE ?", "#{region_name}%").page params[:page]
       if @regions.count == 1
         redirect_to region_path @regions.first
-      end 
+      end
       @regions = Region.all.page params[:page] unless @regions.any?
     else
       @regions = Region.all.page params[:page]

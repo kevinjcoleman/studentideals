@@ -10,6 +10,7 @@ class CategoriesController < ApplicationController
                                 join_and_order_by_taggings_count.
                                 where(sub_category_taggings: {business_id: @businesses_all.pluck(:id)})
     return_geojson
+    set_timezone
   end
 
   def sub_show
@@ -22,6 +23,7 @@ class CategoriesController < ApplicationController
                                     where(sub_category_taggings: {business_id: @businesses_all.pluck(:id)})
     add_sub_category_breadcrumbs_show
     return_geojson
+    set_timezone
   end
 
   def list
