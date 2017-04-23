@@ -1,5 +1,5 @@
 <h1>Ideal discounts and info in <strong><%= @region.name %></strong></h1>
-<h5><%= any?(@categories) && any?(@businesses) ? "Results for #{params[:bizCatTerm]}." : "No results for #{params[:bizCatTerm]}." %></h5>
+<h5><%= any?(@categories) && any?(@businesses) ? "Results for #{params[:bizCatTerm]}." : "" %></h5>
 <div class="row">
   <% if any?(@categories) && any?(@businesses) %>
     <div class="col-md-6">
@@ -16,5 +16,13 @@
   <% elsif any?(@businesses) %>
     <h2 class="text-center">Businesses</h2>
     <%= render partial: "results_businesses", locals: {businesses: @businesses} %>
+  <% else %>
+    <div class="well ui-well">
+      <h1 class="text-center">Sorry, your search didn't yield any results.</h1>
+      <hr />
+      <div class="errorimage" style="margin: auto; max-width: 65%;">
+        <%= image_tag("/assets/closed_sign_SIDT.jpeg", class: "img-responsive") %>
+      </div>
+    </div>
   <% end %>
 </div>

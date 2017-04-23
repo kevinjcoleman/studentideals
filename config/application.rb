@@ -12,7 +12,7 @@ module StudentIdeals
       r301 %r{^/(.*)/$}, '/$1'
     end
     config.time_zone = "Pacific Time (US & Canada)"
-    
+
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -42,5 +42,8 @@ module StudentIdeals
     config.browserify_rails.force = true
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    require Rails.root.join("lib/custom_public_exceptions")
+    config.exceptions_app = CustomPublicExceptions.new(Rails.public_path)
   end
 end

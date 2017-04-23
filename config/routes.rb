@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  match "/404" => "errors#error404", via: [ :get, :post, :patch, :delete ]
   get 'iframe/search_box'
 
   # This allows signups to be created through the popup form.

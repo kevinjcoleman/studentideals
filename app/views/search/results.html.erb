@@ -12,5 +12,11 @@
   <h1 class="text-center">Results matching <strong><%= params[:bizCatTerm] %></strong></h2>
   <%= render partial: "results_bizcats", locals: {bizCats: @bizCats} %>
 <% else %>
-  <h1>No results match that search term.</h1>
+  <div class="well ui-well">
+    <h1 class="text-center">Sorry, your search didn't yield any results.</h1>
+    <hr />
+    <div class="errorimage" style="margin: auto; max-width: 65%;">
+      <%= image_tag("/assets/closed_sign_SIDT.jpeg", class: "img-responsive") %>
+    </div>
+  </div>
 <% end %>
