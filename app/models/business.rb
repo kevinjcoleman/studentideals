@@ -162,11 +162,12 @@ class Business < ActiveRecord::Base
   end
 
   def add_business_hours(args)
-    unless has_day?(args[:day])
+    open_at_formatted, closed_at_formatted = "#{args[:open_at]} #{timezone}", "#{args[:close_at]} #{timezone}"
+    unless hours.where(day: args[:day]).hours_between(open_at_formatted, closed_at_formatted).any?
       hours.create(day: args[:day].to_i,
                    timezone: timezone.strip,
-                   open_at: "#{args[:open_at]} #{timezone}",
-                   close_at: "#{args[:close_at]} #{timezone}")
+                   open_at: open_at_formatted,
+                   close_at: closed_at_formatted)
     end
   end
 

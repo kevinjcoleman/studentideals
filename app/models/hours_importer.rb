@@ -6,7 +6,7 @@ class HoursImporter
 
   def import!
     CSV.open("tmp/hours_errors.csv", "wb") do |errors|
-      CSV.foreach(file_name, headers: true) do |row|
+      CSV.foreach(file_name, headers: true, quote_char:'"') do |row|
         begin
           row_hash = row_hash(row)
           business = Business.find_by_biz_id(row_hash[:biz_id])
