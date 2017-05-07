@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Autosuggest from 'react-autosuggest';
+import {geolocated} from 'react-geolocated';
 
 // Logic to render suggestions.
 const renderSuggestion = suggestion => (
@@ -47,6 +48,7 @@ class Search extends React.Component {
     this.getBizCatValue = this.getBizCatValue.bind(this);
     this.getLocationValue = this.getLocationValue.bind(this);
     this.redirectToController = this.redirectToController.bind(this);
+    this.checkGeolocation = this.checkGeolocation.bind(this);
     var current_location_cookie = Cookies.get('location') ? JSON.parse(Cookies.get('location')) : {label: ''};
     this.state = {
       iframed: props.iframed,
@@ -55,8 +57,37 @@ class Search extends React.Component {
       current_location : current_location_cookie,
       bizCats : [],
       bizCatTerm : '',
-      suggestion : {}
+      suggestion : {},
+      coordinates : {}
     };
+  }
+
+  checkGeolocation() {
+    if (this.props.isGeolocationAvailable && this.props.isGeolocationEnabled) {
+      if (this.props.coords && !this.state.coordinates.lat && !this.state.coordinates.lng) {
+        this.setState({
+          coordinates: {lat: this.props.coords.latitude,
+                        lng: this.props.coords.longitude}
+        });
+        var closest_region = Routes.closest_region_path({format: 'json',
+                                                         lat: this.props.coords.latitude,
+                                                         lng: this.props.coords.longitude});
+        $.ajax({
+          url: closest_region,
+          dataType: 'json',
+
+          success: function (results) {
+            Cookies.set('location', results.region, { expires: 365});
+            this.setState({current_location: results.region,
+                           current_location_value: results.region.label});
+          }.bind(this)
+        });
+      }
+    }
+  }
+
+  componentDidMount(){
+    setInterval(this.checkGeolocation, 1000);
   }
 
   //Update the current location object's label to be the new value.
@@ -219,4 +250,9 @@ class Search extends React.Component {
   }
 }
 
-export default Search
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000
+})(Search);

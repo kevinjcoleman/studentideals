@@ -46,6 +46,10 @@ class SearchController < ApplicationController
     end
   end
 
+  def closest_region
+    latitude, longitude = params[:lat], params[:lng]
+    @region = Region.within(5, :origin => [latitude, longitude]).first
+  end
 
   private
     def business_redirect(business)

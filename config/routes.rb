@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'search/locations'
   get 'search/bizcats'
   get 'search/redirect'
+  get 'search/closest_region', as: 'closest_region'
 
   # Devise config.
   devise_for :admins,controllers: {
