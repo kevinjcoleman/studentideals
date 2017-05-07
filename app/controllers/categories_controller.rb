@@ -28,13 +28,18 @@ class CategoriesController < ApplicationController
 
   def list
     find_category_and_breadcrumb(params[:id])
-    @states = Business.group_by_state.
-                       where(sid_category_id: @category.id).
-                       limit(5)
-    @sub_categories = @category.sub_categories.
-                                roots.
-                                join_and_order_by_taggings_count.
-                                limit(5)
+    if cookies[:location]
+      @region = Region.find(JSON.parse(cookies[:location])["id"])
+      redirect_to region_and_category_path(@region, @category)
+    else
+      @states = Business.group_by_state.
+                         where(sid_category_id: @category.id).
+                         limit(5)
+      @sub_categories = @category.sub_categories.
+                                  roots.
+                                  join_and_order_by_taggings_count.
+                                  limit(5)
+    end
   end
 
   def sub_list

@@ -48,7 +48,7 @@ class SearchController < ApplicationController
 
   def closest_region
     latitude, longitude = params[:lat], params[:lng]
-    @region = Region.within(5, :origin => [latitude, longitude]).first
+    @region = School.by_distance(:origin => [latitude, longitude]).first
   end
 
   private
