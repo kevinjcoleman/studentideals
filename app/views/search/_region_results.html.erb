@@ -18,8 +18,44 @@
     <%= render partial: "results_businesses", locals: {businesses: @businesses} %>
   <% else %>
     <div class="well ui-well">
-      <h1 class="text-center">Sorry, your search didn't yield any results.</h1>
+      <h3 class="text-center">Sorry, your search didn't yield any results, try a category below.</h3>
       <hr />
+      <div class="homepage-categories text-center error-page">
+        <%= link_to category_path(SidCategory.find_by_label("Food & Drink")) do %>
+          <div class="category-img">
+            <%= image_tag("/assets/icon_food_drink_hollow_hover.png") %>
+            <p class="title">Food & Drink</p>
+          </div>
+        <% end %>
+
+        <%= link_to category_path(SidCategory.find_by_label("Something To Do")) do %>
+          <div class="category-img">
+            <%= image_tag("/assets/icon_somethingtodo_hollow_Hover.png") %>
+            <p class="title">Something To Do</p>
+          </div>
+        <% end %>
+
+        <%= link_to category_path(SidCategory.find_by_label("Health & Beauty")) do %>
+          <div class="category-img">
+            <%= image_tag("/assets/health_beauty_hollow_Hover.png") %>
+            <p class="title">Health & Beauty</p>
+          </div>
+        <% end %>
+
+        <%= link_to category_path(SidCategory.find_by_label("Shopping")) do %>
+          <div class="category-img">
+            <%= image_tag("/assets/icon_shopping_hollow_Hover.png") %>
+            <p class="title">Shopping</p>
+          </div>
+        <% end %>
+
+        <%= link_to category_path(SidCategory.find_by_label("More")) do %>
+          <div class="category-img">
+            <%= image_tag("/assets/more_cateogry_hollow_hover.png") %>
+            <p class="title">More</p>
+          </div>
+        <% end %>
+      </div>
       <div class="errorimage" style="margin: auto; max-width: 65%;">
         <%= image_tag("/assets/closed_sign_SIDT.jpeg", class: "img-responsive") %>
       </div>

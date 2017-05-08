@@ -915,3 +915,16 @@ footer {
 .label-info {
   background-color: $sid-orange;
 }
+
+.error-page {
+  .category-img img {
+    width: 120px;
+  }
+  a {
+    color: black;
+  }
+  .title {
+    font-weight: 600;
+    font-size: 12px;
+  }
+}

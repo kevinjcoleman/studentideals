@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318223605) do
+ActiveRecord::Schema.define(version: 20170508005854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,27 +39,38 @@ ActiveRecord::Schema.define(version: 20170318223605) do
 # Could not dump table "biz_hours" because of following StandardError
 #   Unknown type 'time with time zone' for column 'open_at'
 
+  create_table "biz_search_terms", force: :cascade do |t|
+    t.integer  "search_term_id"
+    t.integer  "business_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "biz_search_terms", ["business_id"], name: "index_biz_search_terms_on_business_id", using: :btree
+  add_index "biz_search_terms", ["search_term_id"], name: "index_biz_search_terms_on_search_term_id", using: :btree
+
   create_table "businesses", force: :cascade do |t|
-    t.string   "biz_name"
-    t.string   "biz_id"
-    t.string   "external_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.text     "biz_name"
+    t.text     "biz_id"
+    t.text     "external_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "country_code"
+    t.text     "address1"
+    t.text     "address2"
+    t.text     "city"
+    t.text     "state"
+    t.text     "zip"
+    t.text     "country_code"
     t.integer  "sid_category_id"
-    t.string   "slug"
-    t.string   "telephone"
-    t.string   "website"
-    t.string   "email"
+    t.text     "slug"
+    t.text     "telephone"
+    t.text     "website"
+    t.text     "email"
     t.text     "sid_editorial"
     t.integer  "region_id"
+    t.integer  "photo_category_id"
   end
 
   add_index "businesses", ["biz_id"], name: "index_businesses_on_biz_id", unique: true, using: :btree
@@ -81,10 +92,10 @@ ActiveRecord::Schema.define(version: 20170318223605) do
   add_index "deals", ["deal_id"], name: "index_deals_on_deal_id", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
+    t.text     "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
-    t.string   "scope"
+    t.text     "scope"
     t.datetime "created_at"
   end
 
@@ -96,7 +107,7 @@ ActiveRecord::Schema.define(version: 20170318223605) do
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.integer  "searchable_id"
-    t.string   "searchable_type"
+    t.text     "searchable_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -104,18 +115,18 @@ ActiveRecord::Schema.define(version: 20170318223605) do
   add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "country_code"
+    t.text     "name"
+    t.text     "address1"
+    t.text     "address2"
+    t.text     "city"
+    t.text     "state"
+    t.text     "zip"
+    t.text     "country_code"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "slug"
+    t.text     "slug"
     t.integer  "close_biz_count"
     t.string   "type"
     t.string   "display_name"
@@ -125,12 +136,18 @@ ActiveRecord::Schema.define(version: 20170318223605) do
   add_index "regions", ["school_id"], name: "index_regions_on_school_id", unique: true, using: :btree
   add_index "regions", ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
 
+  create_table "search_terms", force: :cascade do |t|
+    t.string   "term"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sid_categories", force: :cascade do |t|
-    t.string   "sid_category_id"
-    t.string   "label"
+    t.text     "sid_category_id"
+    t.text     "label"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "slug"
+    t.text     "slug"
     t.integer  "order"
   end
 
@@ -145,13 +162,14 @@ ActiveRecord::Schema.define(version: 20170318223605) do
 
   create_table "sub_categories", force: :cascade do |t|
     t.integer  "sid_category_id"
-    t.string   "label"
-    t.string   "ancestry"
+    t.text     "label"
+    t.text     "ancestry"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "slug"
     t.string   "metadata_name"
     t.string   "metadata_value"
+    t.string   "photo_category"
   end
 
   add_index "sub_categories", ["ancestry"], name: "index_sub_categories_on_ancestry", using: :btree
@@ -169,9 +187,7 @@ ActiveRecord::Schema.define(version: 20170318223605) do
   add_index "sub_category_taggings", ["sub_category_id"], name: "index_sub_category_taggings_on_sub_category_id", using: :btree
 
   add_foreign_key "biz_hours", "businesses"
+  add_foreign_key "biz_search_terms", "businesses"
+  add_foreign_key "biz_search_terms", "search_terms"
   add_foreign_key "businesses", "regions"
-  add_foreign_key "businesses", "sid_categories"
-  add_foreign_key "sub_categories", "sid_categories"
-  add_foreign_key "sub_category_taggings", "businesses"
-  add_foreign_key "sub_category_taggings", "sub_categories"
 end
