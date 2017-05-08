@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :search_term do
-    term "MyString"
+    term "Happy Hour"
   end
 end

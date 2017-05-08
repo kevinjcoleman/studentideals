@@ -50,24 +50,24 @@ ActiveRecord::Schema.define(version: 20170508005854) do
   add_index "biz_search_terms", ["search_term_id"], name: "index_biz_search_terms_on_search_term_id", using: :btree
 
   create_table "businesses", force: :cascade do |t|
-    t.text     "biz_name"
-    t.text     "biz_id"
-    t.text     "external_id"
+    t.string   "biz_name"
+    t.string   "biz_id"
+    t.string   "external_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.text     "address1"
-    t.text     "address2"
-    t.text     "city"
-    t.text     "state"
-    t.text     "zip"
-    t.text     "country_code"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country_code"
     t.integer  "sid_category_id"
-    t.text     "slug"
-    t.text     "telephone"
-    t.text     "website"
-    t.text     "email"
+    t.string   "slug"
+    t.string   "telephone"
+    t.string   "website"
+    t.string   "email"
     t.text     "sid_editorial"
     t.integer  "region_id"
     t.integer  "photo_category_id"
@@ -92,10 +92,10 @@ ActiveRecord::Schema.define(version: 20170508005854) do
   add_index "deals", ["deal_id"], name: "index_deals_on_deal_id", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.text     "slug",                      null: false
+    t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
-    t.text     "scope"
+    t.string   "scope"
     t.datetime "created_at"
   end
 
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20170508005854) do
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.integer  "searchable_id"
-    t.text     "searchable_type"
+    t.string   "searchable_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -115,18 +115,18 @@ ActiveRecord::Schema.define(version: 20170508005854) do
   add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
-    t.text     "name"
-    t.text     "address1"
-    t.text     "address2"
-    t.text     "city"
-    t.text     "state"
-    t.text     "zip"
-    t.text     "country_code"
+    t.string   "name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country_code"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.text     "slug"
+    t.string   "slug"
     t.integer  "close_biz_count"
     t.string   "type"
     t.string   "display_name"
@@ -143,11 +143,11 @@ ActiveRecord::Schema.define(version: 20170508005854) do
   end
 
   create_table "sid_categories", force: :cascade do |t|
-    t.text     "sid_category_id"
-    t.text     "label"
+    t.string   "sid_category_id"
+    t.string   "label"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.text     "slug"
+    t.string   "slug"
     t.integer  "order"
   end
 
@@ -162,8 +162,8 @@ ActiveRecord::Schema.define(version: 20170508005854) do
 
   create_table "sub_categories", force: :cascade do |t|
     t.integer  "sid_category_id"
-    t.text     "label"
-    t.text     "ancestry"
+    t.string   "label"
+    t.string   "ancestry"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "slug"
@@ -190,4 +190,8 @@ ActiveRecord::Schema.define(version: 20170508005854) do
   add_foreign_key "biz_search_terms", "businesses"
   add_foreign_key "biz_search_terms", "search_terms"
   add_foreign_key "businesses", "regions"
+  add_foreign_key "businesses", "sid_categories"
+  add_foreign_key "sub_categories", "sid_categories"
+  add_foreign_key "sub_category_taggings", "businesses"
+  add_foreign_key "sub_category_taggings", "sub_categories"
 end
