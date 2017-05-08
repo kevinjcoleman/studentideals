@@ -20,7 +20,10 @@ class Business < ActiveRecord::Base
   has_many :sub_categories, through: :sub_category_taggings
   has_many :deals, foreign_key: "biz_id", primary_key: "biz_id"
   has_many :hours, class_name: "BizHour"
+  has_many :biz_search_terms
+  has_many :search_terms, through: :biz_search_terms
   belongs_to :region
+
 
   scope :without_sid_category, -> { where(sid_category_id: nil) }
   scope :with_factual, -> { where("external_id is not null") }
