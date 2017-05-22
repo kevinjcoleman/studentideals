@@ -25,7 +25,9 @@ RailsAdmin.config do |config|
   config.main_app_name = "Student Ideals"
 
   config.actions do
-    dashboard                     # mandatory
+    dashboard do
+      statistics false
+    end                     # mandatory
     index                         # mandatory
     new
     export
