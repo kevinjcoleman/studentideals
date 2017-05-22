@@ -1,0 +1,9 @@
+<% meta title: "#{@search_term.term} in #{@region.name}",
+   description: "IDeal discounts and info for #{@search_term.term} near #{@region.name}." %>
+
+<div class="well ui-well listing-well">
+  <h1>IDeal discounts and info for <strong><%= @search_term.term %></strong> near <strong><%= @region.name %></strong>.</h1>
+</div>
+
+
+<%= render "businesses/businesses_list" %>

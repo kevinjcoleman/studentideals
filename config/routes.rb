@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'search/bizcats'
   get 'search/redirect'
   get 'search/closest_region', as: 'closest_region'
+  get 'region/:region_id/search_terms/:id', to: 'search_terms#show', as: 'region_and_search_term'
 
   # Devise config.
   devise_for :admins,controllers: {
