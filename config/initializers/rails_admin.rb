@@ -176,6 +176,7 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Deal' do
+    include_all_fields
     import do
       mapping_key :deal_id
       field :bizd_id
