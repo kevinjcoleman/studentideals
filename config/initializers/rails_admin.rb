@@ -179,7 +179,6 @@ RailsAdmin.config do |config|
     include_all_fields
     import do
       mapping_key :deal_id
-      field :bizd_id
     end
   end
 end
