@@ -5,6 +5,6 @@ class Deal < ActiveRecord::Base
   validates :desc_short, presence: :true
 
   def before_import_save(record)
-    self.biz_id = record[:bizd_id] if record[:bizd_id] && !self.biz_id
+    self.biz_id = record[:bizd_id] if record[:bizd_id] && self.biz_id != record[:bizd_id]
   end
 end
